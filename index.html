@@ -54,39 +54,41 @@
     }
     .logo h1 span { color: #00a4d6; }
 
-    /* ======= Hero Section ======= */
+    /* ======= Hero Section (เปลี่ยนเป็น Slider) ======= */
     #hero {
+      position: relative;
       width: 100%;
-      height: 250px;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070') center center;
-      background-size: cover;
+      height: 250px; /* ขนาดเท่าแบนเนอร์เดิม */
+      background-color: #333;
+    }
+    #hero .carousel-inner, 
+    #hero .carousel-item {
+      height: 100%;
+    }
+    #hero .carousel-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.4); /* ปรับรูปให้มืดลงนิดหน่อย เพื่อให้ตัวหนังสือสีขาวเด่นขึ้น */
+    }
+    
+    /* กล่องข้อความที่อยู่ทับบนสไลด์ */
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-    }
-    #hero h1 { font-size: 32px; font-weight: 600; color: #fff; margin-bottom: 10px; }
-    #hero h2 { font-size: 20px; font-weight: 400; color: #fff; }
-
-    /* ======= Image Slider ======= */
-    .carousel-custom-img {
-      height: 450px;
-      object-fit: cover;
-    }
-    .carousel-wrapper {
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
-      margin-top: -30px; /* ดึงสไลด์ขึ้นไปทับขอบ Hero นิดนึงให้มีมิติ */
-      position: relative;
       z-index: 10;
-      background: #fff;
-      border: 5px solid #fff;
+      pointer-events: none; /* เพื่อให้ยังกดปุ่มเลื่อนสไลด์ซ้ายขวาได้ */
     }
-    @media (max-width: 768px) {
-      .carousel-custom-img { height: 220px; }
-      .carousel-wrapper { margin-top: 20px; border: none; }
-    }
+    .hero-overlay h1 { font-size: 32px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+    .hero-overlay h2 { font-size: 20px; font-weight: 400; color: #fff; }
+
+    /* ปรับปุ่มเลื่อนสไลด์ */
+    .carousel-control-prev, .carousel-control-next { z-index: 11; width: 5%; }
 
     /* ======= Title ======= */
     .section-title {
@@ -177,66 +179,43 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section id="hero">
-    <div class="container">
-      <h1>ระบบรับสมัครนักศึกษาจ้างงาน</h1>
-      <h2>เปิดโอกาสให้คุณเรียนรู้และหารายได้ระหว่างเรียน</h2>
+  <!-- Hero Section (แบบสไลด์รูปภาพอัตโนมัติ) -->
+  <section id="hero" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    
+    <!-- รูปภาพพื้นหลัง (เปลี่ยน URL ใน src="...") -->
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="3500">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070" class="d-block w-100" alt="Slide 1">
+      </div>
+      <div class="carousel-item" data-bs-interval="3500">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070" class="d-block w-100" alt="Slide 2">
+      </div>
+      <div class="carousel-item" data-bs-interval="3500">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=2070" class="d-block w-100" alt="Slide 3">
+      </div>
     </div>
+
+    <!-- ข้อความทับบนรูปภาพ -->
+    <div class="hero-overlay">
+      <div class="container">
+        <h1>ระบบรับสมัครนักศึกษาจ้างงาน</h1>
+        <h2>เปิดโอกาสให้คุณเรียนรู้และหารายได้ระหว่างเรียน</h2>
+      </div>
+    </div>
+
+    <!-- ปุ่มเลื่อนซ้าย-ขวา -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#hero" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">ก่อนหน้า</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#hero" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">ถัดไป</span>
+    </button>
   </section>
 
   <main id="main">
     
-    <!-- สไลด์รูปภาพอัตโนมัติ (Carousel) -->
-    <section class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-10">
-          <div class="carousel-wrapper">
-            <div id="imageSlider" class="carousel slide carousel-fade" data-bs-ride="carousel">
-              
-              <!-- ตัวบอกตำแหน่งสไลด์ด้านล่าง -->
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="0" class="active" aria-current="true"></button>
-                <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="2"></button>
-                <button type="button" data-bs-target="#imageSlider" data-bs-slide-to="3"></button>
-              </div>
-
-              <!-- รูปภาพสไลด์ (เปลี่ยน Link รูปภาพของคุณได้ที่ src) -->
-              <div class="carousel-inner">
-                <!-- รูปที่ 1 -->
-                <div class="carousel-item active" data-bs-interval="3500">
-                  <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200" class="d-block w-100 carousel-custom-img" alt="กิจกรรมนักศึกษา">
-                </div>
-                <!-- รูปที่ 2 -->
-                <div class="carousel-item" data-bs-interval="3500">
-                  <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200" class="d-block w-100 carousel-custom-img" alt="บรรยากาศมหาวิทยาลัย">
-                </div>
-                <!-- รูปที่ 3 -->
-                <div class="carousel-item" data-bs-interval="3500">
-                  <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200" class="d-block w-100 carousel-custom-img" alt="การทำงานเป็นทีม">
-                </div>
-                <!-- รูปที่ 4 -->
-                <div class="carousel-item" data-bs-interval="3500">
-                  <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1200" class="d-block w-100 carousel-custom-img" alt="นักศึกษาทำงาน">
-                </div>
-              </div>
-
-              <!-- ปุ่มเลื่อนซ้าย-ขวา -->
-              <button class="carousel-control-prev" type="button" data-bs-target="#imageSlider" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">ก่อนหน้า</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#imageSlider" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">ถัดไป</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Job Listings Section -->
     <section class="container py-5">
       <div class="section-title">
