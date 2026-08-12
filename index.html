@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>รับสมัครนักศึกษาจ้างงานระหว่างเรียน</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .banner { width: 100%; height: 250px; object-fit: cover; background: #004a99; color: white; display:flex; align-items:center; justify-content:center; }
+        .job-card { cursor: pointer; border: 2px solid transparent; transition: 0.3s; }
+        .job-card:hover { border-color: #0d6efd; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .job-card.selected { border-color: #198754; background-color: #e8f5e9; }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="banner mb-4">
+        <h1>ประกาศรับสมัครนักศึกษาช่วยงาน (Part-time)</h1>
+    </div>
+
+    <div class="container pb-5">
+        <form id="applicationForm" class="bg-white p-4 shadow-sm rounded">
+            <!-- ข้อมูลส่วนตัว -->
+            <h4 class="text-primary border-bottom pb-2">1. ข้อมูลส่วนตัวและสถานภาพ</h4>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6"><input type="text" id="idCard" class="form-control" placeholder="เลขประจำตัวประชาชน" required></div>
+                <div class="col-md-6"><input type="text" id="studentId" class="form-control" placeholder="รหัสนักศึกษา" required></div>
+                <div class="col-md-12"><input type="text" id="fullName" class="form-control" placeholder="ชื่อ-นามสกุล" required></div>
+                <div class="col-md-6"><input type="text" id="faculty" class="form-control" placeholder="คณะ" required></div>
+                <div class="col-md-6"><input type="text" id="major" class="form-control" placeholder="สาขาวิชา" required></div>
+                <div class="col-md-6"><input type="number" id="year" class="form-control" placeholder="ชั้นปี" required></div>
+                <div class="col-md-6"><input type="number" step="0.01" id="gpax" class="form-control" placeholder="เกรดเฉลี่ยสะสม (GPAX)" required></div>
+            </div>
+
+            <!-- ข้อมูลติดต่อ -->
+            <h4 class="text-primary border-bottom pb-2">2. ข้อมูลการติดต่อ</h4>
+            <div class="row g-3 mb-4">
+                <div class="col-md-4"><input type="tel" id="phone" class="form-control" placeholder="เบอร์โทรศัพท์มือถือ" required></div>
+                <div class="col-md-4"><input type="email" id="email" class="form-control" placeholder="อีเมลมหาวิทยาลัย" required></div>
+                <div class="col-md-4"><input type="text" id="lineId" class="form-control" placeholder="Line ID (ทางเลือก)"></div>
+            </div>
+
+            <!-- เวลาและการทำงาน -->
+            <h4 class="text-primary border-bottom pb-2">3. เวลาที่สามารถทำงานได้</h4>
+            <div class="row g-3 mb-4">
+                <div class="col-md-12"><input type="text" id="freeTime" class="form-control" placeholder="เช่น จันทร์-พุธ 13.00-16.00 น." required></div>
+                <div class="col-md-6"><input type="number" id="maxHours" class="form-control" placeholder="จำนวนชั่วโมงสูงสุดต่อสัปดาห์" required></div>
+                <div class="col-md-6"><input type="text" id="fileUrl" class="form-control" placeholder="วาง Link รูปตารางเรียน (ทางเลือก)"></div>
+            </div>
+
+            <!-- ทักษะ -->
+            <h4 class="text-primary border-bottom pb-2">4. ทักษะและประสบการณ์</h4>
+            <div class="row g-3 mb-4">
+                <div class="col-md-12"><textarea id="skills" class="form-control" placeholder="ทักษะความสามารถพิเศษ (Word, Canva, ถ่ายภาพ ฯลฯ)" rows="2"></textarea></div>
+                <div class="col-md-12"><textarea id="experience" class="form-control" placeholder="ประสบการณ์การทำงาน/กิจกรรมชมรม" rows="2"></textarea></div>
+                <div class="col-md-12"><textarea id="reason" class="form-control" placeholder="เหตุผลที่สนใจสมัครงานนี้" rows="2" required></textarea></div>
+            </div>
+
+            <!-- เลือกงาน -->
+            <h4 class="text-primary border-bottom pb-2">5. เลือกหน่วยงานที่ต้องการสมัคร</h4>
+            <div id="jobList" class="row g-3 mb-4">
+                <!-- ตัวอย่างการ์ดงาน (ดึงจาก API ได้ในอนาคต) -->
+                <div class="col-md-6">
+                    <div class="card job-card p-3" onclick="selectJob(this, 'งานกีฬานันทนาการ - กลุ่มพัฒนานักศึกษา')">
+                        <h5>งานกีฬานันทนาการ</h5>
+                        <p class="mb-0 text-muted">กลุ่มงานพัฒนานักศึกษา</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card job-card p-3" onclick="selectJob(this, 'งานศิษย์เก่าสัมพันธ์ - กลุ่มงานศิษย์เก่า')">
+                        <h5>งานศิษย์เก่าสัมพันธ์</h5>
+                        <p class="mb-0 text-muted">กลุ่มงานศิษย์เก่าสัมพันธ์</p>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="jobSelected" required>
+
+            <button type="submit" class="btn btn-primary w-100 btn-lg mt-3" id="submitBtn">ยืนยันการสมัคร</button>
+        </form>
+    </div>
+
+<script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbywe0JyIknMFCm8Z_fXwzhpA2Xqgk64rOIoGsSJdcwwq_AGAEf1idMnMW9tfCzFqMMb/exec"; // 🛑 เปลี่ยนตรงนี้
+
+    function selectJob(card, jobName) {
+        document.querySelectorAll('.job-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        document.getElementById('jobSelected').value = jobName;
+    }
+
+    document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        if(!document.getElementById('jobSelected').value) return alert("กรุณาเลือกงานที่ต้องการสมัคร");
+        
+        btn.innerHTML = "กำลังส่งข้อมูล..."; btn.disabled = true;
+
+        const data = {
+            idCard: document.getElementById('idCard').value,
+            studentId: document.getElementById('studentId').value,
+            fullName: document.getElementById('fullName').value,
+            faculty: document.getElementById('faculty').value,
+            major: document.getElementById('major').value,
+            year: document.getElementById('year').value,
+            gpax: document.getElementById('gpax').value,
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            lineId: document.getElementById('lineId').value,
+            freeTime: document.getElementById('freeTime').value,
+            maxHours: document.getElementById('maxHours').value,
+            fileUrl: document.getElementById('fileUrl').value,
+            skills: document.getElementById('skills').value,
+            experience: document.getElementById('experience').value,
+            reason: document.getElementById('reason').value,
+            jobSelected: document.getElementById('jobSelected').value
+        };
+
+        try {
+            const res = await fetch(GAS_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "apply", data: data })
+            });
+            const result = await res.json();
+            if(result.status === "success") {
+                alert("สมัครเรียบร้อยแล้ว!");
+                document.getElementById('applicationForm').reset();
+                document.querySelectorAll('.job-card').forEach(c => c.classList.remove('selected'));
+            }
+        } catch (err) { alert("เกิดข้อผิดพลาด"); }
+        
+        btn.innerHTML = "ยืนยันการสมัคร"; btn.disabled = false;
+    });
+</script>
+</body>
+</html>
