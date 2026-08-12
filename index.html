@@ -2,235 +2,242 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียน</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>ระบบรับสมัครงาน Online</title>
 
   <!-- Google Fonts : Prompt -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
 
-  <!-- Bootstrap 5 & FontAwesome -->
+  <!-- Vendor CSS Files -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- AOS Animation -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
-    /* ตั้งค่าตัวแปรสีและฟอนต์ */
-    :root {
-      --primary: #004a99;
-      --secondary: #00a4d6;
-      --accent: #ffce00;
-      --bg-light: #f4f7f6;
-      --text-dark: #333333;
-      --text-gray: #6c757d;
-    }
-
     body {
       font-family: 'Prompt', sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-dark);
-      overflow-x: hidden;
+      background-color: #ffffff;
+      color: #444444;
     }
 
-    a { text-decoration: none; transition: 0.3s; }
+    a { text-decoration: none; }
 
-    /* Glassmorphism Navbar */
-    .navbar-glass {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
-    .navbar-brand { font-weight: 700; color: var(--primary) !important; font-size: clamp(1.2rem, 3vw, 1.5rem); }
-
-    /* Hero Section (ปรับขนาดอัตโนมัติตามจอ) */
-    .hero-section {
-      position: relative;
-      background: linear-gradient(135deg, rgba(0, 74, 153, 0.85), rgba(0, 164, 214, 0.85)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070') no-repeat center center;
-      background-size: cover;
-      padding: clamp(80px, 15vh, 150px) 0 clamp(60px, 10vh, 100px) 0;
-      color: white;
-      text-align: center;
-      border-bottom-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-      box-shadow: 0 10px 30px rgba(0,74,153,0.2);
-    }
-    .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-    .hero-subtitle { font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 300; color: var(--accent); }
-
-    /* Section Title */
-    .section-title {
-      position: relative;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 600;
-      color: var(--primary);
-      margin-bottom: 2rem;
-      padding-bottom: 0.5rem;
-    }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: 0;
-      width: 60px; height: 4px;
-      background: var(--secondary);
-      border-radius: 2px;
+    /* ======= Top Bar ======= */
+    #topbar {
+      background: #f8f9fa;
+      color: #444;
+      height: 40px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #eee;
     }
 
-    /* Modern Job Cards */
-    .job-card {
+    /* ======= Header ======= */
+    #header {
       background: #fff;
-      border-radius: 20px;
-      border: none;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-      transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
-      cursor: pointer;
-      height: 100%;
+      padding: 15px 0;
+      box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 997;
+    }
+    .logo h1 {
+      font-size: 22px;
+      margin: 0;
+      font-weight: 600;
+      color: #000;
+    }
+    .logo h1 span { color: #00a4d6; }
+
+    /* ======= Hero Section ======= */
+    #hero {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070') center center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #hero h1 { font-size: 32px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+    #hero h2 { font-size: 20px; font-weight: 400; color: #fff; }
+
+    /* ======= Title ======= */
+    .section-title {
+      font-size: 24px;
+      color: #00a4d6;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ======= Job Cards (UBU Style) ======= */
+    .member {
+      background: #fff;
+      border: 1px solid #eef0f2;
+      border-radius: 15px;
       overflow: hidden;
+      transition: 0.3s;
+      height: 100%;
+      cursor: pointer;
+    }
+    .member:hover { box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1); }
+    
+    .member-img {
       position: relative;
+      overflow: hidden;
+      height: 180px;
+      background: #f4f4f4;
     }
-    .job-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0,74,153,0.15);
+    .member-img img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .overlay99 {
+      position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      opacity: 0; transition: .4s ease;
+      display: flex; align-items: center; justify-content: center;
     }
-    .job-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 5px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      transform: scaleX(0); transition: transform 0.3s ease;
-      transform-origin: left; z-index: 2;
-    }
-    .job-card:hover::before { transform: scaleX(1); }
-    
-    .card-img-wrapper { position: relative; overflow: hidden; aspect-ratio: 16/9; }
-    .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .job-card:hover .card-img-wrapper img { transform: scale(1.1); }
-    
-    .apply-overlay {
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 74, 153, 0.8);
-      color: white; display: flex; align-items: center; justify-content: center;
-      opacity: 0; transition: opacity 0.3s ease; font-size: 1.2rem; font-weight: 500;
-    }
-    .job-card:hover .apply-overlay { opacity: 1; }
-    
-    .badge-dept { background-color: rgba(0, 164, 214, 0.1); color: var(--secondary); font-weight: 500; padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; }
-    
-    /* Application Form Layout */
-    #apply-section { display: none; margin-top: -30px; position: relative; z-index: 10; padding-bottom: 80px; }
-    .form-wrapper { background: #fff; border-radius: 30px; padding: clamp(20px, 5vw, 50px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-    
-    /* Form Groups (Sub-cards) */
-    .form-group-card { background: var(--bg-light); border-radius: 15px; padding: 25px; margin-bottom: 25px; border: 1px solid rgba(0,0,0,0.05); }
-    .form-group-title { font-size: 1.1rem; font-weight: 600; color: var(--primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-    .form-group-title i { background: #fff; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--secondary); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .member:hover .overlay99 { opacity: 1; }
+    .text99 { color: white; font-size: 16px; }
 
-    /* Floating Labels Styling */
-    .form-floating > .form-control:focus, .form-floating > .form-select:focus { border-color: var(--secondary); box-shadow: 0 0 0 0.25rem rgba(0, 164, 214, 0.15); }
-    .form-floating > label { color: var(--text-gray); }
-    
-    /* Buttons */
-    .btn-gradient { background: linear-gradient(90deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 50px; padding: 12px 30px; font-weight: 500; transition: 0.3s; }
-    .btn-gradient:hover { box-shadow: 0 8px 20px rgba(0,74,153,0.3); color: white; transform: translateY(-2px); }
-    
-    /* Back to Top */
-    #btn-back-to-top { position: fixed; bottom: 20px; right: 20px; display: none; background: var(--primary); color: white; width: 45px; height: 45px; border-radius: 50%; text-align: center; line-height: 45px; cursor: pointer; z-index: 999; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.3s; }
-    #btn-back-to-top:hover { background: var(--secondary); transform: scale(1.1); }
+    .member-info { padding: 20px; }
+    .member-info h4 { font-size: 16px; font-weight: 600; color: #333; margin-top: 10px; margin-bottom: 15px;}
+    .job-dept { font-size: 13px; color: #00a4d6; }
+    .job-meta { font-size: 14px; color: #808080; line-height: 1.8; }
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .form-group-card { padding: 15px; }
-      .badge-dept { font-size: 0.75rem; }
+    /* ======= Application Form ======= */
+    #apply-section { display: none; padding: 50px 0; background-color: #f9f9f9; border-top: 1px solid #eee; }
+    .form-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
     }
+    .form-label { font-weight: 500; color: #333; font-size: 15px; }
+    .form-control, .form-select { border-radius: 5px; border: 1px solid #ccc; padding: 10px 15px; }
+    .form-control:focus, .form-select:focus { border-color: #00a4d6; box-shadow: 0 0 0 0.2rem rgba(0, 164, 214, 0.25); }
+    
+    .form-section-title {
+      font-size: 18px;
+      color: #004a99;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    /* ======= Footer ======= */
+    #footer { background: #f7f7f7; padding: 30px 0; color: #444; font-size: 14px; margin-top: 50px; border-top: 1px solid #ddd;}
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-glass sticky-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <i class="fa-solid fa-graduation-cap me-2"></i>PART-TIME JOBS
-      </a>
-      <a href="dashboard.html" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-medium">
-        <i class="fa-solid fa-user-tie me-1"></i> สำหรับเจ้าหน้าที่
-      </a>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="container" data-aos="zoom-in" data-aos-duration="1000">
-      <h1 class="hero-title">ระบบรับสมัครนักศึกษาจ้างงาน</h1>
-      <p class="hero-subtitle">เปิดประสบการณ์การทำงานจริง และหารายได้ระหว่างเรียนในมหาวิทยาลัย</p>
-      <a href="#job-list" class="btn btn-warning rounded-pill px-4 py-2 mt-3 fw-bold text-dark shadow-sm">
-        ดูตำแหน่งงานที่เปิดรับ <i class="fa-solid fa-arrow-down ms-1"></i>
-      </a>
+  <!-- Top Bar -->
+  <section id="topbar">
+    <div class="container d-flex justify-content-between">
+      <div>JOBS.UBU.AC.TH / PART-TIME</div>
     </div>
   </section>
 
-  <main>
-    <!-- Job Listings Section -->
-    <section class="container py-5 mt-4" id="job-list">
-      <h2 class="section-title" data-aos="fade-right">ประกาศรับสมัครงาน</h2>
+  <!-- Header -->
+  <header id="header">
+    <div class="container d-flex align-items-center justify-content-between">
+      <div class="logo">
+        <a href="#"><h1>ระบบรับสมัครงาน <span>Online</span></h1></a>
+      </div>
+      <nav>
+        <a href="dashboard.html" class="btn btn-outline-secondary btn-sm"><i class="fa fa-lock"></i> เข้าสู่ระบบเจ้าหน้าที่</a>
+      </nav>
+    </div>
+  </header>
 
-      <div class="row g-4 mt-2">
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="container">
+      <h1>ระบบรับสมัครนักศึกษาจ้างงาน</h1>
+      <h2>เปิดโอกาสให้คุณเรียนรู้และหารายได้ระหว่างเรียน</h2>
+    </div>
+  </section>
+
+  <main id="main">
+    
+    <!-- Job Listings Section -->
+    <section class="container py-5">
+      <div class="section-title">
+        <i class="fa-regular fa-address-card me-2"></i> ประกาศรับสมัครงาน
+      </div>
+
+      <div class="row g-4">
+        
         <!-- Job Card 1 -->
-        <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="job-card" onclick="selectAndScrollToJob('งานกีฬานันทนาการ')">
-            <div class="card-img-wrapper">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+          <div class="member" onclick="selectAndScrollToJob('งานกีฬานันทนาการ')">
+            <div class="member-img">
               <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800" alt="Sport">
-              <div class="apply-overlay"><i class="fa-solid fa-hand-pointer me-2"></i>คลิกเพื่อสมัครงานนี้</div>
+              <div class="overlay99">
+                <div class="text99">คลิกเพื่อสมัครงานนี้ >></div>
+              </div>
             </div>
-            <div class="p-4">
-              <span class="badge-dept mb-3 d-inline-block">กลุ่มงานพัฒนานักศึกษา</span>
-              <h4 class="fw-bold mb-3 text-dark">งานกีฬานันทนาการ</h4>
-              <div class="text-muted small mb-2"><i class="fa-solid fa-users text-primary me-2 w-15px"></i> <b>อัตรารับ:</b> 2 ตำแหน่ง</div>
-              <div class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-primary me-2 w-15px"></i> <b>สถานที่:</b> อาคารศูนย์กีฬา</div>
-              <div class="text-danger small"><i class="fa-regular fa-clock me-2 w-15px"></i> <b>ปิดรับสมัคร:</b> 31 ส.ค. 2569</div>
+            <div class="member-info">
+              <span class="job-dept">กลุ่มงานพัฒนานักศึกษา</span>
+              <h4>งานกีฬานันทนาการ</h4>
+              <div class="job-meta">
+                <font style="color:#808080;">จำนวนอัตรารับ : </font> 2<br>
+                <font style="color:#808080;">ปฏิบัติงานที่ : </font> อาคารศูนย์กีฬา<br>
+                <font style="color:#808080;">วันที่เปิดรับสมัคร : </font> ถึง 31 ส.ค. 2569
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Job Card 2 -->
-        <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="job-card" onclick="selectAndScrollToJob('งานกองทุนเงินให้กู้ยืมเพื่อการศึกษา')">
-            <div class="card-img-wrapper">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+          <div class="member" onclick="selectAndScrollToJob('งานกองทุนเงินให้กู้ยืมเพื่อการศึกษา')">
+            <div class="member-img">
               <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800" alt="Finance">
-              <div class="apply-overlay"><i class="fa-solid fa-hand-pointer me-2"></i>คลิกเพื่อสมัครงานนี้</div>
+              <div class="overlay99">
+                <div class="text99">คลิกเพื่อสมัครงานนี้ >></div>
+              </div>
             </div>
-            <div class="p-4">
-              <span class="badge-dept mb-3 d-inline-block">งานสวัสดิการนักศึกษา</span>
-              <h4 class="fw-bold mb-3 text-dark">งานกองทุนฯ (กยศ.)</h4>
-              <div class="text-muted small mb-2"><i class="fa-solid fa-users text-primary me-2 w-15px"></i> <b>อัตรารับ:</b> 3 ตำแหน่ง</div>
-              <div class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-primary me-2 w-15px"></i> <b>สถานที่:</b> กองพัฒนานักศึกษา</div>
-              <div class="text-danger small"><i class="fa-regular fa-clock me-2 w-15px"></i> <b>ปิดรับสมัคร:</b> 15 ก.ย. 2569</div>
+            <div class="member-info">
+              <span class="job-dept">งานสวัสดิการนักศึกษา</span>
+              <h4>งานกองทุนเงินให้กู้ยืมเพื่อการศึกษา (กยศ.)</h4>
+              <div class="job-meta">
+                <font style="color:#808080;">จำนวนอัตรารับ : </font> 3<br>
+                <font style="color:#808080;">ปฏิบัติงานที่ : </font> กองพัฒนานักศึกษา<br>
+                <font style="color:#808080;">วันที่เปิดรับสมัคร : </font> ถึง 15 ก.ย. 2569
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Job Card 3 -->
-        <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-          <div class="job-card" onclick="selectAndScrollToJob('งานศิษย์เก่าสัมพันธ์')">
-            <div class="card-img-wrapper">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+          <div class="member" onclick="selectAndScrollToJob('งานศิษย์เก่าสัมพันธ์')">
+            <div class="member-img">
               <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800" alt="Alumni">
-              <div class="apply-overlay"><i class="fa-solid fa-hand-pointer me-2"></i>คลิกเพื่อสมัครงานนี้</div>
+              <div class="overlay99">
+                <div class="text99">คลิกเพื่อสมัครงานนี้ >></div>
+              </div>
             </div>
-            <div class="p-4">
-              <span class="badge-dept mb-3 d-inline-block">กลุ่มงานศิษย์เก่าสัมพันธ์</span>
-              <h4 class="fw-bold mb-3 text-dark">งานศิษย์เก่าสัมพันธ์</h4>
-              <div class="text-muted small mb-2"><i class="fa-solid fa-users text-primary me-2 w-15px"></i> <b>อัตรารับ:</b> 1 ตำแหน่ง</div>
-              <div class="text-muted small mb-2"><i class="fa-solid fa-location-dot text-primary me-2 w-15px"></i> <b>สถานที่:</b> สำนักงานอธิการบดี</div>
-              <div class="text-danger small"><i class="fa-regular fa-clock me-2 w-15px"></i> <b>ปิดรับสมัคร:</b> 20 ส.ค. 2569</div>
+            <div class="member-info">
+              <span class="job-dept">กลุ่มงานศิษย์เก่าสัมพันธ์</span>
+              <h4>งานศิษย์เก่าสัมพันธ์และสื่อสารองค์กร</h4>
+              <div class="job-meta">
+                <font style="color:#808080;">จำนวนอัตรารับ : </font> 1<br>
+                <font style="color:#808080;">ปฏิบัติงานที่ : </font> สำนักงานอธิการบดี<br>
+                <font style="color:#808080;">วันที่เปิดรับสมัคร : </font> ถึง 20 ส.ค. 2569
+              </div>
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
@@ -238,149 +245,112 @@
     <section id="apply-section">
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-12 col-xl-10 form-wrapper" data-aos="zoom-in" data-aos-duration="800">
+          <div class="col-lg-10 form-card">
             
-            <div class="text-center mb-4">
-              <h3 class="fw-bold text-primary mb-2">แบบฟอร์มใบสมัคร</h3>
-              <p class="text-muted">กำลังสมัครงานตำแหน่ง: <span id="displaySelectedJob" class="badge bg-warning text-dark fs-6 ms-1 px-3 py-2">...</span></p>
+            <h3 class="mb-3 text-center" style="color: #000; font-weight: 600;">
+              แบบฟอร์มสมัครงาน
+            </h3>
+            
+            <div class="alert alert-primary mb-4 text-center">
+              ท่านกำลังสมัครงานตำแหน่ง: <strong id="displaySelectedJob" style="font-size: 18px;">...</strong>
             </div>
 
             <form id="applicationForm">
               <input type="hidden" id="jobSelected" required>
 
-              <!-- หมวดที่ 1 -->
-              <div class="form-group-card">
-                <div class="form-group-title"><i class="fa-regular fa-id-card"></i> 1. ข้อมูลส่วนตัวและสถานภาพ</div>
-                <div class="row g-3">
-                  <div class="col-12 col-md-6">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="studentId" placeholder="รหัสนักศึกษา" required>
-                      <label>รหัสนักศึกษา</label>
-                    </div>
+              <!-- ส่วนที่ 1 -->
+              <div class="form-section-title">1. ข้อมูลส่วนตัวและสถานภาพ</div>
+              <div class="row g-3">
+                  <div class="col-md-6">
+                      <label class="form-label">รหัสนักศึกษา</label>
+                      <input type="text" class="form-control" id="studentId" required>
                   </div>
-                  <div class="col-12 col-md-6">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="idCard" placeholder="เลขประจำตัวประชาชน" required>
-                      <label>เลขประจำตัวประชาชน</label>
-                    </div>
+                  <div class="col-md-6">
+                      <label class="form-label">เลขประจำตัวประชาชน</label>
+                      <input type="text" class="form-control" id="idCard" required>
                   </div>
-                  <div class="col-12">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="fullName" placeholder="ชื่อ-นามสกุล" required>
-                      <label>ชื่อ-นามสกุล (พร้อมคำนำหน้า)</label>
-                    </div>
+                  <div class="col-md-12">
+                      <label class="form-label">ชื่อ-นามสกุล (พร้อมคำนำหน้า)</label>
+                      <input type="text" class="form-control" id="fullName" required>
                   </div>
-                  <div class="col-12 col-md-4">
-                    <div class="form-floating">
+                  <div class="col-md-4">
+                      <label class="form-label">คณะ</label>
                       <select class="form-select" id="faculty" required>
-                        <option value="" selected disabled>เลือกคณะ...</option>
-                        <option value="คณะวิทยาศาสตร์">คณะวิทยาศาสตร์</option>
-                        <option value="คณะบริหารธุรกิจ">คณะบริหารธุรกิจ</option>
+                          <option value="">เลือกคณะ...</option>
+                          <option value="คณะวิทยาศาสตร์">คณะวิทยาศาสตร์</option>
+                          <option value="คณะบริหารธุรกิจ">คณะบริหารธุรกิจ</option>
                       </select>
-                      <label>คณะ</label>
-                    </div>
                   </div>
-                  <div class="col-12 col-md-4">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="major" placeholder="สาขาวิชา" required>
-                      <label>สาขาวิชา</label>
-                    </div>
+                  <div class="col-md-4">
+                      <label class="form-label">สาขาวิชา</label>
+                      <input type="text" class="form-control" id="major" required>
                   </div>
-                  <div class="col-6 col-md-2">
-                    <div class="form-floating">
-                      <input type="number" class="form-control" id="year" placeholder="ชั้นปี" min="1" max="6" required>
-                      <label>ชั้นปี</label>
-                    </div>
+                  <div class="col-md-2 col-6">
+                      <label class="form-label">ชั้นปี</label>
+                      <input type="number" class="form-control" id="year" required>
                   </div>
-                  <div class="col-6 col-md-2">
-                    <div class="form-floating">
-                      <input type="number" step="0.01" class="form-control" id="gpax" placeholder="GPAX" required>
-                      <label>GPAX</label>
-                    </div>
+                  <div class="col-md-2 col-6">
+                      <label class="form-label">GPAX</label>
+                      <input type="number" step="0.01" class="form-control" id="gpax" required>
                   </div>
-                </div>
               </div>
 
-              <!-- หมวดที่ 2 -->
-              <div class="form-group-card">
-                <div class="form-group-title"><i class="fa-solid fa-mobile-screen"></i> 2. ข้อมูลการติดต่อ</div>
-                <div class="row g-3">
-                  <div class="col-12 col-md-4">
-                    <div class="form-floating">
-                      <input type="tel" class="form-control" id="phone" placeholder="เบอร์โทรศัพท์" required>
-                      <label>เบอร์โทรศัพท์มือถือ</label>
-                    </div>
+              <!-- ส่วนที่ 2 -->
+              <div class="form-section-title">2. ข้อมูลการติดต่อ</div>
+              <div class="row g-3">
+                  <div class="col-md-4">
+                      <label class="form-label">เบอร์โทรศัพท์มือถือ</label>
+                      <input type="tel" class="form-control" id="phone" required>
                   </div>
-                  <div class="col-12 col-md-4">
-                    <div class="form-floating">
-                      <input type="email" class="form-control" id="email" placeholder="อีเมล" required>
-                      <label>อีเมล (University Email)</label>
-                    </div>
+                  <div class="col-md-4">
+                      <label class="form-label">อีเมล</label>
+                      <input type="email" class="form-control" id="email" required>
                   </div>
-                  <div class="col-12 col-md-4">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="lineId" placeholder="Line ID">
-                      <label>Line ID (ทางเลือก)</label>
-                    </div>
+                  <div class="col-md-4">
+                      <label class="form-label">Line ID (ทางเลือก)</label>
+                      <input type="text" class="form-control" id="lineId">
                   </div>
-                </div>
               </div>
 
-              <!-- หมวดที่ 3 -->
-              <div class="form-group-card">
-                <div class="form-group-title"><i class="fa-regular fa-calendar-check"></i> 3. เวลาที่สามารถทำงานได้</div>
-                <div class="row g-3">
-                  <div class="col-12">
-                    <div class="form-floating">
-                      <input type="text" class="form-control" id="freeTime" placeholder="เวลาว่าง" required>
-                      <label>ระบุวันและช่วงเวลาที่ว่าง (เช่น จันทร์-พุธ 13.00-16.00 น.)</label>
-                    </div>
+              <!-- ส่วนที่ 3 -->
+              <div class="form-section-title">3. เวลาที่สามารถทำงานได้</div>
+              <div class="row g-3">
+                  <div class="col-md-12">
+                      <label class="form-label">ระบุวันและช่วงเวลาที่ว่าง (เช่น จันทร์-พุธ 13.00-16.00 น.)</label>
+                      <input type="text" class="form-control" id="freeTime" required>
                   </div>
-                  <div class="col-12 col-md-6">
-                    <div class="form-floating">
-                      <input type="number" class="form-control" id="maxHours" placeholder="ชม.สูงสุด" required>
-                      <label>จำนวนชั่วโมงสูงสุดต่อสัปดาห์</label>
-                    </div>
+                  <div class="col-md-6">
+                      <label class="form-label">จำนวนชั่วโมงสูงสุดต่อสัปดาห์</label>
+                      <input type="number" class="form-control" id="maxHours" required>
                   </div>
-                  <div class="col-12 col-md-6">
-                    <div class="form-floating">
-                      <input type="url" class="form-control" id="fileUrl" placeholder="ลิงก์ตารางเรียน">
-                      <label>แนบ Link ภาพตารางเรียน (ถ้ามี)</label>
-                    </div>
+                  <div class="col-md-6">
+                      <label class="form-label">แนบ Link ภาพตารางเรียน (ถ้ามี)</label>
+                      <input type="url" class="form-control" id="fileUrl">
                   </div>
-                </div>
               </div>
 
-              <!-- หมวดที่ 4 -->
-              <div class="form-group-card">
-                <div class="form-group-title"><i class="fa-solid fa-star"></i> 4. ทักษะและประสบการณ์</div>
-                <div class="row g-3">
-                  <div class="col-12">
-                    <div class="form-floating">
-                      <textarea class="form-control" id="skills" placeholder="ทักษะ" style="height: 80px"></textarea>
-                      <label>ทักษะความสามารถพิเศษ (โปรแกรม, ภาษา, ฯลฯ)</label>
-                    </div>
+              <!-- ส่วนที่ 4 -->
+              <div class="form-section-title">4. ทักษะและประสบการณ์</div>
+              <div class="row g-3">
+                  <div class="col-md-12">
+                      <label class="form-label">ทักษะความสามารถพิเศษ (โปรแกรม, ภาษา, ฯลฯ)</label>
+                      <textarea class="form-control" id="skills" rows="3"></textarea>
                   </div>
-                  <div class="col-12">
-                    <div class="form-floating">
-                      <textarea class="form-control" id="experience" placeholder="ประสบการณ์" style="height: 80px"></textarea>
-                      <label>ประสบการณ์ทำงาน / กิจกรรมที่ผ่านมา</label>
-                    </div>
+                  <div class="col-md-12">
+                      <label class="form-label">ประสบการณ์ทำงาน / กิจกรรมที่ผ่านมา</label>
+                      <textarea class="form-control" id="experience" rows="3"></textarea>
                   </div>
-                  <div class="col-12">
-                    <div class="form-floating">
-                      <textarea class="form-control" id="reason" placeholder="เหตุผล" style="height: 100px" required></textarea>
-                      <label>เหตุผลที่สนใจสมัครงานนี้</label>
-                    </div>
+                  <div class="col-md-12">
+                      <label class="form-label">เหตุผลที่สนใจสมัครงานนี้</label>
+                      <textarea class="form-control" id="reason" rows="3" required></textarea>
                   </div>
-                </div>
               </div>
 
-              <div class="d-flex justify-content-center gap-3 mt-4">
-                <button type="button" class="btn btn-light border rounded-pill px-4" onclick="cancelApply()">ยกเลิก</button>
-                <button type="submit" class="btn btn-gradient px-5" id="submitBtn">
-                  <i class="fa-solid fa-paper-plane me-2"></i> ยืนยันส่งใบสมัคร
-                </button>
+              <div class="text-center mt-5">
+                  <button type="button" class="btn btn-secondary px-4 me-2" onclick="cancelApply()">ยกเลิก</button>
+                  <button type="submit" class="btn btn-primary px-5" id="submitBtn" style="background-color: #004a99; border:none;">
+                      ส่งใบสมัคร
+                  </button>
               </div>
 
             </form>
@@ -388,56 +358,48 @@
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white border-top py-4 mt-5 text-center">
-    <div class="container text-muted small">
-      &copy; 2026 ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียน. พัฒนาเพื่อมหาวิทยาลัยของท่าน.
+  <footer id="footer">
+    <div class="container text-center">
+      <div class="copyright">
+        2026 &copy; Copyright <strong><span>ระบบรับสมัครนักศึกษาจ้างงาน</span></strong>. All Rights Reserved.
+      </div>
     </div>
   </footer>
 
-  <!-- Back to Top Button -->
-  <div id="btn-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-  </div>
-
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
   <script>
-    // 1. เปิดใช้ Animation ตอนเลื่อนจอ
-    AOS.init({ once: true, offset: 50 });
-
     const GAS_URL = "ใส่_WEB_APP_URL_จาก_APPS_SCRIPT_ที่นี่"; // 🛑 เปลี่ยนตรงนี้
 
-    // 2. ฟังก์ชันเมื่อกดเลือกงานจากการ์ด
+    // ฟังก์ชันเมื่อกดเลือกงานจากการ์ด
     function selectAndScrollToJob(jobName) {
-      const applySection = document.getElementById('apply-section');
-      applySection.style.display = 'block';
+      document.getElementById('apply-section').style.display = 'block';
       document.getElementById('jobSelected').value = jobName;
       document.getElementById('displaySelectedJob').innerText = jobName;
       
-      // เลื่อนจอไปที่ฟอร์มแบบสมูท พร้อมชดเชยความสูงของ Navbar
-      const y = applySection.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      // เลื่อนหน้าจอไปที่ฟอร์ม
+      document.getElementById('apply-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    // 3. ฟังก์ชันยกเลิก
+    // ฟังก์ชันยกเลิก
     function cancelApply() {
       document.getElementById('apply-section').style.display = 'none';
       document.getElementById('applicationForm').reset();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 4. จัดการตอนส่งฟอร์ม + แอนิเมชันปุ่มโหลด
+    // จัดการตอนส่งฟอร์ม
     document.getElementById('applicationForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('submitBtn');
         const originalText = btn.innerHTML;
         
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>กำลังส่งข้อมูล...'; 
+        btn.innerHTML = 'กำลังส่งข้อมูล...'; 
         btn.disabled = true;
 
         const data = {
@@ -465,40 +427,29 @@
                 method: "POST",
                 body: JSON.stringify({ action: "apply", data: data })
             });
+            
             const result = await res.json();
             
             if(result.status === "success") {
                 Swal.fire({
                     icon: 'success',
                     title: 'ส่งใบสมัครสำเร็จ!',
-                    text: `ระบบได้รับข้อมูลการสมัครงานตำแหน่ง ${data.jobSelected} เรียบร้อยแล้ว`,
-                    confirmButtonColor: '#004a99',
-                    customClass: { confirmButton: 'btn btn-primary rounded-pill px-4' },
-                    buttonsStyling: false
-                }).then(() => cancelApply());
-            } else { throw new Error(); }
+                    text: 'ระบบได้รับข้อมูลการสมัครงานตำแหน่ง ' + data.jobSelected + ' เรียบร้อยแล้ว',
+                    confirmButtonColor: '#00a4d6'
+                }).then(() => {
+                    cancelApply(); // ซ่อนฟอร์มและรีเซ็ต
+                });
+            } else {
+                throw new Error();
+            }
         } catch (err) { 
             Swal.fire({
-                icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถส่งข้อมูลได้ กรุณาลองใหม่อีกครั้ง',
-                confirmButtonColor: '#dc3545', customClass: { confirmButton: 'btn btn-danger rounded-pill px-4' }, buttonsStyling: false
+                icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถส่งข้อมูลได้ กรุณาลองใหม่อีกครั้ง'
             });
         }
         
         btn.innerHTML = originalText; 
         btn.disabled = false;
-    });
-
-    // 5. จัดการปุ่ม Back to Top
-    let mybutton = document.getElementById("btn-back-to-top");
-    window.onscroll = function () {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        mybutton.style.display = "block";
-      } else {
-        mybutton.style.display = "none";
-      }
-    };
-    mybutton.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   </script>
 </body>
