@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>ระบบจัดการ - เจ้าหน้าที่</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <!-- หน้าต่าง Login -->
+    <div id="loginSection" class="container mt-5" style="max-width: 400px;">
+        <div class="card p-4 shadow-sm">
+            <h4 class="text-center mb-4">เข้าสู่ระบบเจ้าหน้าที่</h4>
+            <input type="text" id="user" class="form-control mb-3" placeholder="Username">
+            <input type="password" id="pass" class="form-control mb-3" placeholder="Password">
+            <button onclick="login()" class="btn btn-dark w-100" id="loginBtn">เข้าสู่ระบบ</button>
+        </div>
+    </div>
+
+    <!-- แดชบอร์ด (ซ่อนไว้จนกว่าจะ Login) -->
+    <div id="dashboardSection" class="container mt-4" style="display: none;">
+        <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+            <h2 id="deptNameDisplay">แดชบอร์ดหน่วยงาน</h2>
+            <button onclick="logout()" class="btn btn-outline-danger">ออกจากระบบ</button>
+        </div>
+
+        <div id="adminControls" class="mb-3" style="display: none;">
+            <button onclick="rejectUnselected()" class="btn btn-danger">เปลี่ยนสถานะคนไม่ถูกเลือกเป็น "ไม่ผ่าน"</button>
+            <button onclick="exportCSV()" class="btn btn-success">ส่งออก Excel (CSV)</button>
+        </div>
+
+        <div class="card shadow-sm p-3">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>เลือก</th>
+                        <th>รหัสนักศึกษา</th>
+                        <th>ชื่อ-นามสกุล</th>
+                        <th>ตำแหน่งที่สมัคร</th>
+                        <th>สถานะปัจจุบัน</th>
+                    </tr>
+                </thead>
+                <tbody id="applicantTable">
+                    <!-- ข้อมูลนักศึกษาจะมาแสดงที่นี่ -->
+                </tbody>
+            </table>
+            
+            <div id="deptControls" class="mt-3 text-end" style="display: none;">
+                <button onclick="approveSelected()" class="btn btn-primary">ยืนยันรับคนเข้าทำงาน</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbywe0JyIknMFCm8Z_fXwzhpA2Xqgk64rOIoGsSJdcwwq_AGAEf1idMnMW9tfCzFqMMb/exec"; // 🛑 เปลี่ยนตรงนี้
+    let currentUser = null;
+    let allApplicants = [];
+
+    // ตรวจสอบ Login
+    async function login() {
+        const u = document.getElementById('user').value;
+        const p = document.getElementById('pass').value;
+        document.getElementById('loginBtn').innerHTML = "กำลังตรวจสอบ...";
+
+        const res = await fetch(`${GAS_URL}?action=login&username=${u}&password=${p}`);
+        const result = await res.json();
+        
+        if(result.status === 'success') {
+            currentUser = result;
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            document.getElementById('deptNameDisplay').innerText = `หน่วยงาน: ${result.department} (${result.role})`;
+            
+            if(result.role === 'Admin') document.getElementById('adminControls').style.display = 'block';
+            if(result.role === 'Department') document.getElementById('deptControls').style.display = 'block';
+            
+            loadApplicants();
+        } else {
+            alert("Username หรือ Password ไม่ถูกต้อง");
+            document.getElementById('loginBtn').innerHTML = "เข้าสู่ระบบ";
+        }
+    }
+
+    // ดึงรายชื่อนักศึกษา
+    async function loadApplicants() {
+        document.getElementById('applicantTable').innerHTML = "<tr><td colspan='5' class='text-center'>กำลังโหลดข้อมูล...</td></tr>";
+        const res = await fetch(`${GAS_URL}?action=getApplicants`);
+        allApplicants = await res.json();
+        renderTable();
+    }
+
+    // แสดงตารางตามสิทธิ์
+    function renderTable() {
+        let html = '';
+        allApplicants.forEach(app => {
+            // ถ้าเป็น Admin เห็นหมด, ถ้าเป็น Department เห็นแค่งานของตัวเอง
+            if(currentUser.role === 'Admin' || app.job.includes(currentUser.department)) {
+                html += `
+                <tr>
+                    <td><input type="checkbox" class="form-check-input select-chk" data-row="${app.row}"></td>
+                    <td>${app.studentId}</td>
+                    <td>${app.name}</td>
+                    <td>${app.job}</td>
+                    <td><span class="badge bg-${app.status === 'รอดำเนินการ' ? 'warning text-dark' : (app.status === 'ผ่านการคัดเลือก' ? 'success' : 'danger')}">${app.status}</span></td>
+                </tr>`;
+            }
+        });
+        document.getElementById('applicantTable').innerHTML = html;
+    }
+
+    // เจ้าหน้าที่กดรับคนเข้าทำงาน
+    async function approveSelected() {
+        if(!confirm("ยืนยันการรับนักศึกษาที่เลือกเข้าทำงาน?")) return;
+        updateStatusBatch('ผ่านการคัดเลือก');
+    }
+
+    // แอดมินกดปรับตกคนที่เหลือ
+    async function rejectUnselected() {
+        if(!confirm("ยืนยันเปลี่ยนสถานะผู้ที่ 'รอดำเนินการ' ทั้งหมดเป็น 'ไม่ผ่าน'?")) return;
+        const updates = allApplicants.filter(a => a.status === 'รอดำเนินการ').map(a => ({row: a.row, status: 'ไม่ผ่านการคัดเลือก'}));
+        sendUpdatesToGas(updates);
+    }
+
+    // ฟังก์ชันส่งอัปเดตไป Google Sheets
+    async function updateStatusBatch(newStatus) {
+        let updates = [];
+        document.querySelectorAll('.select-chk:checked').forEach(chk => {
+            updates.push({ row: chk.getAttribute('data-row'), status: newStatus });
+        });
+        if(updates.length === 0) return alert("กรุณาเลือกรายชื่อก่อน");
+        sendUpdatesToGas(updates);
+    }
+
+    async function sendUpdatesToGas(updates) {
+        try {
+            await fetch(GAS_URL, { method: "POST", body: JSON.stringify({ action: "updateStatus", updates: updates }) });
+            alert("บันทึกข้อมูลเรียบร้อย");
+            loadApplicants(); // โหลดใหม่
+        } catch(e) { alert("เกิดข้อผิดพลาด"); }
+    }
+
+    function logout() { location.reload(); }
+    
+    // โค้ดสำหรับ Export CSV เบื้องต้น
+    function exportCSV() {
+        let csvContent = "data:text/csv;charset=utf-8,รหัสนักศึกษา,ชื่อ,งานที่สมัคร,สถานะ\n" 
+            + allApplicants.map(e => `${e.studentId},${e.name},${e.job},${e.status}`).join("\n");
+        let encodedUri = encodeURI(csvContent);
+        let link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "applicants.csv");
+        document.body.appendChild(link);
+        link.click();
+    }
+</script>
+</body>
+</html>
