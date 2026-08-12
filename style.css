@@ -1,0 +1,105 @@
+/* style.css */
+
+:root {
+    --primary-color: #4e73df;
+    --secondary-color: #224abe;
+    --bg-color: #f4f7f6;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: var(--bg-color);
+    color: #333;
+}
+
+/* Hero Banner โค้งๆ และไล่สี */
+.hero-banner {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 80px 20px 100px;
+    text-align: center;
+    border-bottom-left-radius: 50% 20px;
+    border-bottom-right-radius: 50% 20px;
+    box-shadow: 0 10px 30px rgba(78, 115, 223, 0.3);
+    margin-bottom: -50px;
+}
+
+/* การ์ดฟอร์มหลัก */
+.main-form-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    border: none;
+    padding: 40px;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 10;
+}
+
+/* หัวข้อแต่ละส่วน */
+.section-title {
+    color: var(--secondary-color);
+    font-weight: 600;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 10px;
+    margin-bottom: 25px;
+    margin-top: 40px;
+}
+.section-title:first-child { margin-top: 0; }
+
+/* การ์ดเลือกงาน (Interactive) */
+.job-card {
+    border: 2px solid #e3e6f0;
+    border-radius: 15px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: #fff;
+    height: 100%;
+}
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: #b1c3fa;
+}
+.job-card.selected {
+    border-color: var(--primary-color);
+    background-color: #f0f4ff;
+    box-shadow: 0 5px 15px rgba(78, 115, 223, 0.2);
+}
+.job-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+.check-icon {
+    display: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.job-card.selected .check-icon { display: block; }
+
+/* ปุ่ม Submit ไล่สี */
+.btn-submit {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    transition: transform 0.2s, box-shadow 0.2s;
+    color: white;
+}
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(78, 115, 223, 0.4);
+    color: white;
+}
+
+.form-floating > .form-control:focus ~ label {
+    color: var(--primary-color);
+}
