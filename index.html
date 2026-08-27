@@ -418,7 +418,7 @@
               <img src="https://s.imgz.io/2026/08/19/03629cc3da2a277b03.png" alt="UBU Banner">
             </div>
             <div class="carousel-item" data-bs-interval="5000">
-              <img src="https://s.imgz.io/2026/08/19/03629cc3da2a277b03.png" alt="กำหนดการ 1">
+              <img src="https://i.postimg.cc/CLYhrr2z/Chat-GPT-Image-21-s-kh-2569-10-36-11.png" alt="กำหนดการ 1">
             </div>
             <div class="carousel-item" data-bs-interval="5000">
               <img src="https://s.imgz.io/2026/08/19/03629cc3da2a277b03.png" alt="กำหนดการ 2">
@@ -560,7 +560,7 @@
           
           <div class="input-group mb-4 shadow-sm">
             <span class="input-group-text bg-white border-end-0 text-muted"><i class="fa-regular fa-id-card"></i></span>
-            <input type="text" id="searchInput" class="form-control form-control-lg border-start-0" placeholder="เลขประจำตัวประชาชน" style="font-size: 15px;">
+            <input type="text" id="searchInput" class="form-control form-control-lg border-start-0" placeholder="รหัสนักศึกษา หรือเลขประจำตัวประชาชน" inputmode="numeric" autocomplete="off" style="font-size: 15px;">
             <button class="btn btn-primary px-4 px-md-5 fw-bold" type="button" onclick="searchStatus()" style="background-color: #004a99; border:none;">ค้นหา</button>
           </div>
 
@@ -583,9 +583,10 @@
                 <div class="step-name">ผลคัดเลือก</div>
               </div>
             </div>
-            <div class="alert mt-4 text-center" style="background-color: #f0f5fa; color: #004a99; border: 1px solid #cce0ff; font-weight: 500; font-size: 14px; border-radius: 8px;">
-              <i class="fa-solid fa-circle-info me-1"></i> สถานะปัจจุบัน: ใบสมัครอยู่ระหว่างพิจารณา หากผ่านการคัดเลือก จะประกาศรายชื่อในลำดับต่อไป
+            <div id="statusMessage" class="alert mt-4 text-center" style="background-color: #f0f5fa; color: #004a99; border: 1px solid #cce0ff; font-weight: 500; font-size: 14px; border-radius: 8px;">
+              <i class="fa-solid fa-circle-info me-1"></i> กรุณาค้นหาสถานะใบสมัคร
             </div>
+            <div id="statusDetails" class="mt-3" style="display:none;"></div>
           </div>
 
         </div>
@@ -683,11 +684,11 @@
               <div class="row g-3 g-md-4">
                   <div class="col-12 col-md-6">
                       <label class="form-label">รหัสนักศึกษา <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="studentId" placeholder="ตัวเลข 11 หลัก" required>
+                      <input type="text" class="form-control" id="studentId" placeholder="ตัวเลข 11 หลัก" inputmode="numeric" maxlength="11" pattern="[0-9]{11}" required>
                   </div>
                   <div class="col-12 col-md-6">
                       <label class="form-label">เลขประจำตัวประชาชน <span class="text-danger">*</span></label>
-                      <input type="text" class="form-control" id="idCard" placeholder="ตัวเลข 13 หลัก" required>
+                      <input type="text" class="form-control" id="idCard" placeholder="ตัวเลข 13 หลัก" inputmode="numeric" maxlength="13" pattern="[0-9]{13}" required>
                   </div>
                   <div class="col-12">
                       <label class="form-label">ชื่อ-นามสกุล (พร้อมคำนำหน้า) <span class="text-danger">*</span></label>
@@ -707,11 +708,11 @@
                   </div>
                   <div class="col-6 col-md-2">
                       <label class="form-label">ชั้นปี <span class="text-danger">*</span></label>
-                      <input type="number" class="form-control" id="year" required>
+                      <input type="number" class="form-control" id="year" min="1" max="8" required>
                   </div>
                   <div class="col-6 col-md-2">
                       <label class="form-label">GPAX <span class="text-danger">*</span></label>
-                      <input type="number" step="0.01" class="form-control" id="gpax" required>
+                      <input type="number" step="0.01" class="form-control" id="gpax" min="0" max="4" required>
                   </div>
               </div>
 
@@ -721,7 +722,7 @@
               <div class="row g-3 g-md-4">
                   <div class="col-12 col-md-4">
                       <label class="form-label">เบอร์โทรศัพท์ <span class="text-danger">*</span></label>
-                      <input type="tel" class="form-control" id="phone" required>
+                      <input type="tel" class="form-control" id="phone" inputmode="tel" maxlength="10" required>
                   </div>
                   <div class="col-12 col-md-4">
                       <label class="form-label">อีเมล <span class="text-danger">*</span></label>
@@ -792,7 +793,7 @@
       <div class="container-fluid px-4 px-xl-5">
         <div class="row g-4 justify-content-between">
           
-          <div class="col-12 col-md-6 col-lg-3 text-start">
+          <div class="col-12 col-md-6 col-lg-4 text-start">
             <img src="https://career.ubu.ac.th/assets/site_logo/Meta_UBU.png" alt="UBU Logo" style="height:55px; filter: brightness(0) invert(1);" class="mb-3">
             <div class="text-muted mt-2" style="font-size: 14px; line-height: 1.8;">
               <strong class="text-white" style="font-size: 16px;">งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา</strong><br>
@@ -801,25 +802,22 @@
             </div>
           </div>
           
-          <div class="col-12 col-md-6 col-lg-3 text-start">
+          <div class="col-12 col-md-6 col-lg-4 text-start">
             <div class="fw-bold mb-3 text-white" style="font-size: 16px;">
               <i class="fa-solid fa-headset text-warning me-2"></i>ติดต่อสอบถาม
             </div>
             <div class="text-muted mb-2" style="font-size: 14px;">
-              <i class="fa-solid fa-phone me-2 text-warning"></i> 045-353-000 ต่อ 1210
+              <i class="fa-solid fa-phone me-2 text-warning"></i> 045-353-000 ต่อ 1210 (จันทร์ - ศุกร์ 8:30 - 16:30 น.)
             </div>
             <div class="text-muted mb-2" style="font-size: 14px;">
-              <i class="fa-solid fa-phone me-2 text-warning"></i> 045-353-033 หรือ 045-353-093
-            </div>
-            <div class="text-muted mb-2" style="font-size: 14px;">
-              <i class="fa-solid fa-envelope me-2 text-warning"></i> ubustudent.d@ubu.ac.th
+              <i class="fa-solid fa-envelope me-2 text-warning"></i> sirikon.s@ubu.ac.th
             </div>
             <div class="text-muted" style="font-size: 14px;">
               <i class="fa-brands fa-facebook me-2 text-warning"></i> กองพัฒนานักศึกษา มหาวิทยาลัยอุบลราชธานี
             </div>
           </div>
           
-          <div class="col-12 col-md-6 col-lg-3 text-start">
+          <div class="col-12 col-md-6 col-lg-4 text-start">
             <div class="fw-bold mb-3 text-white" style="font-size: 16px;">
               <i class="fa-solid fa-link text-warning me-2"></i>หน่วยงานที่เกี่ยวข้อง
             </div>
@@ -830,25 +828,13 @@
               <li><a href="#" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i>ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียนออนไลน์</a></li>
             </ul>
           </div>
-
-          <div class="col-12 col-md-6 col-lg-3 text-start">
-            <div class="fw-bold mb-3 text-white" style="font-size: 16px;">
-              <i class="fa-solid fa-link text-warning me-2"></i>ลิงก์ที่เกี่ยวข้องเพิ่มเติม
-            </div>
-            <ul class="list-unstyled mb-0" style="font-size: 14px; line-height: 2.2;">
-              <li><a href="https://www.ubu.ac.th/web/general" target="_blank" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i>กองกลาง มหาวิทยาลัยอุบลราชธานี</a></li>
-              <li><a href="https://www.ubu.ac.th/web/finance" target="_blank" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i>กองคลัง มหาวิทยาลัยอุบลราชธานี</a></li>
-              <li><a href="https://www.ubu.ac.th/web/academic" target="_blank" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i>กองวิชาการ มหาวิทยาลัยอุบลราชธานี</a></li>
-              <li><a href="https://www.ubu.ac.th/web/research" target="_blank" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i> 	กองวิจัย นวัตกรรมและบริการวิชาการ</a></li>
-            </ul>
-          </div>
           
         </div>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="container-fluid px-4 px-xl-5 text-start d-flex flex-column flex-md-row justify-content-between align-items-center">
-        <div>© 2026 Ubon Ratchathani University. All Rights Reserved.</div>
+        <div>© 2026 งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา. All Rights Reserved.</div>
         <div class="mt-2 mt-md-0">ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียน ปีงบประมาณ 2570</div>
       </div>
     </div>
@@ -857,7 +843,12 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
   <script>
-    const GAS_URL = "ใส่_WEB_APP_URL_จาก_APPS_SCRIPT_ที่นี่"; 
+    // ============================================================
+    // ตั้งค่า Apps Script Web App URL หลัง Deploy แล้ว
+    // ตัวอย่าง: https://script.google.com/macros/s/AKfycb.../exec
+    // ============================================================
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbywe0JyIknMFCm8Z_fXwzhpA2Xqgk64rOIoGsSJdcwwq_AGAEf1idMnMW9tfCzFqMMb/exec";
+    const MAX_UPLOAD_BYTES = 4 * 1024 * 1024; // 4 MB
 
     const jobsData = {
       'dev': {
@@ -893,7 +884,57 @@
       }
     };
 
-    // ฟังก์ชันเสริมสำหรับซ่อนเมนูในมือถือเวลากดเลือกแล้ว
+    function isGasConfigured() {
+      return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/.test(GAS_URL);
+    }
+
+    function requireGasConfigured() {
+      if (isGasConfigured()) return true;
+      Swal.fire({
+        icon: 'error',
+        title: 'ยังไม่ได้ตั้งค่า Apps Script',
+        text: 'กรุณานำ Web App URL ที่ลงท้ายด้วย /exec มาใส่ในตัวแปร GAS_URL ก่อนใช้งานจริง',
+        confirmButtonColor: '#004a99'
+      });
+      return false;
+    }
+
+    function normalizeDigits(value) {
+      return String(value || '').replace(/\D/g, '');
+    }
+
+    async function apiGet(action, params = {}) {
+      if (!requireGasConfigured()) throw new Error('GAS_NOT_CONFIGURED');
+      const url = new URL(GAS_URL);
+      url.searchParams.set('action', action);
+      Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value ?? ''));
+
+      const response = await fetch(url.toString(), {
+        method: 'GET',
+        redirect: 'follow',
+        cache: 'no-store'
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+      if (result.status === 'error') throw new Error(result.message || 'เกิดข้อผิดพลาดจากเซิร์ฟเวอร์');
+      return result;
+    }
+
+    async function apiPost(action, data = {}) {
+      if (!requireGasConfigured()) throw new Error('GAS_NOT_CONFIGURED');
+      const response = await fetch(GAS_URL, {
+        method: 'POST',
+        redirect: 'follow',
+        // text/plain เป็น simple request จึงลดปัญหา CORS preflight กับ Apps Script Web App
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action, data })
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const result = await response.json();
+      if (result.status !== 'success') throw new Error(result.message || 'ไม่สามารถบันทึกข้อมูลได้');
+      return result;
+    }
+
     function closeMobileMenu() {
       const navbarCollapse = document.getElementById('topNavbar');
       if (navbarCollapse && navbarCollapse.classList.contains('show')) {
@@ -918,6 +959,7 @@
       closeMobileMenu();
       hideAllSections();
       const target = document.getElementById(sectionId);
+      if (!target) return;
       target.style.display = 'block';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -925,45 +967,132 @@
     function showStatusSection() {
       showSection('status-section');
       document.getElementById('statusStepper').style.display = 'none';
+      document.getElementById('statusDetails').style.display = 'none';
       document.getElementById('searchInput').value = '';
     }
 
-    // ฟังก์ชันใหม่ สำหรับแสดงหน้าระเบียบการรับสมัคร
     function showRulesSection() {
       showSection('rules-section');
     }
 
-    // ฟังก์ชันใหม่ สำหรับแสดงหน้าคู่มือการสมัคร
     function showManualSection() {
       showSection('manual-section');
     }
 
-    function searchStatus() {
-      const input = document.getElementById('searchInput').value;
-      if(!input) {
-        Swal.fire({ icon: 'warning', title: 'แจ้งเตือน', text: 'กรุณากรอกรหัสนักศึกษาหรือบัตรประชาชน' });
+    function getStatusStage(statusText) {
+      const status = String(statusText || '').trim();
+      if (/อนุมัติ|ผ่านการคัดเลือก|ผ่าน/.test(status) && !/ไม่ผ่าน|ไม่อนุมัติ/.test(status)) return 4;
+      if (/ปฏิเสธ|ไม่ผ่าน|ไม่อนุมัติ/.test(status)) return 4;
+      if (/พิจารณา/.test(status)) return 3;
+      if (/ตรวจสอบ/.test(status)) return 2;
+      return 2; // รอดำเนินการ/ส่งใบสมัครแล้ว
+    }
+
+    function renderStatusStepper(application) {
+      const stage = getStatusStage(application.applicationStatus);
+      const rejected = /ปฏิเสธ|ไม่ผ่าน|ไม่อนุมัติ/.test(application.applicationStatus || '');
+      const items = document.querySelectorAll('#statusStepper .step-item');
+
+      items.forEach((item, index) => {
+        const step = index + 1;
+        item.classList.remove('completed', 'active');
+        const counter = item.querySelector('.step-counter');
+
+        if (step < stage) {
+          item.classList.add('completed');
+          counter.innerHTML = '<i class="fa-solid fa-check"></i>';
+        } else if (step === stage) {
+          item.classList.add('active');
+          if (rejected && step === 4) {
+            counter.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+          } else if (step === 4) {
+            counter.innerHTML = '<i class="fa-solid fa-check"></i>';
+          } else {
+            counter.innerHTML = '<i class="fa-solid fa-hourglass-half"></i>';
+          }
+        } else {
+          counter.textContent = step;
+        }
+      });
+
+      const message = document.getElementById('statusMessage');
+      const details = document.getElementById('statusDetails');
+      const badgeClass = rejected ? 'text-bg-danger' : (stage === 4 ? 'text-bg-success' : 'text-bg-warning');
+
+      message.innerHTML = `<i class="fa-solid fa-circle-info me-1"></i> สถานะปัจจุบัน: <strong>${escapeHtml(application.applicationStatus || 'รอดำเนินการ')}</strong>`;
+      details.innerHTML = `
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-3 p-md-4">
+            <div class="row g-3">
+              <div class="col-12 col-md-6"><span class="text-muted">ชื่อ-นามสกุล</span><br><strong>${escapeHtml(application.fullName || '-')}</strong></div>
+              <div class="col-12 col-md-6"><span class="text-muted">รหัสนักศึกษา</span><br><strong>${escapeHtml(application.studentId || '-')}</strong></div>
+              <div class="col-12 col-md-8"><span class="text-muted">ตำแหน่ง/หน่วยงานที่สมัคร</span><br><strong>${escapeHtml(application.jobSelected || '-')}</strong></div>
+              <div class="col-12 col-md-4"><span class="text-muted">ผลการดำเนินการ</span><br><span class="badge ${badgeClass} mt-1">${escapeHtml(application.applicationStatus || '-')}</span></div>
+              ${application.applicationId ? `<div class="col-12"><span class="text-muted">เลขที่ใบสมัคร</span><br><code>${escapeHtml(application.applicationId)}</code></div>` : ''}
+            </div>
+          </div>
+        </div>`;
+      details.style.display = 'block';
+      document.getElementById('statusStepper').style.display = 'block';
+    }
+
+    async function searchStatus() {
+      const inputEl = document.getElementById('searchInput');
+      const input = normalizeDigits(inputEl.value);
+      if (!input) {
+        Swal.fire({ icon: 'warning', title: 'แจ้งเตือน', text: 'กรุณากรอกรหัสนักศึกษาหรือเลขประจำตัวประชาชน' });
         return;
       }
-      document.getElementById('statusStepper').style.display = 'block';
+      if (![11, 13].includes(input.length)) {
+        Swal.fire({ icon: 'warning', title: 'ข้อมูลไม่ถูกต้อง', text: 'กรุณากรอกรหัสนักศึกษา 11 หลัก หรือเลขประจำตัวประชาชน 13 หลัก' });
+        return;
+      }
+
+      const searchBtn = inputEl.parentElement.querySelector('button');
+      const originalText = searchBtn.innerHTML;
+      searchBtn.disabled = true;
+      searchBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>กำลังค้นหา';
+      document.getElementById('statusStepper').style.display = 'none';
+      document.getElementById('statusDetails').style.display = 'none';
+
+      try {
+        const result = await apiGet('searchStatus', { q: input });
+        if (!result.found) {
+          Swal.fire({
+            icon: 'info',
+            title: 'ไม่พบข้อมูลการสมัคร',
+            text: 'ไม่พบใบสมัครที่ตรงกับข้อมูลที่ค้นหา กรุณาตรวจสอบเลขที่กรอกอีกครั้ง',
+            confirmButtonColor: '#004a99'
+          });
+          return;
+        }
+        renderStatusStepper(result.application);
+      } catch (err) {
+        if (err.message === 'GAS_NOT_CONFIGURED') return;
+        console.error(err);
+        Swal.fire({ icon: 'error', title: 'เชื่อมต่อระบบไม่ได้', text: err.message || 'กรุณาลองใหม่อีกครั้ง', confirmButtonColor: '#004a99' });
+      } finally {
+        searchBtn.disabled = false;
+        searchBtn.innerHTML = originalText;
+      }
     }
 
     function showSubCategories(key) {
       const data = jobsData[key];
+      if (!data) return;
       document.getElementById('subCategoryTitle').innerText = data.title;
-      
+
       const listContainer = document.getElementById('subJobList');
       listContainer.innerHTML = '';
-      
+
       data.jobs.forEach(jobTitle => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'list-group-item w-100 text-start d-flex align-items-center';
         btn.innerHTML = `
           <div class="icon-box-list"><i class="fa-solid fa-briefcase"></i></div>
-          <span class="fw-bold flex-grow-1" style="color: #333; font-size: 15px;">${jobTitle}</span>
-          <i class="fa-solid fa-chevron-right text-primary"></i>
-        `;
-        
+          <span class="fw-bold flex-grow-1" style="color: #333; font-size: 15px;">${escapeHtml(jobTitle)}</span>
+          <i class="fa-solid fa-chevron-right text-primary"></i>`;
         btn.onclick = () => showJobDetails(jobTitle);
         listContainer.appendChild(btn);
       });
@@ -985,18 +1114,16 @@
         <div class="mb-3">
           <div class="fw-bold mb-1"><i class="fa-solid fa-sack-dollar text-success me-2"></i>อัตราค่าตอบแทน</div>
           <div class="ms-4 text-muted">ชั่วโมงละ 40 - 50 บาท (ตามประกาศของมหาวิทยาลัย)</div>
-        </div>
-      `;
-      
+        </div>`;
+
       document.getElementById('btnApplyJob').onclick = function() {
-        var myModalEl = document.getElementById('jobModal');
-        var modal = bootstrap.Modal.getInstance(myModalEl);
-        modal.hide();
-        setTimeout(() => showForm(jobName), 300);
+        const myModalEl = document.getElementById('jobModal');
+        const modal = bootstrap.Modal.getInstance(myModalEl);
+        if (modal) modal.hide();
+        setTimeout(() => showForm(jobName), 250);
       };
-      
-      var jobModal = new bootstrap.Modal(document.getElementById('jobModal'));
-      jobModal.show();
+
+      new bootstrap.Modal(document.getElementById('jobModal')).show();
     }
 
     function showForm(jobName) {
@@ -1005,27 +1132,115 @@
       showSection('apply-section');
     }
 
-    document.getElementById('applicationForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        const originalText = btn.innerHTML;
-        
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>กำลังดำเนินการ...'; 
-        btn.disabled = true;
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
 
-        setTimeout(() => {
-          Swal.fire({
-              icon: 'success',
-              title: 'ส่งใบสมัครสำเร็จ!',
-              text: 'ระบบได้รับข้อมูลการสมัครงานตำแหน่ง ' + document.getElementById('jobSelected').value + ' เรียบร้อยแล้ว',
-              confirmButtonColor: '#004a99'
-          }).then(() => {
-              document.getElementById('applicationForm').reset();
-              showLandingPage(); 
-          });
-          btn.innerHTML = originalText; 
-          btn.disabled = false;
-        }, 1200);
+    function fileToBase64Payload(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) return resolve(null);
+        if (file.size > MAX_UPLOAD_BYTES) {
+          return reject(new Error('ไฟล์แนบต้องมีขนาดไม่เกิน 4 MB'));
+        }
+        const allowed = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
+        if (file.type && !allowed.includes(file.type)) {
+          return reject(new Error('รองรับไฟล์ PDF, DOC, DOCX, JPG และ PNG เท่านั้น'));
+        }
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('ไม่สามารถอ่านไฟล์แนบได้'));
+        reader.onload = () => {
+          const base64 = String(reader.result).split(',')[1];
+          resolve({ name: file.name, mimeType: file.type || 'application/octet-stream', base64 });
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function collectFormData() {
+      return {
+        idCard: normalizeDigits(document.getElementById('idCard').value),
+        studentId: normalizeDigits(document.getElementById('studentId').value),
+        fullName: document.getElementById('fullName').value.trim(),
+        faculty: document.getElementById('faculty').value,
+        major: document.getElementById('major').value.trim(),
+        year: document.getElementById('year').value,
+        gpax: document.getElementById('gpax').value,
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        lineId: document.getElementById('lineId').value.trim(),
+        freeTime: document.getElementById('freeTime').value.trim(),
+        skills: document.getElementById('skills').value.trim(),
+        reason: document.getElementById('reason').value.trim(),
+        jobSelected: document.getElementById('jobSelected').value.trim()
+      };
+    }
+
+    function validateApplication(data) {
+      if (!/^\d{11}$/.test(data.studentId)) return 'รหัสนักศึกษาต้องเป็นตัวเลข 11 หลัก';
+      if (!/^\d{13}$/.test(data.idCard)) return 'เลขประจำตัวประชาชนต้องเป็นตัวเลข 13 หลัก';
+      if (!data.fullName || !data.faculty || !data.major || !data.freeTime || !data.reason || !data.jobSelected) return 'กรุณากรอกข้อมูลที่มีเครื่องหมาย * ให้ครบถ้วน';
+      const gpax = Number(data.gpax);
+      if (!Number.isFinite(gpax) || gpax < 0 || gpax > 4) return 'GPAX ต้องอยู่ระหว่าง 0.00 - 4.00';
+      return '';
+    }
+
+    document.getElementById('searchInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') searchStatus();
+    });
+
+    document.getElementById('applicationForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const btn = document.getElementById('submitBtn');
+      const originalText = btn.innerHTML;
+      const data = collectFormData();
+      const validationError = validateApplication(data);
+      if (validationError) {
+        Swal.fire({ icon: 'warning', title: 'ตรวจสอบข้อมูล', text: validationError, confirmButtonColor: '#004a99' });
+        return;
+      }
+
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>กำลังบันทึกข้อมูล...';
+      btn.disabled = true;
+
+      try {
+        const file = document.getElementById('resumeFile').files[0];
+        data.resumeFile = await fileToBase64Payload(file);
+        const result = await apiPost('apply', data);
+
+        await Swal.fire({
+          icon: 'success',
+          title: 'ส่งใบสมัครสำเร็จ!',
+          html: `ระบบบันทึกข้อมูลลง Google Sheet เรียบร้อยแล้ว<br><small class="text-muted">เลขที่ใบสมัคร: ${escapeHtml(result.applicationId || '-')}</small>`,
+          confirmButtonColor: '#004a99'
+        });
+
+        form.reset();
+        document.getElementById('jobSelected').value = '';
+        showLandingPage();
+      } catch (err) {
+        if (err.message === 'GAS_NOT_CONFIGURED') return;
+        console.error(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'ส่งใบสมัครไม่สำเร็จ',
+          text: err.message || 'ไม่สามารถเชื่อมต่อ Apps Script ได้ กรุณาลองใหม่อีกครั้ง',
+          confirmButtonColor: '#004a99'
+        });
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
     });
   </script>
 </body>
