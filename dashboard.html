@@ -1386,7 +1386,8 @@
       qualificationRows: [],
       adminApplicantRows: [],
       civilRegistryRows: [],
-      departmentRows: []
+      departmentRows: [],
+      publicContentRows: []
     };
 
     const listModal = new bootstrap.Modal(document.getElementById('listModal'));
@@ -1567,7 +1568,7 @@
 
       renderSidebar();
       const savedView = sessionStorage.getItem('ubuStaffView');
-      const adminViews = ['adminDashboard', 'applicantReview', 'civilRegistry', 'qualification', 'forwarding', 'adminResults'];
+      const adminViews = ['adminDashboard', 'contentManagement', 'applicantReview', 'civilRegistry', 'qualification', 'forwarding', 'adminResults'];
       const departmentViews = ['departmentDashboard', 'departmentSelection', 'departmentBasket'];
 
       let targetView;
@@ -1585,6 +1586,7 @@
     function renderSidebar() {
       const adminItems = [
         ['adminDashboard', 'fa-chart-line', 'ภาพรวมข้อมูลระบบกลาง'],
+        ['contentManagement', 'fa-bullhorn', 'จัดการข่าวประกาศ/เอกสาร'],
         ['applicantReview', 'fa-address-card', 'ตรวจสอบข้อมูลรายชื่อผู้สมัคร'],
         ['civilRegistry', 'fa-id-card', 'ตรวจสอบข้อมูลทะเบียนราษฎร'],
         ['qualification', 'fa-user-check', 'ตรวจสอบคุณสมบัติเกรดเฉลี่ย'],
@@ -1622,6 +1624,7 @@
 
       try {
         if (view === 'adminDashboard') return await renderAdminDashboard();
+        if (view === 'contentManagement') return await renderContentManagement();
         if (view === 'applicantReview') return await renderApplicantReview();
         if (view === 'civilRegistry') return await renderCivilRegistry();
         if (view === 'qualification') return await renderQualification();
@@ -1819,6 +1822,291 @@
           </div>
           <div class="distribution-track"><div class="distribution-fill" style="width:${Number(item.count || 0) / max * 100}%"></div></div>
         </div>`).join('') : '<div class="text-muted text-center py-4">ยังไม่มีข้อมูลคณะ</div>';
+    }
+
+    /* ======================================================
+       PUBLIC CONTENT MANAGEMENT
+    ====================================================== */
+    const publicContentTypeLabels = {
+      news: 'ข่าวประกาศ',
+      rules: 'ระเบียบการรับสมัคร',
+      manual: 'คู่มือการสมัคร'
+    };
+
+    function localDateInputValue(date = new Date()) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function safeDriveLink(value) {
+      try {
+        const url = new URL(String(value || ''));
+        const host = url.hostname.toLowerCase();
+        if (url.protocol !== 'https:') return '';
+        if (host === 'drive.google.com' || host === 'docs.google.com' || host.endsWith('.googleusercontent.com')) return url.href;
+      } catch (_) {}
+      return '';
+    }
+
+    async function renderContentManagement() {
+      setHeader('จัดการข่าวประกาศ/เอกสาร', 'จัดการข้อมูลที่แสดงบนหน้าเว็บไซต์');
+      const content = document.getElementById('content');
+      content.innerHTML = `<div class="text-center py-5"><div class="spinner-border text-primary"></div></div>`;
+
+      state.publicContentRows = await serverCall('getAdminPublicContents', state.token) || [];
+
+      content.innerHTML = `
+        <div class="d-flex flex-wrap justify-content-between gap-3 align-items-end mb-4">
+          <div>
+            <div class="page-title">ข่าวประกาศและเอกสารหน้าเว็บ</div>
+            <div class="page-subtitle">ข้อมูลจะบันทึกลงชีต Announcements และแสดงบนหน้าเว็บไซต์อัตโนมัติ</div>
+          </div>
+          <button class="btn btn-outline-secondary btn-sm" onclick="renderContentManagement()">
+            <i class="fa-solid fa-rotate me-1"></i>อัปเดตข้อมูล
+          </button>
+        </div>
+
+        <div class="panel mb-4">
+          <div class="panel-header">
+            <h3 class="panel-title"><i class="fa-solid fa-pen-to-square me-2"></i>เพิ่ม / แก้ไขข้อมูล</h3>
+          </div>
+          <div class="p-3 p-md-4">
+            <input type="hidden" id="publicContentId">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label">ประเภท <span class="text-danger">*</span></label>
+                <select id="publicContentType" class="form-select">
+                  <option value="news">ข่าวประกาศ</option>
+                  <option value="rules">ระเบียบการรับสมัคร</option>
+                  <option value="manual">คู่มือการสมัคร</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">วันที่ประกาศ <span class="text-danger">*</span></label>
+                <input id="publicContentDate" type="date" class="form-control" value="${localDateInputValue()}">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">สถานะการแสดง</label>
+                <select id="publicContentActive" class="form-select">
+                  <option value="true">แสดงบนหน้าเว็บ</option>
+                  <option value="false">ซ่อนชั่วคราว</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label">เรื่อง <span class="text-danger">*</span></label>
+                <input id="publicContentSubject" class="form-control" maxlength="300" placeholder="ระบุชื่อข่าวประกาศหรือชื่อเอกสาร">
+              </div>
+              <div class="col-12">
+                <label class="form-label">รายละเอียด</label>
+                <textarea id="publicContentDetails" class="form-control" rows="5" maxlength="10000" placeholder="ระบุรายละเอียด (ถ้ามี)"></textarea>
+              </div>
+              <div class="col-md-8">
+                <label class="form-label">ไฟล์แนบ</label>
+                <input id="publicContentFile" type="file" class="form-control" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png">
+                <div class="form-text">รองรับ PDF, JPG/JPEG, PNG ขนาดไม่เกิน 8 MB · ระเบียบการรับสมัครและคู่มือการสมัครต้องแนบไฟล์</div>
+                <div id="publicContentExistingFile" class="small mt-2"></div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">ลำดับ</label>
+                <input id="publicContentSortOrder" type="number" min="0" max="99999" class="form-control" value="0">
+              </div>
+              <div class="col-12 d-flex flex-wrap gap-2">
+                <button class="btn btn-primary" onclick="savePublicContentForm()">
+                  <i class="fa-solid fa-floppy-disk me-1"></i>บันทึกข้อมูล
+                </button>
+                <button class="btn btn-outline-secondary" onclick="resetPublicContentForm()">
+                  <i class="fa-solid fa-rotate-left me-1"></i>ล้างแบบฟอร์ม
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <h3 class="panel-title">รายการที่บันทึกแล้ว</h3>
+            <span class="text-muted">${state.publicContentRows.length.toLocaleString('th-TH')} รายการ</span>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>วันที่ประกาศ</th>
+                  <th>ประเภท</th>
+                  <th>เรื่อง</th>
+                  <th>ไฟล์แนบ</th>
+                  <th>สถานะ</th>
+                  <th class="text-end">จัดการ</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${renderPublicContentAdminRows(state.publicContentRows)}
+              </tbody>
+            </table>
+          </div>
+        </div>`;
+    }
+
+    function renderPublicContentAdminRows(rows) {
+      if (!rows.length) return `<tr><td colspan="6" class="text-center text-muted py-5">ยังไม่มีข้อมูล</td></tr>`;
+
+      return rows.map(item => {
+        const fileUrl = safeDriveLink(item.fileUrl);
+        return `
+          <tr>
+            <td class="text-nowrap">${escapeHtml(item.publishDate || '-')}</td>
+            <td><span class="status-badge badge-info">${escapeHtml(item.typeLabel || publicContentTypeLabels[item.type] || '-')}</span></td>
+            <td>
+              <div class="fw-medium">${escapeHtml(item.subject || '-')}</div>
+              ${item.details ? `<div class="text-muted mt-1" style="font-size:12px;max-width:520px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(item.details)}</div>` : ''}
+            </td>
+            <td>${fileUrl ? `<a href="${escapeHtml(fileUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm"><i class="fa-solid fa-paperclip me-1"></i>เปิดไฟล์</a>` : '<span class="text-muted">-</span>'}</td>
+            <td>${item.active ? '<span class="status-badge badge-pass">แสดง</span>' : '<span class="status-badge badge-muted">ซ่อน</span>'}</td>
+            <td class="text-end text-nowrap">
+              <button class="btn btn-outline-primary btn-sm me-1" onclick="editPublicContent('${escapeHtml(item.id)}')"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-outline-danger btn-sm" onclick="deletePublicContentItem('${escapeHtml(item.id)}')"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    function resetPublicContentForm() {
+      const id = document.getElementById('publicContentId');
+      if (!id) return;
+      id.value = '';
+      document.getElementById('publicContentType').value = 'news';
+      document.getElementById('publicContentDate').value = localDateInputValue();
+      document.getElementById('publicContentActive').value = 'true';
+      document.getElementById('publicContentSubject').value = '';
+      document.getElementById('publicContentDetails').value = '';
+      document.getElementById('publicContentFile').value = '';
+      document.getElementById('publicContentSortOrder').value = '0';
+      document.getElementById('publicContentExistingFile').innerHTML = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function editPublicContent(id) {
+      const item = state.publicContentRows.find(row => row.id === id);
+      if (!item) return;
+
+      document.getElementById('publicContentId').value = item.id || '';
+      document.getElementById('publicContentType').value = item.type || 'news';
+      document.getElementById('publicContentDate').value = item.publishDateInput || localDateInputValue();
+      document.getElementById('publicContentActive').value = item.active ? 'true' : 'false';
+      document.getElementById('publicContentSubject').value = item.subject || '';
+      document.getElementById('publicContentDetails').value = item.details || '';
+      document.getElementById('publicContentFile').value = '';
+      document.getElementById('publicContentSortOrder').value = String(item.sortOrder || 0);
+
+      const fileUrl = safeDriveLink(item.fileUrl);
+      document.getElementById('publicContentExistingFile').innerHTML = fileUrl
+        ? `<div class="alert alert-light border py-2 px-3 mb-0"><i class="fa-solid fa-paperclip me-1"></i>ไฟล์ปัจจุบัน: <a href="${escapeHtml(fileUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.fileName || 'เปิดไฟล์')}</a> <button class="btn btn-link btn-sm text-danger p-0 ms-2" type="button" onclick="markPublicContentFileForRemoval()">นำไฟล์ออก</button><input id="publicContentRemoveFile" type="hidden" value="false"></div>`
+        : '<input id="publicContentRemoveFile" type="hidden" value="false">';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function markPublicContentFileForRemoval() {
+      const input = document.getElementById('publicContentRemoveFile');
+      if (input) input.value = 'true';
+      document.getElementById('publicContentExistingFile').innerHTML = '<div class="text-danger small"><i class="fa-solid fa-circle-minus me-1"></i>ไฟล์เดิมจะถูกนำออกเมื่อกดบันทึก</div><input id="publicContentRemoveFile" type="hidden" value="true">';
+    }
+
+    function readPublicContentFile(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) return resolve(null);
+        const maxBytes = 8 * 1024 * 1024;
+        if (file.size <= 0 || file.size > maxBytes) return reject(new Error('ไฟล์แนบต้องมีขนาดไม่เกิน 8 MB'));
+        if (!/\.(pdf|jpe?g|png)$/i.test(file.name || '')) return reject(new Error('รองรับเฉพาะ PDF, JPG/JPEG หรือ PNG'));
+
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = String(reader.result || '');
+          const comma = result.indexOf(',');
+          resolve({
+            name: file.name,
+            mimeType: file.type || '',
+            size: file.size,
+            data: comma >= 0 ? result.slice(comma + 1) : result
+          });
+        };
+        reader.onerror = () => reject(new Error('ไม่สามารถอ่านไฟล์แนบได้'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function savePublicContentForm() {
+      const type = document.getElementById('publicContentType').value;
+      const publishDate = document.getElementById('publicContentDate').value;
+      const subject = document.getElementById('publicContentSubject').value.trim();
+      const details = document.getElementById('publicContentDetails').value.trim();
+      const fileInput = document.getElementById('publicContentFile');
+      const existingId = document.getElementById('publicContentId').value.trim();
+      const removeInput = document.getElementById('publicContentRemoveFile');
+
+      if (!publishDate || !subject) {
+        Swal.fire({ icon: 'warning', title: 'ข้อมูลไม่ครบ', text: 'กรุณาระบุวันที่ประกาศและเรื่อง' });
+        return;
+      }
+
+      const existing = existingId ? state.publicContentRows.find(row => row.id === existingId) : null;
+      const hasRetainedFile = existing && existing.fileUrl && !(removeInput && removeInput.value === 'true');
+      if (type === 'rules' && !fileInput.files.length && !hasRetainedFile) {
+        Swal.fire({ icon: 'warning', title: 'กรุณาแนบไฟล์ประกาศ', text: 'ระเบียบการรับสมัครต้องมีไฟล์ประกาศแนบ' });
+        return;
+      }
+      if (type === 'manual' && !fileInput.files.length && !hasRetainedFile) {
+        Swal.fire({ icon: 'warning', title: 'กรุณาแนบไฟล์คู่มือ', text: 'เมนูคู่มือการสมัครจะแสดงเป็นไฟล์แนบ จึงต้องมีไฟล์คู่มือ' });
+        return;
+      }
+
+      try {
+        showLoading('กำลังบันทึกข้อมูล');
+        const file = fileInput.files.length ? await readPublicContentFile(fileInput.files[0]) : null;
+        const result = await serverCall('savePublicContent', state.token, {
+          id: existingId,
+          type,
+          publishDate,
+          subject,
+          details,
+          active: document.getElementById('publicContentActive').value === 'true',
+          sortOrder: Number(document.getElementById('publicContentSortOrder').value) || 0,
+          removeFile: Boolean(removeInput && removeInput.value === 'true'),
+          file
+        });
+        closeLoading();
+        await Swal.fire({ icon: 'success', title: 'บันทึกเรียบร้อย', text: result.message || 'บันทึกข้อมูลเรียบร้อยแล้ว' });
+        await renderContentManagement();
+      } catch (error) {
+        closeLoading();
+        Swal.fire({ icon: 'error', title: 'บันทึกไม่สำเร็จ', text: error.message });
+      }
+    }
+
+    async function deletePublicContentItem(id) {
+      const item = state.publicContentRows.find(row => row.id === id);
+      const confirm = await Swal.fire({
+        icon: 'warning',
+        title: 'ลบรายการนี้?',
+        html: `ต้องการลบ <strong>${escapeHtml(item?.subject || '')}</strong> หรือไม่?<br><small class="text-muted">ไฟล์ที่ระบบอัปโหลดไว้จะถูกย้ายไปถังขยะด้วย</small>`,
+        showCancelButton: true,
+        confirmButtonText: 'ลบรายการ',
+        cancelButtonText: 'ยกเลิก',
+        confirmButtonColor: '#b4424d'
+      });
+      if (!confirm.isConfirmed) return;
+
+      try {
+        showLoading('กำลังลบข้อมูล');
+        await serverCall('deletePublicContent', state.token, id);
+        closeLoading();
+        await renderContentManagement();
+      } catch (error) {
+        closeLoading();
+        Swal.fire({ icon: 'error', title: 'ลบไม่สำเร็จ', text: error.message });
+      }
     }
 
     /* ======================================================
@@ -3655,6 +3943,7 @@
       state.adminApplicantRows = [];
       state.civilRegistryRows = [];
       state.departmentRows = [];
+      state.publicContentRows = [];
     });
 
     /* ======================================================
