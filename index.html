@@ -1,0 +1,3059 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; upgrade-insecure-requests">
+  <meta name="referrer" content="no-referrer">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>ระบบรับสมัครนักศึกษาจ้างงาน - มหาวิทยาลัยอุบลราชธานี</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    :root {
+      --ubu-blue: #004a99;
+      --ubu-blue-dark: #003366;
+      --ubu-gold: #fdb913;
+      --bg-color: #f4f6f9;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Kanit', sans-serif;
+      background-color: var(--bg-color);
+      color: #333333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { text-decoration: none; }
+
+    .btn, .form-control, .form-select, .input-group-text, .alert, .list-group-item, .form-card {
+      border-radius: 8px !important;
+    }
+
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      background-color: #fff !important;
+      padding: 12px 0;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+    
+    .navbar-brand img {
+      height: 45px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
+    .brand-text-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.2;
+      min-width: 0;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ubu-blue-dark);
+      white-space: normal;
+    }
+
+    .brand-subtitle {
+      font-size: 14px;
+      font-weight: 500;
+      color: #5c6670;
+      white-space: normal;
+    }
+    
+    .btn-cta-outline {
+      border: 2px solid var(--ubu-blue);
+      color: var(--ubu-blue);
+      background: #fff;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    
+    .btn-cta-outline:hover { background: var(--ubu-blue); color: #fff; }
+
+    .navbar-spacer { height: 85px; }
+
+    .main-carousel-wrap {
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .main-carousel-wrap .carousel-item img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cta-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 25px 35px;
+      box-shadow: 0 4px 20px rgba(0, 74, 153, 0.08);
+      border-bottom: 4px solid var(--ubu-gold);
+      margin-top: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .cta-text h3 {
+      font-size: 22px;
+      margin-bottom: 5px;
+      color: var(--ubu-blue);
+    }
+
+    .cta-text p {
+      font-size: 15px;
+      margin-bottom: 0;
+      color: #6c757d;
+    }
+
+    .btn-cta-large {
+      background-color: var(--ubu-gold);
+      color: var(--ubu-blue-dark);
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 8px;
+      padding: 12px 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(253, 185, 19, 0.25);
+      white-space: nowrap;
+    }
+
+    .btn-cta-large:hover { 
+      transform: translateY(-2px); 
+      background-color: #fec02f;
+      box-shadow: 0 6px 15px rgba(253, 185, 19, 0.4);
+    }
+
+    .topic-section {
+      padding: 50px 0 60px 0;
+    }
+    
+    .tile {
+      background: #ffffff;
+      border: 1px solid #ebedf0;
+      border-radius: 16px !important;
+      padding: 35px 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--ubu-blue);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    
+    .tile:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0,74,153,0.1);
+      border-color: rgba(0,74,153,0.1);
+    }
+    
+    .tile-icon {
+      font-size: 32px;
+      margin-bottom: 15px;
+      color: var(--ubu-blue);
+      background: #f0f5fa;
+      width: 75px; height: 75px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    
+    .tile:hover .tile-icon { 
+      background: var(--ubu-blue); 
+      color: #ffffff; 
+    }
+    
+    .tile-title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .accordion-item {
+      border: 1px solid #eaedf1;
+      border-radius: 12px !important;
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .accordion-button {
+      padding: 18px 25px;
+      font-weight: 600;
+      color: var(--ubu-blue-dark);
+      background-color: #fff;
+    }
+
+    .accordion-button:not(.collapsed) {
+      color: var(--ubu-blue);
+      background-color: #f8fbff;
+      box-shadow: none;
+    }
+
+    .accordion-button:focus {
+      box-shadow: none;
+    }
+
+    .accordion-body {
+      background-color: #fff;
+      color: #555;
+      padding: 0 25px 25px 25px;
+      line-height: 1.6;
+    }
+
+    .content-section { display: none; padding: 40px 0 60px 0; }
+
+    .page-wrapper {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #landing-content,
+    #main-content {
+      width: 100%;
+    }
+
+    #main-content {
+      flex: 1 0 auto;
+    }
+    
+    .section-title-wrap {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .section-title-wrap h2 {
+      font-weight: 700;
+      color: var(--ubu-blue);
+      display: inline-block;
+      position: relative;
+      padding-bottom: 12px;
+      font-size: 26px;
+    }
+    
+    .section-title-wrap h2::after {
+      content: ''; position: absolute; width: 50px; height: 4px; background: var(--ubu-gold);
+      bottom: 0; left: 50%; transform: translateX(-50%); border-radius: 2px;
+    }
+
+    .form-card {
+      background: #fff;
+      padding: 40px 50px;
+      border: 1px solid #eaedf1;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      border-radius: 16px !important;
+    }
+    
+    .form-section-title {
+      font-size: 17px;
+      color: #fff;
+      background: var(--ubu-blue);
+      padding: 8px 18px;
+      margin-top: 35px;
+      margin-bottom: 25px;
+      font-weight: 500;
+      display: inline-block;
+      border-radius: 6px !important;
+    }
+
+    .form-section-title i {
+      margin-right: 8px;
+      color: var(--ubu-gold);
+    }
+    
+    .form-control, .form-select { 
+      padding: 12px 15px; border: 1px solid #dce1e5; background-color: #fcfcfd; font-size: 15px;
+    }
+    
+    .form-control:focus, .form-select:focus { 
+      background-color: #fff; border-color: var(--ubu-blue); box-shadow: 0 0 0 0.2rem rgba(0, 74, 153, 0.1); border-width: 1px;
+    }
+
+    .stepper-wrapper {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .stepper-wrapper::before {
+      content: ''; position: absolute; top: 20px; left: 10%; width: 80%; height: 3px; background: #eaedf1; z-index: 1;
+    }
+    
+    .step-item { position: relative; z-index: 2; text-align: center; width: 25%; }
+    
+    .step-counter {
+      width: 42px; height: 42px; background: #eaedf1; color: #888;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; font-size: 15px; border: 4px solid #fff;
+      border-radius: 50% !important;
+    }
+    
+    .step-name { font-size: 14px; font-weight: 500; color: #888; }
+    
+    .step-item.completed .step-counter { background: #198754; color: #fff; }
+    .step-item.completed .step-name { color: #198754; font-weight: 600; }
+    .step-item.active .step-counter { background: var(--ubu-gold); color: var(--ubu-blue-dark); border-color: #fff; box-shadow: 0 0 0 2px var(--ubu-gold);}
+    .step-item.active .step-name { color: var(--ubu-blue); font-weight: 700; }
+
+    .list-group-item {
+      padding: 18px 25px;
+      margin-bottom: 12px;
+      border: 1px solid #eaedf1;
+      background-color: #fff;
+      transition: all 0.2s ease;
+      border-radius: 12px !important;
+    }
+    
+    .list-group-item:hover {
+      background-color: #f8fbff;
+      border-color: #cce0ff;
+      transform: translateX(5px);
+    }
+    
+    .icon-box-list {
+      width: 40px; height: 40px;
+      background: #f0f5fa;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ubu-blue);
+      margin-right: 15px;
+    }
+
+    footer { 
+      background: var(--ubu-blue-dark); 
+      color: rgba(255, 255, 255, 0.8);
+      padding-top: 60px;
+      margin-top: auto; 
+    }
+    .footer-top { padding-bottom: 40px; }
+    .footer-bottom { 
+      background: rgba(0, 0, 0, 0.25); 
+      padding: 20px 0; 
+      font-size: 14px; 
+      color: rgba(255,255,255,0.6); 
+    }
+
+    .footer-link {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-link:hover {
+      color: var(--ubu-gold);
+      transform: translateX(5px);
+    }
+    
+    footer .text-muted {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    .applicant-type-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .applicant-choice-card {
+      width: 100%;
+      height: 100%;
+      text-align: left;
+      background: #fff;
+      border: 1px solid #e2e7ec;
+      border-radius: 14px;
+      padding: 24px;
+      transition: all .2s ease;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .applicant-choice-card:hover {
+      border-color: #b8cce2;
+      box-shadow: 0 8px 22px rgba(0, 74, 153, .08);
+      transform: translateY(-2px);
+    }
+
+    .applicant-choice-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f5fa;
+      color: var(--ubu-blue);
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .applicant-choice-title {
+      color: var(--ubu-blue-dark);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .applicant-choice-desc {
+      color: #6c757d;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .legacy-lookup-box {
+      max-width: 650px;
+      margin: 24px auto 0;
+      background: #f8fbff;
+      border: 1px solid #d9e7f5;
+      border-radius: 12px;
+      padding: 22px;
+    }
+
+    .form-helper {
+      font-size: 12px;
+      color: #6c757d;
+      margin-top: 6px;
+    }
+
+    .interest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .interest-option {
+      border: 1px solid #dce1e5;
+      border-radius: 10px;
+      padding: 12px 14px;
+      background: #fff;
+    }
+
+    .interest-option:hover {
+      background: #f8fbff;
+    }
+
+    .skill-assessment-box {
+      border: 1px solid #dce6ef;
+      border-radius: 14px;
+      padding: 18px;
+      background: #f8fbff;
+    }
+
+    .skill-assessment-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: #263238;
+      margin-bottom: 4px;
+    }
+
+    .skill-assessment-subtitle {
+      font-size: 12px;
+      color: #6c757d;
+      margin-bottom: 14px;
+      line-height: 1.6;
+    }
+
+    .skill-program-card {
+      height: 100%;
+      border: 1px solid #e0e5ea;
+      border-radius: 12px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .skill-program-name {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 3px;
+      color: #263238;
+    }
+
+    .skill-program-desc {
+      font-size: 12px;
+      color: #6c757d;
+      line-height: 1.5;
+      min-height: 36px;
+      margin-bottom: 10px;
+    }
+
+    .student-photo-upload {
+      border: 1px solid #dce6ef;
+      border-radius: 14px;
+      padding: 18px;
+      background: #f8fbff;
+    }
+
+    .student-photo-upload-layout {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .student-photo-preview-frame {
+      width: 150px;
+      height: 190px;
+      border: 2px dashed #b8c9da;
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8a98a6;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .student-photo-preview-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .student-photo-preview-placeholder {
+      padding: 12px;
+      line-height: 1.5;
+    }
+
+    .student-photo-requirement {
+      font-size: 13px;
+      line-height: 1.7;
+      color: #53606c;
+      margin-bottom: 12px;
+    }
+
+    .application-detail-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 170px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .application-profile-panel {
+      width: 170px;
+      justify-self: end;
+    }
+
+    .application-profile-frame {
+      width: 160px;
+      height: 200px;
+      margin-left: auto;
+      border: 1px solid #d8e1ea;
+      border-radius: 12px;
+      background: #f6f8fa;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8896a3;
+      text-align: center;
+      font-size: 12px;
+      box-shadow: 0 4px 14px rgba(0, 74, 153, 0.08);
+    }
+
+    .application-profile-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .application-profile-caption {
+      text-align: center;
+      font-size: 12px;
+      color: #6c757d;
+      margin-top: 7px;
+      font-weight: 600;
+    }
+
+    .attachment-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .attachment-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border: 1px solid #cddbea;
+      border-radius: 9px;
+      background: #f8fbff;
+      color: #004a99;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .attachment-link:hover {
+      background: #eef6ff;
+      color: #003b7a;
+      border-color: #a9c4df;
+    }
+
+    .selected-files-list {
+      margin-top: 10px;
+      padding-left: 20px;
+      font-size: 13px;
+      color: #5f6770;
+    }
+
+    .pdpa-box {
+      background: #f8f9fa;
+      border: 1px solid #e0e4e8;
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .application-detail-card {
+      margin-top: 24px;
+      background: #fff;
+      border: 1px solid #e5e9ee;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .application-detail-header {
+      padding: 16px 20px;
+      background: #f8fbff;
+      border-bottom: 1px solid #e5edf6;
+      color: var(--ubu-blue-dark);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .application-detail-body {
+      padding: 20px;
+    }
+
+    .application-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px 28px;
+    }
+
+    .application-detail-item {
+      min-width: 0;
+    }
+
+    .application-detail-item.full {
+      grid-column: 1 / -1;
+    }
+
+    .application-detail-label {
+      font-size: 12px;
+      color: #77808a;
+      margin-bottom: 4px;
+    }
+
+    .application-detail-value {
+      font-size: 14px;
+      color: #27313b;
+      font-weight: 500;
+      line-height: 1.6;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .application-id-badge {
+      display: inline-block;
+      padding: 4px 9px;
+      background: #eef5fc;
+      border-radius: 6px;
+      color: var(--ubu-blue);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 767px) {
+      .application-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .application-detail-item.full {
+        grid-column: auto;
+      }
+
+      .student-photo-upload-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .student-photo-preview-frame {
+        margin: 0 auto;
+      }
+
+      .application-detail-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .application-profile-panel {
+        width: 100%;
+        justify-self: center;
+        order: -1;
+      }
+
+      .application-profile-frame {
+        width: 140px;
+        height: 175px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .interest-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .brand-title {
+        font-size: 16px;
+      }
+
+      .brand-subtitle {
+        font-size: 12px;
+      }
+
+      .cta-card { flex-direction: column; text-align: center; border-bottom: none; border-top: 4px solid var(--ubu-gold); }
+      .btn-cta-large { width: 100%; }
+      .tile { padding: 25px 15px; }
+      .form-card { padding: 30px 20px; }
+    }
+
+    @media (max-width: 767px) {
+      .navbar-brand {
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .navbar-brand img { height: 35px; }
+
+      .brand-title {
+        font-size: 13px;
+      }
+
+      .brand-subtitle {
+        font-size: 11px;
+      }
+
+      .navbar-spacer { height: 85px; }
+      .cta-card { padding: 20px; margin-top: 20px; }
+      .cta-text h3 { font-size: 19px; }
+      .cta-text p { font-size: 14px; }
+      
+      .topic-section { padding: 35px 0; }
+      .tile-icon { width: 60px; height: 60px; font-size: 26px; margin-bottom: 12px; }
+      .tile-title { font-size: 15px; }
+      
+      .section-title-wrap h2 { font-size: 22px; }
+      
+      .stepper-wrapper::before { top: 15px; }
+      .step-counter { width: 34px; height: 34px; font-size: 13px; border-width: 3px; margin-bottom: 8px; }
+      .step-name { font-size: 11px; }
+
+      .list-group-item { padding: 15px 20px; font-size: 14px; }
+      .form-section-title { font-size: 15px; margin-top: 25px; }
+      
+      footer { padding-top: 40px; }
+      .footer-bottom { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- แก้ไขแถบ Navbar ให้รองรับมือถือ (Hamburger Menu) -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container-fluid px-4">
+      
+      <!-- โลโก้ + ข้อความหัวระบบ -->
+      <a class="navbar-brand m-0" href="#" onclick="showLandingPage()">
+        <img src="https://career.ubu.ac.th/assets/site_logo/Meta_UBU.png" alt="logo">
+        <div class="brand-text-wrap">
+          <div class="brand-title">ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียน ปีงบประมาณ 2570</div>
+          <div class="brand-subtitle">กองพัฒนานักศึกษา มหาวิทยาลัยอุบลราชธานี</div>
+        </div>
+      </a>
+      
+      <!-- ปุ่ม Hamburger สำหรับหน้าจอเล็ก -->
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#topNavbar" aria-controls="topNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- กลุ่มปุ่มที่จะเปลี่ยนเป็น Dropdown ในจอมือถือ -->
+      <div class="collapse navbar-collapse justify-content-end" id="topNavbar">
+        <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2 mt-3 mt-lg-0 pb-3 pb-lg-0"> 
+          
+          <button onclick="showRulesSection()" class="btn btn-outline-primary px-3 py-2 text-start text-lg-center" style="font-size: 14px; border-radius: 8px; border-color: var(--ubu-blue); color: var(--ubu-blue);">
+            <i class="fa-solid fa-file-contract me-2"></i>ระเบียบการรับสมัคร
+          </button>
+          
+          <button onclick="showManualSection()" class="btn btn-outline-primary px-3 py-2 text-start text-lg-center" style="font-size: 14px; border-radius: 8px; border-color: var(--ubu-blue); color: var(--ubu-blue);">
+            <i class="fa-solid fa-book me-2"></i>คู่มือการสมัคร
+          </button>
+
+          <button onclick="goToDashboard()" class="btn btn-cta-outline px-3 py-2 text-start text-lg-center" style="font-size: 14px;">
+            <i class="fa-solid fa-lock me-2"></i>สำหรับเจ้าหน้าที่
+          </button>
+          
+        </div>
+      </div>
+
+    </div>
+  </nav>
+  <!-- จบการแก้ไข Navbar -->
+  
+  <div class="page-wrapper">
+    <div class="navbar-spacer"></div>
+
+    <div id="landing-content">
+    
+    <section class="mt-4">
+      <div class="container-lg">
+        <div id="mainBannerCarousel" class="carousel slide main-carousel-wrap" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#mainBannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#mainBannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#mainBannerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#mainBannerCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="5000">
+              <img src="https://s.imgz.io/2026/08/19/03629cc3da2a277b03.png" alt="UBU Banner">
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+              <img src="https://i.postimg.cc/CLYhrr2z/Chat-GPT-Image-21-s-kh-2569-10-36-11.png" alt="กำหนดการ 1">
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+              <img src="https://s.imgz.io/2026/08/19/03629cc3da2a277b03.png" alt="กำหนดการ 2">
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+              <img src="https://s.imgz.io/2026/08/19/03629cc3da2a277b03.png" alt="กำหนดการ 3">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#mainBannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 20px;"></span>
+            <span class="visually-hidden">ก่อนหน้า</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#mainBannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.5); border-radius: 50%; padding: 20px;"></span>
+            <span class="visually-hidden">ถัดไป</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container-lg">
+        <div class="cta-card">
+          <div class="cta-text">
+            <h3 class="fw-bold">จ้างงานระหว่างเรียน สร้างประสบการณ์จริง</h3>
+            <p>เสริมศักยภาพสู่อนาคตที่ใช่ สร้างรายได้ สร้างประสบการณ์ เปิดโอกาสให้ฝึกฝนทักษะการทำงานและรับรายได้พิเศษระหว่างเรียน</p>
+          </div>
+          <div>
+            <button onclick="showStatusSection()" class="btn btn-cta-large">
+              <i class="fa-solid fa-magnifying-glass me-2"></i>ตรวจสอบสถานะการสมัคร
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="main-menu-section" class="topic-section">
+      <div class="container-lg">
+        <div class="section-title-wrap">
+          <h2>เลือกหน่วยงานที่สนใจสมัคร</h2>
+        </div>
+        
+        <div class="row g-3 justify-content-center">
+          <div class="col-6 col-md-6 col-lg-3" onclick="showSubCategories('dev')">
+            <div class="tile">
+              <div class="tile-icon"><i class="fa-solid fa-users"></i></div>
+              <div class="tile-title">กลุ่มงานพัฒนานักศึกษา</div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-6 col-lg-3" onclick="showSubCategories('welfare')">
+            <div class="tile">
+              <div class="tile-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+              <div class="tile-title">กลุ่มงานสวัสดิการนักศึกษา</div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-6 col-lg-3" onclick="showSubCategories('alumni')">
+            <div class="tile">
+              <div class="tile-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+              <div class="tile-title">กลุ่มงานศิษย์เก่าสัมพันธ์</div>
+            </div>
+          </div>
+          
+          <div class="col-6 col-md-6 col-lg-3" onclick="showSubCategories('office')">
+            <div class="tile">
+              <div class="tile-icon"><i class="fa-solid fa-building-columns"></i></div>
+              <div class="tile-title">หน่วยงานในสำนักงานมหาวิทยาลัย</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="topic-section" style="padding-top: 0;">
+      <div class="container-lg">
+        <div class="section-title-wrap">
+          <h2>คำถามที่พบบ่อย (FAQ)</h2>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-8">
+            <div class="accordion" id="faqAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                    นักศึกษาชั้นปีใดบ้างที่สามารถสมัครได้?
+                  </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    นักศึกษาที่กำลังศึกษาอยู่ในระดับปริญญาตรีทุกชั้นปี สามารถสมัครเป็นนักศึกษาจ้างงานระหว่างเรียนได้ ทั้งนี้ขึ้นอยู่กับคุณสมบัติเฉพาะที่ระบุไว้
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                    อัตราค่าตอบแทนคิดอย่างไร?
+                  </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    ปฏิบัติงานไม่น้อยกว่า 7 ชั่วโมงต่อวัน ให้ได้รับค่าตอบแทนในอัตราไม่เกินวันละ 300 บาทต่อคน โดยไม่รวมเวลาหยุดพัก เวลา 12.00 น.– 13.00 น.กรณีปฏิบัติงานไม่น้อยกว่า 3 ชั่วโมงครึ่งต่อวันให้ได้รับค่าตอบแทนในอัตราไม่เกิน 150 บาทต่อคน
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                    สามารถสมัครได้มากกว่า 1 ตำแหน่งหรือไม่?
+                  </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    นักศึกษาสามารถสมัครได้ 1 ตำแหน่ง หากคุณสมบัติผ่านการคัดเลือก จะได้รับสิทธิ์ในการปฏิบัติงานและการจ้างงานระหว่างเรียนกับหน่วยงานที่นักศึกษาสนใจเลือก
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <main id="main-content">
+    
+    <section id="status-section" class="container content-section">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 form-card">
+          
+          <button class="btn btn-outline-secondary btn-sm mb-4" onclick="showLandingPage()">
+            <i class="fa-solid fa-arrow-left me-1"></i> ย้อนกลับไปหน้าหลัก
+          </button>
+
+          <div class="section-title-wrap">
+            <h2>ตรวจสอบสถานะการสมัคร</h2>
+          </div>
+          
+          <div class="alert alert-light border mb-3" style="font-size:13px;">
+            <i class="fa-solid fa-shield-halved me-1 text-primary"></i>
+            เพื่อป้องกันการเข้าถึงข้อมูลของผู้อื่น ระบบต้องยืนยันทั้งรหัสนักศึกษาและเลขประจำตัวประชาชน
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-md-5">
+              <label for="searchInput" class="form-label small text-muted">รหัสนักศึกษา 11 หลัก</label>
+              <input type="text" id="searchInput" class="form-control form-control-lg" inputmode="numeric" maxlength="11" autocomplete="off" placeholder="รหัสนักศึกษา">
+            </div>
+            <div class="col-md-5">
+              <label for="statusIdCardInput" class="form-label small text-muted">เลขประจำตัวประชาชน 13 หลัก</label>
+              <input type="password" id="statusIdCardInput" class="form-control form-control-lg" inputmode="numeric" maxlength="13" autocomplete="off" placeholder="เลขประจำตัวประชาชน">
+            </div>
+            <div class="col-md-2 d-grid align-items-end">
+              <button class="btn btn-primary fw-bold" type="button" onclick="searchStatus()" style="background-color:#004a99;border:none;min-height:48px;">
+                <i class="fa-solid fa-magnifying-glass me-1"></i>ค้นหา
+              </button>
+            </div>
+          </div>
+
+          <div id="statusStepper" style="display: none;">
+            <div class="stepper-wrapper">
+              <div class="step-item completed">
+                <div class="step-counter"><i class="fa-solid fa-check"></i></div>
+                <div class="step-name">สมัครสำเร็จ</div>
+              </div>
+              <div class="step-item completed">
+                <div class="step-counter"><i class="fa-solid fa-check"></i></div>
+                <div class="step-name">รอตรวจสอบ</div>
+              </div>
+              <div class="step-item active">
+                <div class="step-counter"><i class="fa-solid fa-hourglass-half"></i></div>
+                <div class="step-name">รอพิจารณา</div>
+              </div>
+              <div class="step-item">
+                <div class="step-counter">4</div>
+                <div class="step-name">ผลคัดเลือก</div>
+              </div>
+            </div>
+            <div id="statusMessage" class="alert mt-4 text-center" style="background-color: #f0f5fa; color: #004a99; border: 1px solid #cce0ff; font-weight: 500; font-size: 14px; border-radius: 8px;">
+              <i class="fa-solid fa-circle-info me-1"></i> สถานะปัจจุบัน: ใบสมัครอยู่ระหว่างพิจารณา หากผ่านการคัดเลือก จะประกาศรายชื่อในลำดับต่อไป
+            </div>
+
+            <div id="applicationDetailCard" class="application-detail-card" style="display:none;">
+              <div class="application-detail-header">
+                <i class="fa-regular fa-rectangle-list me-2"></i>รายละเอียดใบสมัคร
+              </div>
+              <div class="application-detail-body">
+                <div class="application-detail-layout">
+                  <div id="applicationDetailGrid" class="application-detail-grid"></div>
+
+                  <aside class="application-profile-panel" aria-label="รูปถ่ายผู้สมัคร">
+                    <div class="application-profile-frame">
+                      <img id="applicationProfileImage" alt="รูปถ่ายผู้สมัคร">
+                      <div id="applicationProfilePlaceholder">
+                        <i class="fa-regular fa-user fa-2x mb-2"></i><br>
+                        ไม่มีรูปภาพ
+                      </div>
+                    </div>
+                    <div class="application-profile-caption">รูปถ่ายผู้สมัคร</div>
+                  </aside>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- เริ่ม: Section ระเบียบการรับสมัคร -->
+    <section id="rules-section" class="container content-section">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 form-card">
+          <button class="btn btn-outline-secondary btn-sm mb-4" onclick="showLandingPage()">
+            <i class="fa-solid fa-arrow-left me-1"></i> ย้อนกลับไปหน้าหลัก
+          </button>
+          
+          <div class="section-title-wrap">
+            <h2>ระเบียบการรับสมัคร</h2>
+          </div>
+          
+          <div class="p-4" style="background-color: #f0f5fa; border: 1px solid #cce0ff; border-radius: 12px; min-height: 300px;">
+             <h5 class="text-primary"><i class="fa-solid fa-circle-info me-2"></i>ข้อกำหนดและเงื่อนไข</h5>
+             <p class="text-muted mt-3">... ใส่รายละเอียดระเบียบการรับสมัครที่นี่ ...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- จบ: Section ระเบียบการรับสมัคร -->
+
+    <!-- เริ่ม: Section คู่มือการสมัคร -->
+    <section id="manual-section" class="container content-section">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 form-card">
+          <button class="btn btn-outline-secondary btn-sm mb-4" onclick="showLandingPage()">
+            <i class="fa-solid fa-arrow-left me-1"></i> ย้อนกลับไปหน้าหลัก
+          </button>
+          
+          <div class="section-title-wrap">
+            <h2>คู่มือขั้นตอนการสมัคร</h2>
+          </div>
+          
+          <div class="p-4" style="background-color: #f0f5fa; border: 1px solid #cce0ff; border-radius: 12px; min-height: 300px;">
+             <h5 class="text-primary"><i class="fa-solid fa-list-ol me-2"></i>ขั้นตอนการใช้งานระบบ</h5>
+             <p class="text-muted mt-3">... ใส่รายละเอียดคู่มือ หรือรูปภาพประกอบที่นี่ ...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- จบ: Section คู่มือการสมัคร -->
+
+    <section id="sub-categories-section" class="container content-section">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8 form-card">
+          <button id="subCategoryBackBtn" class="btn btn-outline-secondary btn-sm mb-4" onclick="handleSubCategoryBack()">
+            <i class="fa-solid fa-arrow-left me-1"></i> <span id="subCategoryBackText">ย้อนกลับไปเลือกกลุ่มงานหลัก</span>
+          </button>
+          
+          <div class="mb-4 pb-3" style="border-bottom: 3px solid #fdb913;">
+            <h4 id="subCategoryTitle" style="color: #004a99; font-weight: 700; margin: 0; font-size: 20px;">-</h4>
+          </div>
+          
+          <div class="list-group" id="subJobList">
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="apply-section" class="content-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-lg-10 form-card">
+
+            <button class="btn btn-outline-secondary btn-sm mb-4" onclick="showSection('sub-categories-section')">
+              <i class="fa-solid fa-arrow-left me-1"></i> ย้อนกลับไปเลือกตำแหน่งงาน
+            </button>
+
+            <div class="section-title-wrap">
+              <h2>แบบฟอร์มสมัครงาน</h2>
+            </div>
+
+            <div class="alert mb-4 d-flex align-items-center p-3 p-md-4" style="background-color: #f0f5fa; border: 1px solid #cce0ff; border-radius: 12px;">
+              <div class="tile-icon d-none d-sm-flex" style="width: 50px; height: 50px; font-size: 20px; margin-bottom: 0; margin-right: 20px; background-color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="fa-solid fa-briefcase" style="color: var(--ubu-blue);"></i>
+              </div>
+              <div class="flex-grow-1">
+                <div style="font-size: 13px; color: #555;">ตำแหน่งที่กำลังสมัคร</div>
+                <strong id="displaySelectedJob" style="font-size: 18px; color: #004a99;">...</strong>
+              </div>
+            </div>
+
+            <div id="applicantTypeStep" class="applicant-type-wrap">
+              <div class="text-center mb-4">
+                <h4 class="fw-bold" style="color: var(--ubu-blue-dark);">เลือกประเภทผู้สมัคร</h4>
+                <p class="text-muted mb-0">กรุณาเลือกประเภทของผู้สมัครก่อนเข้าสู่แบบฟอร์ม</p>
+              </div>
+
+              <div class="alert alert-warning py-3 mb-4">
+                <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                <strong>1 เลขประจำตัวประชาชน สามารถส่งใบสมัครได้ 1 ครั้งเท่านั้น</strong>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <button type="button" class="applicant-choice-card" onclick="chooseApplicantType('returning2569')">
+                    <div class="d-flex gap-3 align-items-start">
+                      <div class="applicant-choice-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                      <div>
+                        <div class="applicant-choice-title">นักศึกษาเก่าจ้างงานจากปีงบประมาณ 2569</div>
+                        <p class="applicant-choice-desc">กรอกเลขประจำตัวประชาชน 13 หลัก เพื่อระบบดึงข้อมูลเดิมมาเติมในแบบฟอร์มอัตโนมัติ</p>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <button type="button" class="applicant-choice-card" onclick="chooseApplicantType('new')">
+                    <div class="d-flex gap-3 align-items-start">
+                      <div class="applicant-choice-icon"><i class="fa-solid fa-user-plus"></i></div>
+                      <div>
+                        <div class="applicant-choice-title">นักศึกษาใหม่ยังไม่เคยสมัครจ้างงาน</div>
+                        <p class="applicant-choice-desc">เข้าสู่แบบฟอร์มเปล่าและกรอกข้อมูลใหม่ทั้งหมดด้วยตนเอง</p>
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div id="legacyLookupBox" class="legacy-lookup-box" style="display:none;">
+                <div class="fw-bold mb-2" style="color: var(--ubu-blue-dark);">
+                  <i class="fa-regular fa-id-card me-2"></i>ค้นหาข้อมูลนักศึกษาเดิม จากการสมัครปี 2569
+                </div>
+                <label class="form-label">เลขประจำตัวประชาชน 13 หลัก <span class="text-danger">*</span></label>
+                <div class="input-group">
+                  <input type="text" id="legacyIdCard" class="form-control" maxlength="13" inputmode="numeric" autocomplete="off" placeholder="กรอกตัวเลข 13 หลัก">
+                  <button type="button" id="legacyLookupBtn" class="btn btn-primary px-4" onclick="lookupLegacyApplicant()" style="background-color: var(--ubu-blue); border-color: var(--ubu-blue);">
+                    <i class="fa-solid fa-magnifying-glass me-1"></i> ค้นหาข้อมูล
+                  </button>
+                </div>
+                <div class="form-helper">ระบบจะตรวจสอบความถูกต้องของเลขบัตรประชาชนก่อนค้นหาข้อมูล</div>
+              </div>
+            </div>
+
+            <div id="applicationFormStep" style="display:none;">
+              <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+                <button type="button" class="btn btn-outline-secondary btn-sm align-self-start" onclick="backToApplicantType()">
+                  <i class="fa-solid fa-arrow-left me-1"></i> กลับไปเลือกประเภทผู้สมัคร
+                </button>
+                <span id="applicantTypeBadge" class="badge text-bg-light border px-3 py-2"></span>
+              </div>
+
+              <form id="applicationForm">
+                <div aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">
+                  <label for="websiteField">เว็บไซต์</label>
+                  <input type="text" id="websiteField" name="website" tabindex="-1" autocomplete="off">
+                </div>
+                <input type="hidden" id="jobSelected" required name="jobSelected">
+                <input type="hidden" id="applicantType" required name="applicantType">
+
+                <div class="form-section-title">
+                  <i class="fa-regular fa-id-badge"></i> ข้อมูลส่วนบุคคล
+                </div>
+
+                <div class="row g-3 g-md-4">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">เลขประจำตัวประชาชน <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="idCard" maxlength="13" inputmode="numeric" autocomplete="off" placeholder="ตัวเลข 13 หลัก" required name="idCard">
+                    <div class="form-helper">ตรวจสอบเลขประจำตัวประชาชน 13 หลัก กรมการปกครอง</div>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">คำนำหน้านาม <span class="text-danger">*</span></label>
+                    <select class="form-select" id="prefix" required name="prefix">
+                      <option value="">เลือกคำนำหน้านาม...</option>
+                      <option value="นาย">นาย</option>
+                      <option value="นางสาว">นางสาว</option>
+                      <option value="นาง">นาง</option>
+                      <option value="ว่าที่ร้อยตรี">ว่าที่ร้อยตรี</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">ชื่อตัว-ชื่อสกุล (ไม่ต้องใส่คำนำหน้านาม) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="fullName" placeholder="กรอกชื่อและนามสกุล โดยไม่ต้องใส่คำนำหน้า" required name="fullName">
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">เบอร์โทรศัพท์ <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="phone" inputmode="numeric" autocomplete="tel" placeholder="กรอกเฉพาะตัวเลข" required name="phone">
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">อีเมล <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="email" autocomplete="email" placeholder="example@ubu.ac.th" required name="email">
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <label class="form-label">Line ID <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="lineId" required name="lineId">
+                  </div>
+                </div>
+
+                <div class="form-section-title">
+                  <i class="fa-solid fa-graduation-cap"></i> ข้อมูลการศึกษา
+                </div>
+
+                <div class="row g-3 g-md-4">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">รหัสนักศึกษา <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="studentId" maxlength="11" inputmode="numeric" autocomplete="off" placeholder="ตัวเลข 11 หลัก" required name="studentId">
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">คณะ <span class="text-danger">*</span></label>
+                    <select class="form-select" id="faculty" required name="faculty" onchange="updateMajorOptions()">
+                      <option value="">เลือกคณะ...</option>
+                        <option value="คณะวิทยาศาสตร์">คณะวิทยาศาสตร์</option>
+                        <option value="คณะเกษตรศาสตร์">คณะเกษตรศาสตร์</option>
+                        <option value="คณะวิศวกรรมศาสตร์">คณะวิศวกรรมศาสตร์</option>
+                        <option value="คณะศิลปศาสตร์">คณะศิลปศาสตร์</option>
+                        <option value="คณะเภสัชศาสตร์">คณะเภสัชศาสตร์</option>
+                        <option value="คณะบริหารศาสตร์">คณะบริหารศาสตร์</option>
+                        <option value="วิทยาลัยแพทยศาสตร์และการสาธารณสุข">วิทยาลัยแพทยศาสตร์และการสาธารณสุข</option>
+                        <option value="คณะศิลปประยุกต์และสถาปัตยกรรมศาสตร์">คณะศิลปประยุกต์และสถาปัตยกรรมศาสตร์</option>
+                        <option value="คณะนิติศาสตร์">คณะนิติศาสตร์</option>
+                        <option value="คณะรัฐศาสตร์">คณะรัฐศาสตร์</option>
+                        <option value="คณะพยาบาลศาสตร์">คณะพยาบาลศาสตร์</option>
+                        <option value="คณะศึกษาศาสตร์">คณะศึกษาศาสตร์</option>
+                    </select>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <label class="form-label">สาขาวิชา <span class="text-danger">*</span></label>
+                    <select class="form-select" id="major" required name="major" disabled>
+                      <option value="">กรุณาเลือกคณะก่อน...</option>
+                    </select>
+                  </div>
+
+                  <div class="col-6 col-md-3">
+                    <label class="form-label">ชั้นปี <span class="text-danger">*</span></label>
+                    <select class="form-select" id="year" required name="year">
+                      <option value="">เลือกชั้นปี...</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                    </select>
+                  </div>
+
+                  <div class="col-6 col-md-3">
+                    <label class="form-label">GPAX <span class="text-danger">*</span></label>
+                    <input type="number" min="0" max="4" step="0.01" class="form-control" id="gpax" placeholder="0.00 - 4.00" required name="gpax">
+                  </div>
+                </div>
+
+                <div class="form-section-title">
+                  <i class="fa-regular fa-star"></i> ข้อมูลสำหรับการจ้างงาน
+                </div>
+
+                <div class="row g-3 g-md-4">
+                  <div class="col-12">
+                    <div class="skill-assessment-box">
+                      <div class="skill-assessment-heading">
+                        <i class="fa-solid fa-comments me-1"></i> ทักษะการสื่อสาร / ภาษา
+                      </div>
+                      <div class="skill-assessment-subtitle">
+                        กรุณาประเมินระดับความสามารถของตนเองตามความเป็นจริง
+                      </div>
+
+                      <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                          <label class="form-label">ภาษาอังกฤษ <span class="text-danger">*</span></label>
+                          <select class="form-select" id="englishLevel" name="englishLevel" required>
+                            <option value="">เลือกระดับ...</option>
+                            <option value="พื้นฐาน">พื้นฐาน</option>
+                            <option value="พอใช้">พอใช้</option>
+                            <option value="ดี">ดี</option>
+                            <option value="ดีมาก">ดีมาก</option>
+                            <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                          </select>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                          <label class="form-label">ภาษาไทย <span class="text-danger">*</span></label>
+                          <select class="form-select" id="thaiLevel" name="thaiLevel" required>
+                            <option value="">เลือกระดับ...</option>
+                            <option value="พื้นฐาน">พื้นฐาน</option>
+                            <option value="พอใช้">พอใช้</option>
+                            <option value="ดี">ดี</option>
+                            <option value="ดีมาก">ดีมาก</option>
+                            <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="skill-assessment-box">
+                      <div class="skill-assessment-heading">
+                        <i class="fa-solid fa-laptop me-1"></i>
+                        ทักษะการใช้โปรแกรมคอมพิวเตอร์ ชุดโปรแกรม
+                        <a href="https://www.microsoft.com/th-th/microsoft-365" target="_blank" rel="noopener noreferrer">Microsoft 365</a>
+                      </div>
+                      <div class="skill-assessment-subtitle">
+                        กรุณาเลือกระดับความสามารถของแต่ละโปรแกรม หากไม่เคยใช้งานสามารถเลือก “ไม่เคยใช้งาน”
+                      </div>
+
+                      <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                          <div class="skill-program-card">
+                            <div class="skill-program-name">Microsoft Word</div>
+                            <div class="skill-program-desc">โปรแกรมพิมพ์งานและสร้างเอกสารข้อความ</div>
+                            <select class="form-select" id="wordLevel" name="wordLevel" required>
+                              <option value="">เลือกระดับ...</option>
+                              <option value="ไม่เคยใช้งาน">ไม่เคยใช้งาน</option>
+                              <option value="พื้นฐาน">พื้นฐาน</option>
+                              <option value="พอใช้">พอใช้</option>
+                              <option value="ดี">ดี</option>
+                              <option value="ดีมาก">ดีมาก</option>
+                              <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                          <div class="skill-program-card">
+                            <div class="skill-program-name">Microsoft Excel</div>
+                            <div class="skill-program-desc">โปรแกรมตารางคำนวณและจัดการข้อมูล (Spreadsheet)</div>
+                            <select class="form-select" id="excelLevel" name="excelLevel" required>
+                              <option value="">เลือกระดับ...</option>
+                              <option value="ไม่เคยใช้งาน">ไม่เคยใช้งาน</option>
+                              <option value="พื้นฐาน">พื้นฐาน</option>
+                              <option value="พอใช้">พอใช้</option>
+                              <option value="ดี">ดี</option>
+                              <option value="ดีมาก">ดีมาก</option>
+                              <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                          <div class="skill-program-card">
+                            <div class="skill-program-name">Microsoft PowerPoint</div>
+                            <div class="skill-program-desc">โปรแกรมสำหรับทำไฟล์งานนำเสนอ (Presentation)</div>
+                            <select class="form-select" id="powerPointLevel" name="powerPointLevel" required>
+                              <option value="">เลือกระดับ...</option>
+                              <option value="ไม่เคยใช้งาน">ไม่เคยใช้งาน</option>
+                              <option value="พื้นฐาน">พื้นฐาน</option>
+                              <option value="พอใช้">พอใช้</option>
+                              <option value="ดี">ดี</option>
+                              <option value="ดีมาก">ดีมาก</option>
+                              <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                          <div class="skill-program-card">
+                            <div class="skill-program-name">Microsoft Access</div>
+                            <div class="skill-program-desc">โปรแกรมจัดการฐานข้อมูล (Database) สำหรับสำนักงาน</div>
+                            <select class="form-select" id="accessLevel" name="accessLevel" required>
+                              <option value="">เลือกระดับ...</option>
+                              <option value="ไม่เคยใช้งาน">ไม่เคยใช้งาน</option>
+                              <option value="พื้นฐาน">พื้นฐาน</option>
+                              <option value="พอใช้">พอใช้</option>
+                              <option value="ดี">ดี</option>
+                              <option value="ดีมาก">ดีมาก</option>
+                              <option value="เชี่ยวชาญ">เชี่ยวชาญ</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">ทักษะความสามารถพิเศษ / ประสบการณ์ <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="skills" rows="4" placeholder="ระบุทักษะ ความสามารถ หรือประสบการณ์อื่น ๆ ที่เกี่ยวข้อง" required name="skills"></textarea>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">
+                      เหตุผลที่สนใจสมัครงานนี้ <span class="text-danger">*</span>
+                      <span class="text-muted fw-normal">(เลือกได้มากกว่า 1 รายการ)</span>
+                    </label>
+                    <div class="interest-grid" id="reasonGroup">
+                      <label class="interest-option">
+                        <input class="form-check-input me-2 reason-option" type="checkbox" value="หารายได้พิเศษเพื่อแบ่งเบาภาระครอบครัว">
+                        หารายได้พิเศษเพื่อแบ่งเบาภาระครอบครัว
+                      </label>
+
+                      <label class="interest-option">
+                        <input class="form-check-input me-2 reason-option" type="checkbox" value="หาเงินสมทบทุนค่าใช้จ่ายส่วนตัว / ค่าเทอม / อุปกรณ์การเรียน">
+                        หาเงินสมทบทุนค่าใช้จ่ายส่วนตัว / ค่าเทอม / อุปกรณ์การเรียน
+                      </label>
+
+                      <label class="interest-option">
+                        <input class="form-check-input me-2 reason-option" type="checkbox" value="เก็บออมเงินสำหรับเป้าหมายส่วนตัว (เช่น ท่องเที่ยว, ซื้อของที่อยากได้)">
+                        เก็บออมเงินสำหรับเป้าหมายส่วนตัว (เช่น ท่องเที่ยว, ซื้อของที่อยากได้)
+                      </label>
+
+                      <label class="interest-option">
+                        <input class="form-check-input me-2 reason-option" type="checkbox" value="ใช้เวลาว่างเว้นจากเรียนให้เกิดประโยชน์ เวลาทำงานยืดหยุ่น">
+                        ใช้เวลาว่างเว้นจากเรียนให้เกิดประโยชน์ เวลาทำงานยืดหยุ่น
+                      </label>
+
+                      <label class="interest-option">
+                        <input class="form-check-input me-2 reason-option" type="checkbox" value="ฝึกประสบการณ์การทำงานจริงเพื่อเตรียมความพร้อมก่อนเรียนจบ">
+                        ฝึกประสบการณ์การทำงานจริงเพื่อเตรียมความพร้อมก่อนเรียนจบ
+                      </label>
+
+                      <label class="interest-option">
+                        <input class="form-check-input me-2 reason-option" type="checkbox" value="พัฒนาทักษะตนเองที่ใช้ได้จริง (เช่น การสื่อสาร, การแก้ปัญหาเฉพาะหน้า)">
+                        พัฒนาทักษะตนเองที่ใช้ได้จริง (เช่น การสื่อสาร, การแก้ปัญหาเฉพาะหน้า)
+                      </label>
+
+                      <label class="interest-option">
+                        <input class="form-check-input me-2 reason-option" type="checkbox" value="ต้องการสร้างประวัติการทำงาน (Resume) และประสบการณ์ให้โดดเด่นเพื่อเพิ่มโอกาสตอนเรียนจบ">
+                        ต้องการสร้างประวัติการทำงาน (Resume) และประสบการณ์ให้โดดเด่นเพื่อเพิ่มโอกาสตอนเรียนจบ
+                      </label>
+
+                      <label class="interest-option">
+                        <input class="form-check-input me-2 reason-option" type="checkbox" value="อยากเปิดโลกทัศน์ พบเจอสังคมใหม่ ๆ และหาเพื่อนต่างคณะ">
+                        อยากเปิดโลกทัศน์ พบเจอสังคมใหม่ ๆ และหาเพื่อนต่างคณะ
+                      </label>
+                    </div>
+                    <div class="form-helper">กรุณาเลือกอย่างน้อย 1 รายการ</div>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">
+                      ประเภทงานที่สนใจ <span class="text-danger">*</span>
+                      <span class="text-muted fw-normal">(เลือกได้หลายรายการ)</span>
+                    </label>
+                    <div class="form-helper mb-2" id="interestGroupHint">
+                      ระบบจะแสดงตัวเลือกให้เหมาะสมกับกลุ่มงานที่กำลังสมัคร
+                    </div>
+                    <div class="interest-grid" id="interestTypesGroup"></div>
+                  </div>
+                </div>
+
+                <div class="form-section-title">
+                  <i class="fa-solid fa-paperclip"></i> เอกสารแนบและการยืนยัน
+                </div>
+
+                <div class="row g-3 g-md-4">
+                  <div class="col-12">
+                    <div class="student-photo-upload">
+                      <label class="form-label mb-3">
+                        รูปถ่ายนักศึกษา <span class="text-danger">*</span>
+                        <span class="text-muted fw-normal">(อัปโหลด 1 รูป)</span>
+                      </label>
+
+                      <div class="student-photo-upload-layout">
+                        <div class="student-photo-preview-frame">
+                          <img id="studentPhotoPreview" alt="ตัวอย่างรูปถ่ายนักศึกษา">
+                          <div id="studentPhotoPreviewPlaceholder" class="student-photo-preview-placeholder">
+                            <i class="fa-regular fa-image fa-2x mb-2"></i><br>
+                            ตัวอย่างรูปจะแสดงที่นี่
+                          </div>
+                        </div>
+
+                        <div>
+                          <div class="student-photo-requirement">
+                            กรุณาอัปโหลดรูปถ่ายปัจจุบัน <strong>แต่งกายชุดนักศึกษาตามระเบียบมหาวิทยาลัย</strong>
+                            เห็นใบหน้าชัดเจน ใช้สำหรับประกอบข้อมูลผู้สมัครและการพิจารณาจ้างงาน
+                          </div>
+
+                          <input
+                            type="file"
+                            class="form-control"
+                            id="studentPhoto"
+                            accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                            required
+                          >
+                          <div class="form-helper">
+                            รองรับ JPG/JPEG/PNG จำนวน 1 รูป ขนาดไม่เกิน 2 MB
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">แนบไฟล์ประวัติ / ผลงาน (Resume/Portfolio) <span class="text-muted fw-normal">(ทางเลือก)</span></label>
+                    <input type="file" class="form-control" id="resumeFiles" accept=".pdf,.jpg,.jpeg,application/pdf,image/jpeg" multiple>
+                    <div class="form-helper">แนบได้สูงสุด 5 ไฟล์ รองรับ PDF, JPG/JPEG และไฟล์ละไม่เกิน 5 MB</div>
+                    <ul id="selectedFilesList" class="selected-files-list mb-0"></ul>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="pdpa-box">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="pdpaConsent" required>
+                        <label class="form-check-label" for="pdpaConsent">
+                          <strong>ข้อตกลงการเก็บข้อมูลส่วนบุคคล (PDPA) <span class="text-danger">*</span></strong><br>
+                          <span class="text-muted" style="font-size:13px;">
+                            ข้าพเจ้ายินยอมให้ระบบจัดเก็บและใช้เลขประจำตัวประชาชน ข้อมูลการศึกษา ข้อมูลติดต่อ และข้อมูลที่เกี่ยวข้องกับการสมัคร เเละยินยอมให้ระบบจ้างงานระหว่างเรียน ตรวจสอบข้อมูลผู้สมัครกับหน่วยงานภายนอกในการเชื่อมโยงข้อมูล Linkage Center ระบบสารสนเทศเพื่อการเชื่อมโยงฐานข้อมูลประชาชนและการบริการภาครัฐ เพื่อดำเนินการรับสมัครและบริหารการจ้างงานระหว่างเรียนตามวัตถุประสงค์ของมหาวิทยาลัย
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-center mt-5 pt-4 border-top">
+                  <button type="submit" class="btn btn-primary px-4 px-md-5 py-2 py-md-3 fw-bold" id="submitBtn" style="background-color: #004a99; border:none; font-size: 16px; border-radius: 8px;">
+                    ยืนยันการส่งใบสมัคร
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+  </div>
+
+  <div class="modal fade" id="jobModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 16px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        <div class="modal-header border-0 pb-0 mt-2 px-4">
+          <h4 class="modal-title fw-bold" style="color: var(--ubu-blue-dark);" id="jobModalTitle">รายละเอียดงาน</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4">
+          <div id="jobModalDesc" style="color: #4a5568; line-height: 1.6;"></div>
+        </div>
+        <div class="modal-footer border-0 pt-0 pb-4 px-4 d-flex justify-content-between">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius: 8px; font-weight: 500;">ยกเลิก</button>
+          <button type="button" class="btn btn-primary px-4" id="btnApplyJob" style="background: var(--ubu-blue); border-radius: 8px; border: none; font-weight: 600;">ไปหน้ากรอกใบสมัคร</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="container-fluid px-4 px-xl-5">
+        <div class="row g-4 justify-content-between">
+          
+          <div class="col-12 col-md-6 col-lg-4 text-start">
+            <img src="https://career.ubu.ac.th/assets/site_logo/Meta_UBU.png" alt="UBU Logo" style="height:55px; filter: brightness(0) invert(1);" class="mb-3">
+            <div class="text-muted mt-2" style="font-size: 14px; line-height: 1.8;">
+              <strong class="text-white" style="font-size: 16px;">งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา</strong><br>
+              85 ถ.สถลมาร์ค ต.เมืองศรีไค อ.วารินชำราบ<br>
+              จ.อุบลราชธานี 34190
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-6 col-lg-4 text-start">
+            <div class="fw-bold mb-3 text-white" style="font-size: 16px;">
+              <i class="fa-solid fa-headset text-warning me-2"></i>ติดต่อสอบถาม
+            </div>
+            <div class="text-muted mb-2" style="font-size: 14px;">
+              <i class="fa-solid fa-phone me-2 text-warning"></i> 045-353-000 ต่อ 1210 (จันทร์ - ศุกร์ 8:30 - 16:30 น.)
+            </div>
+            <div class="text-muted mb-2" style="font-size: 14px;">
+              <i class="fa-solid fa-envelope me-2 text-warning"></i> sirikon.s@ubu.ac.th
+            </div>
+            <div class="text-muted" style="font-size: 14px;">
+              <i class="fa-brands fa-facebook me-2 text-warning"></i> กองพัฒนานักศึกษา มหาวิทยาลัยอุบลราชธานี
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-6 col-lg-4 text-start">
+            <div class="fw-bold mb-3 text-white" style="font-size: 16px;">
+              <i class="fa-solid fa-link text-warning me-2"></i>หน่วยงานที่เกี่ยวข้อง
+            </div>
+            <ul class="list-unstyled mb-0" style="font-size: 14px; line-height: 2.2;">
+              <li><a href="https://www.ubu.ac.th" target="_blank" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i>มหาวิทยาลัยอุบลราชธานี</a></li>
+              <li><a href="https://www.ubu.ac.th/web/student" target="_blank" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i>กองพัฒนานักศึกษา มหาวิทยาลัยอุบลราชธานี</a></li>
+              <li><a href="https://reg.ubu.ac.th" target="_blank" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i>ระบบจ้างงานระหว่างเรียน (บันทึกการปฏิบัติงาน)</a></li>
+              <li><a href="#" class="footer-link"><i class="fa-solid fa-angle-right me-2" style="font-size: 12px; color: var(--ubu-gold);"></i>ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียนออนไลน์</a></li>
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container-fluid px-4 px-xl-5 text-start d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div>© 2026 งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา. All Rights Reserved.</div>
+        <div class="mt-2 mt-md-0">ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียน ปีงบประมาณ 2570 Version 1.0</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./config.js"></script>
+  <script src="./gas-bridge.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // โหลดรายการงานและรายละเอียดจากชีต Jobs
+    const categoryConfig = {
+      dev: { title: 'กลุ่มงานพัฒนานักศึกษา' },
+      welfare: { title: 'กลุ่มงานสวัสดิการนักศึกษา' },
+      alumni: { title: 'กลุ่มงานศิษย์เก่าสัมพันธ์' },
+      office: { title: 'หน่วยงานในสำนักงานมหาวิทยาลัย' }
+    };
+
+    let jobsData = [];
+    let jobsLoaded = false;
+    let jobsLoading = false;
+    let jobsLoadWaiters = [];
+
+    let selectedJobForApplication = null;
+    let currentApplicantType = '';
+
+    const facultyPrograms = {
+      "คณะวิทยาศาสตร์": [
+            "อาชีวอนามัยและความปลอดภัย วท.บ.สาขาวิชาอาชีวอนามัยและความปลอดภัย",
+            "คณิตศาสตร์ วท.บ.สาขาวิชาคณิตศาสตร์ประยุกต์",
+            "เคมี วท.บ.สาขาวิชาเคมี",
+            "จุลชีววิทยา วท.บ.สาขาวิชาชีววิทยา",
+            "ชีววิทยา วท.บ.สาขาวิชาจุลชีววิทยา",
+            "ฟิสิกส์ วท.บ.สาขาวิชาฟิสิกส์ชีวการแพทย์",
+            "วิทยาศาสตร์สิ่งแวดล้อม วท.บ.สาขาวิชาวิทยาศาสตร์สิ่งแวดล้อม",
+            "เทคโนโลยีพอลิเมอร์ วท.บ.สาขาวิชาเทคโนโลยีและการออกแบบผลิตภัณฑ์ยางและพอลิเมอร์",
+            "นวัตกรรมเทคโนโลยีวัสดุ วท.บ.สาขาวิชานวัตกรรมเทคโนโลยีวัสดุ",
+            "เทคโนโลยีสารสนเทศ วท.บ.สาขาวิชาเทคโนโลยีสารสนเทศและการสื่อสาร (วิชาเอกเทคโนโลยีดิจิทัลและเกม (Digital and Game Technology), วิชาเอกเทคโนโลยีเครือข่ายและความมั่นคงปลอดภัยไซเบอร์ (Network Technology and Cyber Security))",
+            "วิทยาการ วิทยาศาสตร์ข้อมูล วท.บ.สาขาวิชาวิทยาการข้อมูลและนวัตกรรมซอฟต์แวร์ (วิชาเอกวิทยาการข้อมูล (Data Sciences), วิชาเอกนวัตกรรมซอฟต์แวร์ (Software Innovations))"
+      ],
+      "คณะเกษตรศาสตร์": [
+            "เทคโนโลยีการอาหาร วท.บ.สาขาวิชาเทคโนโลยีการอาหาร",
+            "เกษตรศาสตร์ วท.บ.สาขาวิชาเกษตรศาสตร์ (วิชาเอกพืชไร่, วิชาเอกพืชสวน, วิชาเอกสัตวศาสตร์, วิชาอกประมง",
+            "เกษตรศาสตร์ วท.บ.สาขาเกษตรวิศว์อัจฉริยะ"
+      ],
+      "คณะวิศวกรรมศาสตร์": [
+            "วิศวกรรมทั่วไป วศ.บ.วิศวกรรมทั่วไป [ประกอบด้วย สาขาวิชาวิศวกรรมเครื่องกล, สาขาวิชาวิศวกรรม อุตสาหการ,สาขาวิชาวิศวกรรมโยธา, สาขาวิชาวิศวกรรมไฟฟ้า, สาขาวิชาวิศวกรรมเคมีและสาขาวิชาวิศวกรรมสิ่งแวดล้อม (เลือกสาขาวิชาเมื่อขึ้นชั้นปีที่ 2)]",
+            "วิศวกรรมเครื่องกล วศ.บ.สาขาวิชาวิศวกรรมเครื่องกล",
+            "วิศวกรรม วศ.บ.สาขาวิชาวิศวกรรม",
+            "วิศวกรรมอุตสาหการ วศ.บ.อุตสาหการ",
+            "วิศวกรรมโยธา วศ.บ.สาขาวิชาวิศวกรรมโยธา",
+            "วิศวกรรมไฟฟ้า วศ.บ.สาขาวิชาวิศวกรรมไฟฟ้า",
+            "วิศวกรรมเคมี วศ.บ.สาขาวิชาวิศวกรรมเคมี",
+            "วิศวกรรมสิ่งแวดล้อม วศ.บ.สาขาวิชาวิศวกรรมเคมีและสาขาวิชาวิศวกรรมสิ่งแวดล้อม",
+            "วิศวกรรมเมคคาทรอนิกส์ วศ.บ.สาขาวิชาวิศวกรรมเมคคาทรอนิกส์และระบบอัตโนมัติ",
+            "วิศวกรรมปัญญาประดิษฐ์ วศ.บ.สาขาวิชาวิศวกรรมปัญญาประดิษฐ์และการสั่งการ"
+      ],
+      "คณะศิลปศาสตร์": [
+            "การท่องเที่ยวและการโรงแรม ศศ.บ.สาขาวิชาการท่องเที่ยวและการบริการ",
+            "นิเทศศาสตร์ นศ.บ.สาขาวิชานิเทศศาสตร์",
+            "ประวัติศาสตร์ ศศ.บ.สาขาประวัติศาสตร์",
+            "จีน ศศ.บ.สาขาวิชาภาษาจีนและการสื่อสาร",
+            "ญี่ปุ่น ศศ.บ.สาขาวิชาภาษาญี่ปุ่นและการสื่อสาร",
+            "ไทย ศ.บ.สาขาวิชาภาษาไทยและการสื่อสาร",
+            "อังกฤษ ศศ.บ.สาขาวิชาภาษาอังกฤษและการสื่อสาร",
+            "อังกฤษ ศศ.บ.สาขาวิชาภาษาอังกฤษเพื่อธุรกิจในยุคดิจิทัล (หลักสูตรภาษาอังกฤษ) (ภาษาต่างประเทศ)",
+            "การพัฒนาชุมชน ศศ.บ.สาขาวิชาการพัฒนาสังคม"
+      ],
+      "คณะเภสัชศาสตร์": [
+            "เภสัชกรรมอุตสาหการ ภ.บ.วิชาเอกเภสัชกรรมอุตสาหการ",
+            "การบริบาลทางเภสัชกรรม ภ.บ.วิชาเอกการบริบาลทางเภสัชกรรม"
+      ],
+      "คณะบริหารศาสตร์": [
+            "การเงิน บธ.บ.วิชาเอกการเงินและการลงทุน",
+            "การจัดการ บธ.บ.วิชาเอกธุรกิจระหว่างประเทศ (ภาคภาษาอังกฤษ) (ภาษาต่างประเทศ)",
+            "การจัดการ บธ.บ.วิชาเอกการจัดการธุรกิจ",
+            "การจัดการ บธ.บ.สาขาวิชาการจัดการโลจิสติกส์และโซ่อุปทาน",
+            "การบัญชี บช.บ.",
+            "การตลาด บธ.บ.วิชาเอกการตลาด (กลุ่มการตลาดดิจิทัล)",
+            "การตลาด บธ.บ.วิชาเอกการตลาด (กลุ่มการค้าสมัยใหม่ )",
+            "การท่องเที่ยวและการโรงแรม บธ.บ.วิชาเอกการจัดการโรงแรมและการบริการ"
+      ],
+      "วิทยาลัยแพทยศาสตร์และการสาธารณสุข": [
+            "แพทยศาสตร์ พ.บ.",
+            "อนามัยสิ่งแวดล้อม วท.บ.สาขาวิชาอนามัยสิ่งแวดล้อม",
+            "สาธารณสุข ส.บ.สาขาสาธารณสุขศาสตร์"
+      ],
+      "คณะศิลปประยุกต์และสถาปัตยกรรมศาสตร์": [
+            "สถาปัตยกรรม สถ.บ.สาขาวิชาสถาปัตยกรรมศาสตร์",
+            "การออกแบบ ศป.บ.สาขาวิชาดิจิทัลอาร์ตและการออกแบบ"
+      ],
+      "คณะนิติศาสตร์": [
+            "นิติศาสตร์ น.บ."
+      ],
+      "คณะรัฐศาสตร์": [
+            "การปกครอง ร.บ.สาขาวิชารัฐศาสตร์ (วิชาเอกการปกครอง, วิชาเอกความสัมพันธ์ระหว่างประเทศ)",
+            "รัฐประศาสนศาสตร์ รป.บ.สาขาวิชารัฐประศาสนศาสตร์ (วิชาเอกการบริหารรัฐกิจ, วิชาเอกนวัตกรรมการบริหารท้องถิ่น)"
+      ],
+      "คณะพยาบาลศาสตร์": [
+            "พยาบาลศาสตร์ พย.บ."
+      ],
+      "คณะศึกษาศาสตร์": [
+            "คณิตศาสตร์ ศษ.บ.วิชาเอกคณิตศาสตร์",
+            "ภาษาไทยและภาษาต่างประเทศ ศษ.บ.วิชาเอกภาษาไทย",
+            "ภาษาไทยและภาษาต่างประเทศ ศษ.บ.วิชาเอกภาษาอังกฤษ",
+            "ศิลปศึกษา ดนตรีศึกษาและนาฏศิลป์ศึกษา ศษ.บ.วิชาเอกดนตรีศึกษา",
+            "สังคมศึกษา ศษ.บ.วิชาเอกสังคมศึกษา",
+            "สุขศึกษา พลศึกษา และนันทนาการ ศษ.บ.วิชาเอกพลศึกษา",
+            "วิทยาศาสตร์ทั่วไป ศษ.บ.วิชาเอกวิทยาศาสตร์ทั่วไป"
+      ]
+};
+
+    const applicantTypeLabels = {
+      returning2569: 'นักศึกษาเก่าจ้างงานจากปี 2569',
+      new: 'นักศึกษาใหม่ยังไม่เคยสมัครจ้างงาน'
+    };
+
+    const interestOptionsByDepartment = {
+      'กลุ่มงานพัฒนานักศึกษา': [
+        'งานกิจกรรมและพัฒนานักศึกษา',
+        'งานกีฬาและนันทนาการ',
+        'งานจัดสถานที่และดูแลอุปกรณ์',
+        'งานพิธีกร / ดำเนินกิจกรรม',
+        'งานประชาสัมพันธ์และสื่อกิจกรรม',
+        'งานเอกสารและประสานงาน'
+      ],
+
+      'กลุ่มงานสวัสดิการนักศึกษา': [
+        'งานเอกสารและตรวจสอบข้อมูล',
+        'งานบริการและให้ข้อมูลนักศึกษา',
+        'งานประสานงาน',
+        'งานระบบข้อมูล / คอมพิวเตอร์',
+        'งานประชาสัมพันธ์',
+        'งานสนับสนุนกิจกรรมและโครงการ'
+      ],
+
+      'กลุ่มงานศิษย์เก่าสัมพันธ์': [
+        'งานฐานข้อมูลและข้อมูลศิษย์เก่า',
+        'งานประสานงานศิษย์เก่า',
+        'งานประชาสัมพันธ์ / Social Media',
+        'งานกราฟิก / ครีเอทีฟ',
+        'งานกิจกรรมและอีเวนต์',
+        'งานเอกสารและธุรการ'
+      ],
+
+      'หน่วยงานในสำนักงานมหาวิทยาลัย': [
+        'งานเอกสารและธุรการ',
+        'งานบริการและประสานงาน',
+        'งานข้อมูล / สถิติ / บันทึกข้อมูล',
+        'งานไอที / ระบบคอมพิวเตอร์',
+        'งานสื่อ / กราฟิก / ประชาสัมพันธ์',
+        'งานจัดกิจกรรมและสถานที่'
+      ]
+    };
+
+    const defaultInterestOptions = [
+      'งานเอกสารและธุรการ',
+      'งานบริการและประสานงาน',
+      'งานข้อมูล / บันทึกข้อมูล',
+      'งานไอที / ระบบคอมพิวเตอร์',
+      'งานประชาสัมพันธ์และสื่อ',
+      'งานกิจกรรมและจัดสถานที่'
+    ];
+
+    function getInterestOptionsForJob(job) {
+      if (!job || typeof job !== 'object') return defaultInterestOptions;
+      const department = String(job.department || '').trim();
+      return interestOptionsByDepartment[department] || defaultInterestOptions;
+    }
+
+    function renderInterestOptionsForJob(job) {
+      const container = document.getElementById('interestTypesGroup');
+      const hint = document.getElementById('interestGroupHint');
+      if (!container) return;
+
+      const department = String((job && job.department) || '').trim();
+      const options = getInterestOptionsForJob(job);
+
+      container.innerHTML = '';
+
+      options.forEach(item => {
+        const label = document.createElement('label');
+        label.className = 'interest-option';
+
+        const input = document.createElement('input');
+        input.className = 'form-check-input me-2 interest-type';
+        input.type = 'checkbox';
+        input.value = item;
+
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(item));
+        container.appendChild(label);
+      });
+
+      if (hint) {
+        hint.innerHTML = department
+          ? `ตัวเลือกที่แนะนำสำหรับ <strong>${escapeHtml(department)}</strong>`
+          : 'ระบบแสดงประเภทงานที่เหมาะสมกับตำแหน่งที่สมัคร';
+      }
+    }
+
+    function loadJobsFromSheet(onReady, showError = false) {
+      if (typeof onReady === 'function') jobsLoadWaiters.push(onReady);
+      if (jobsLoaded) {
+        const waiters = jobsLoadWaiters.splice(0);
+        waiters.forEach(fn => fn());
+        return;
+      }
+      if (jobsLoading) return;
+      jobsLoading = true;
+
+      google.script.run
+        .withSuccessHandler((rows) => {
+          jobsData = Array.isArray(rows) ? rows : [];
+          jobsLoaded = true;
+          jobsLoading = false;
+          const waiters = jobsLoadWaiters.splice(0);
+          waiters.forEach(fn => fn());
+        })
+        .withFailureHandler((error) => {
+          jobsLoading = false;
+          jobsLoadWaiters = [];
+          console.error('โหลดรายการงานไม่สำเร็จ', error);
+          if (showError) {
+            Swal.fire({
+              icon: 'error',
+              title: 'ไม่สามารถโหลดรายการงานได้',
+              text: error && error.message ? error.message : 'กรุณาลองใหม่อีกครั้ง',
+              confirmButtonColor: '#004a99'
+            });
+          }
+        })
+        .getJobs();
+    }
+
+    function getJobsForCategory(key) {
+      const config = categoryConfig[key];
+      if (!config) return [];
+      return jobsData
+        .filter(job => {
+          if (!job || job.active === false) return false;
+          const department = String(job.department || '').trim();
+          return department === config.title || department.toLowerCase() === key.toLowerCase();
+        })
+        .sort((a, b) => {
+          const orderA = Number(a.sortOrder || 0);
+          const orderB = Number(b.sortOrder || 0);
+          if (orderA !== orderB) return orderA - orderB;
+          return String(a.name || '').localeCompare(String(b.name || ''), 'th');
+        });
+    }
+
+
+    // ฟังก์ชันเสริมสำหรับซ่อนเมนูในมือถือเวลากดเลือกแล้ว
+    function closeMobileMenu() {
+      const navbarCollapse = document.getElementById('topNavbar');
+      if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse);
+        bsCollapse.hide();
+      }
+    }
+
+    function hideAllSections() {
+      document.getElementById('landing-content').style.display = 'none';
+      document.querySelectorAll('.content-section').forEach(sec => sec.style.display = 'none');
+    }
+
+    function showLandingPage() {
+      closeMobileMenu();
+      hideAllSections();
+      document.getElementById('landing-content').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showSection(sectionId) {
+      closeMobileMenu();
+      hideAllSections();
+      const target = document.getElementById(sectionId);
+      target.style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showStatusSection() {
+      showSection('status-section');
+      document.getElementById('statusStepper').style.display = 'none';
+      document.getElementById('applicationDetailCard').style.display = 'none';
+      resetApplicationProfileImage();
+      document.getElementById('applicationDetailGrid').innerHTML = '';
+      document.getElementById('searchInput').value = '';
+      const verifyId = document.getElementById('statusIdCardInput');
+      if (verifyId) verifyId.value = '';
+    }
+
+    // ฟังก์ชันใหม่ สำหรับแสดงหน้าระเบียบการรับสมัคร
+    function showRulesSection() {
+      showSection('rules-section');
+    }
+
+    // ฟังก์ชันใหม่ สำหรับแสดงหน้าคู่มือการสมัคร
+    function showManualSection() {
+      showSection('manual-section');
+    }
+
+    function searchStatus() {
+      const studentEl = document.getElementById('searchInput');
+      const idCardEl = document.getElementById('statusIdCardInput');
+
+      const studentId = String(studentEl.value || '').replace(/\D/g, '').slice(0, 11);
+      const idCard = String(idCardEl.value || '').replace(/\D/g, '').slice(0, 13);
+
+      studentEl.value = studentId;
+      idCardEl.value = idCard;
+
+      if (!/^\d{11}$/.test(studentId) || !isValidThaiId(idCard)) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'ข้อมูลยืนยันไม่ถูกต้อง',
+          text: 'กรุณากรอกรหัสนักศึกษา 11 หลักและเลขประจำตัวประชาชน 13 หลักให้ถูกต้อง',
+          confirmButtonColor: '#004a99'
+        });
+        return;
+      }
+
+      Swal.fire({
+        title: 'กำลังตรวจสอบข้อมูล',
+        text: 'กรุณารอสักครู่',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+      });
+
+      google.script.run
+        .withSuccessHandler((result) => {
+          Swal.close();
+
+          if (!result || !result.found) {
+            document.getElementById('statusStepper').style.display = 'none';
+            document.getElementById('applicationDetailCard').style.display = 'none';
+            resetApplicationProfileImage();
+
+            Swal.fire({
+              icon: 'info',
+              title: 'ไม่พบข้อมูลการสมัคร',
+              text: result && result.message
+                ? result.message
+                : 'ข้อมูลรหัสนักศึกษาและเลขประจำตัวประชาชนไม่ตรงกับใบสมัคร',
+              confirmButtonColor: '#004a99'
+            });
+            return;
+          }
+
+          idCardEl.value = '';
+          renderApplicationStatus(result);
+        })
+        .withFailureHandler((error) => {
+          document.getElementById('statusStepper').style.display = 'none';
+          document.getElementById('applicationDetailCard').style.display = 'none';
+          resetApplicationProfileImage();
+
+          Swal.fire({
+            icon: 'error',
+            title: 'ไม่สามารถตรวจสอบสถานะได้',
+            text: error && error.message
+              ? error.message
+              : 'เกิดข้อผิดพลาดในการเชื่อมต่อระบบ',
+            confirmButtonColor: '#004a99'
+          });
+        })
+        .getApplicationStatus(studentId, idCard);
+    }
+
+    function renderApplicationStatus(result) {
+      const stepper = document.getElementById('statusStepper');
+      const steps = [...stepper.querySelectorAll('.step-item')];
+      const status = String(result.status || 'รอตรวจสอบ').trim();
+      const normalized = status.toLowerCase();
+
+      steps.forEach((step, index) => {
+        step.classList.remove('completed', 'active');
+        const counter = step.querySelector('.step-counter');
+        counter.innerHTML = String(index + 1);
+      });
+
+      steps[0].classList.add('completed');
+      steps[0].querySelector('.step-counter').innerHTML = '<i class="fa-solid fa-check"></i>';
+
+      let activeIndex = 1;
+      let messageIcon = 'fa-hourglass-half';
+      let bg = '#f0f5fa';
+      let color = '#004a99';
+      let border = '#cce0ff';
+
+      if (normalized.includes('ไม่ผ่าน') || normalized.includes('ปฏิเสธ') || normalized.includes('ยกเลิก')) {
+        if (normalized.includes('คัดเลือก')) {
+          steps[1].classList.add('completed');
+          steps[1].querySelector('.step-counter').innerHTML = '<i class="fa-solid fa-check"></i>';
+          steps[2].classList.add('completed');
+          steps[2].querySelector('.step-counter').innerHTML = '<i class="fa-solid fa-check"></i>';
+          steps[3].classList.add('active');
+          steps[3].querySelector('.step-counter').innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        } else {
+          steps[1].classList.add('active');
+          steps[1].querySelector('.step-counter').innerHTML = '<i class="fa-solid fa-xmark"></i>';
+        }
+        activeIndex = -1;
+        messageIcon = 'fa-circle-xmark';
+        bg = '#fff5f5'; color = '#b02a37'; border = '#f1aeb5';
+      } else if (normalized.includes('ผ่านการคัดเลือก') || normalized === 'อนุมัติ') {
+        steps.forEach(step => {
+          step.classList.add('completed');
+          step.querySelector('.step-counter').innerHTML = '<i class="fa-solid fa-check"></i>';
+        });
+        activeIndex = -1;
+        messageIcon = 'fa-circle-check';
+        bg = '#ecfdf3'; color = '#146c43'; border = '#a3cfbb';
+      } else if (normalized.includes('รอพิจารณา')) {
+        steps[1].classList.add('completed');
+        steps[1].querySelector('.step-counter').innerHTML = '<i class="fa-solid fa-check"></i>';
+        activeIndex = 2;
+      } else if (normalized.includes('ผ่านคุณสมบัติ')) {
+        steps[1].classList.add('completed');
+        steps[1].querySelector('.step-counter').innerHTML = '<i class="fa-solid fa-check"></i>';
+        activeIndex = 2;
+        messageIcon = 'fa-circle-check';
+        bg = '#ecfdf3'; color = '#146c43'; border = '#a3cfbb';
+      } else {
+        activeIndex = 1;
+      }
+
+      if (activeIndex >= 0) steps[activeIndex].classList.add('active');
+
+      const statusMessage = document.getElementById('statusMessage');
+      statusMessage.style.backgroundColor = bg;
+      statusMessage.style.color = color;
+      statusMessage.style.borderColor = border;
+      statusMessage.innerHTML = `
+        <div><i class="fa-solid ${messageIcon} me-1"></i> สถานะปัจจุบัน: <strong>${escapeHtml(status)}</strong></div>
+        <div class="mt-2" style="font-size:13px; font-weight:400;">
+          ${escapeHtml(result.fullName || '')} · ${escapeHtml(result.job || '')}
+          ${result.submittedAt ? ' · สมัครเมื่อ ' + escapeHtml(result.submittedAt) : ''}
+        </div>
+      `;
+
+      renderApplicationDetails(result);
+      stepper.style.display = 'block';
+    }
+
+    function renderAttachmentLinks(files, fallbackSummary) {
+      const items = Array.isArray(files) ? files : [];
+
+      if (!items.length) {
+        return escapeHtml(fallbackSummary || 'ไม่ได้แนบไฟล์');
+      }
+
+      const links = items.map((file, index) => {
+        const rawUrl = String((file && file.url) || '').trim();
+        let safeUrl = '';
+
+        try {
+          const parsed = new URL(rawUrl);
+          if (
+            parsed.protocol === 'https:' &&
+            (parsed.hostname === 'drive.google.com' ||
+             parsed.hostname.endsWith('.google.com') ||
+             parsed.hostname.endsWith('.googleusercontent.com'))
+          ) {
+            safeUrl = parsed.href;
+          }
+        } catch (_) {}
+
+        if (!safeUrl) return '';
+
+        const label = `ไฟล์แนบ ${index + 1}`;
+
+        return `
+          <a
+            class="attachment-link"
+            href="${escapeHtml(safeUrl)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="เปิดไฟล์แนบ ${index + 1}"
+          >
+            <i class="fa-solid fa-paperclip"></i>
+            ${escapeHtml(label)}
+          </a>
+        `;
+      }).filter(Boolean);
+
+      if (!links.length) {
+        return escapeHtml(fallbackSummary || 'ไม่พบลิงก์ไฟล์แนบ');
+      }
+
+      return `<div class="attachment-links">${links.join('')}</div>`;
+    }
+
+    function renderApplicationDetails(result) {
+      const card = document.getElementById('applicationDetailCard');
+      const grid = document.getElementById('applicationDetailGrid');
+
+      const items = [
+        ['เลขที่ใบสมัคร', result.applicationId ? `<span class="application-id-badge">${escapeHtml(result.applicationId)}</span>` : '-'],
+        ['วันที่สมัคร', escapeHtml(result.submittedAt || '-')],
+        ['ตำแหน่งงานที่สมัคร', escapeHtml(result.job || '-')],
+        ['ประเภทผู้สมัคร', escapeHtml(result.applicantTypeLabel || result.applicantType || '-')],
+        ['ชื่อ-นามสกุล', escapeHtml(result.fullName || '-')],
+        ['เลขประจำตัวประชาชน', escapeHtml(result.idCard || '-')],
+        ['รหัสนักศึกษา', escapeHtml(result.studentId || '-')],
+        ['คณะ', escapeHtml(result.faculty || '-')],
+        ['สาขาวิชา', escapeHtml(result.major || '-')],
+        ['ชั้นปี', escapeHtml(result.year || '-')],
+        ['GPAX', escapeHtml(result.gpax || '-')],
+        ['เบอร์โทรศัพท์', escapeHtml(result.phone || '-')],
+        ['อีเมล', escapeHtml(result.email || '-')],
+        ['Line ID', escapeHtml(result.lineId || '-')],
+        ['ภาษาอังกฤษ', escapeHtml(result.englishLevel || '-')],
+        ['ภาษาไทย', escapeHtml(result.thaiLevel || '-')],
+        ['Microsoft Word', escapeHtml(result.wordLevel || '-')],
+        ['Microsoft Excel', escapeHtml(result.excelLevel || '-')],
+        ['Microsoft PowerPoint', escapeHtml(result.powerPointLevel || '-')],
+        ['Microsoft Access', escapeHtml(result.accessLevel || '-')],
+        ['ประเภทงานที่สนใจ', escapeHtml(result.interestTypes || '-')],
+        ['ไฟล์แนบ', escapeHtml(result.attachmentSummary || 'ไม่แสดงเพื่อความปลอดภัย')],
+        ...(result.qualificationVisible
+          ? [[
+              'ผลตรวจสอบคุณสมบัติ',
+              result.qualificationResult === 'pass'
+                ? '<span class="badge text-bg-success">ผ่านคุณสมบัติ</span>'
+                : result.qualificationResult === 'fail'
+                  ? '<span class="badge text-bg-danger">ไม่ผ่านคุณสมบัติ</span>'
+                  : '<span class="badge text-bg-secondary">รอตรวจสอบ</span>'
+            ]]
+          : []),
+        ...(result.qualificationVisible && result.qualificationResult === 'fail' && result.qualificationReason
+          ? [['สาเหตุที่ไม่ผ่าน', escapeHtml(result.qualificationReason), true]]
+          : []),
+        ['ทักษะความสามารถพิเศษ / ประสบการณ์', escapeHtml(result.skills || '-'), true],
+        ['เหตุผลที่สนใจสมัครงานนี้', escapeHtml(result.reason || '-').replace(/\n/g, '<br>'), true]
+      ];
+
+      grid.innerHTML = items.map(([label, value, full]) => `
+        <div class="application-detail-item${full ? ' full' : ''}">
+          <div class="application-detail-label">${escapeHtml(label)}</div>
+          <div class="application-detail-value">${value}</div>
+        </div>
+      `).join('');
+
+      const profileImage = document.getElementById('applicationProfileImage');
+      const profilePlaceholder = document.getElementById('applicationProfilePlaceholder');
+
+      if (result.profileImageData) {
+        profileImage.src = result.profileImageData;
+        profileImage.style.display = 'block';
+        profilePlaceholder.style.display = 'none';
+      } else {
+        profileImage.removeAttribute('src');
+        profileImage.style.display = 'none';
+        profilePlaceholder.style.display = 'block';
+      }
+
+      card.style.display = 'block';
+    }
+
+    function resetApplicationProfileImage() {
+      const profileImage = document.getElementById('applicationProfileImage');
+      const profilePlaceholder = document.getElementById('applicationProfilePlaceholder');
+
+      if (profileImage) {
+        profileImage.removeAttribute('src');
+        profileImage.style.display = 'none';
+      }
+
+      if (profilePlaceholder) profilePlaceholder.style.display = 'block';
+    }
+
+    function maskThaiId(value) {
+      const id = String(value || '').replace(/\D/g, '');
+      if (id.length !== 13) return id || '-';
+      return `${id.slice(0, 1)}-XXXX-XXXXX-${id.slice(-3)}`;
+    }
+
+
+    document.getElementById('searchInput').addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        searchStatus();
+      }
+    });
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    let currentCategoryKey = null;
+    let currentGroup = null;
+
+    function createJobButton(jobTitle, onClick) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'list-group-item w-100 text-start d-flex align-items-center';
+      btn.innerHTML = `
+        <div class="icon-box-list"><i class="fa-solid fa-briefcase"></i></div>
+        <span class="fw-bold flex-grow-1" style="color: #333; font-size: 15px;">${escapeHtml(jobTitle)}</span>
+        <i class="fa-solid fa-chevron-right text-primary"></i>
+      `;
+      btn.onclick = onClick;
+      return btn;
+    }
+
+    function setSubCategoryBack(mode) {
+      const text = document.getElementById('subCategoryBackText');
+      if (!text) return;
+      text.innerText = mode === 'group'
+        ? 'ย้อนกลับไปเลือกงานหลัก'
+        : 'ย้อนกลับไปเลือกกลุ่มงานหลัก';
+    }
+
+    function handleSubCategoryBack() {
+      if (currentCategoryKey && currentGroup) {
+        showSubCategories(currentCategoryKey);
+        return;
+      }
+      showLandingPage();
+    }
+
+    function showSubCategories(key) {
+      const config = categoryConfig[key];
+      if (!config) return;
+
+      currentCategoryKey = key;
+      currentGroup = null;
+      document.getElementById('subCategoryTitle').innerText = config.title;
+      setSubCategoryBack('category');
+
+      const listContainer = document.getElementById('subJobList');
+      listContainer.innerHTML = `
+        <div class="text-center text-muted py-4">
+          <i class="fa-solid fa-spinner fa-spin me-2"></i>กำลังโหลดรายการงาน...
+        </div>
+      `;
+      showSection('sub-categories-section');
+
+      loadJobsFromSheet(() => {
+        if (currentCategoryKey === key) renderCategoryJobs(key);
+      }, true);
+    }
+
+    function renderCategoryJobs(key) {
+      const rows = getJobsForCategory(key);
+      const listContainer = document.getElementById('subJobList');
+      listContainer.innerHTML = '';
+
+      if (!rows.length) {
+        listContainer.innerHTML = `
+          <div class="text-center text-muted py-4">
+            <i class="fa-regular fa-folder-open me-2"></i>ยังไม่มีตำแหน่งงานที่เปิดรับสมัคร
+          </div>
+        `;
+        return;
+      }
+
+      const groups = new Map();
+      const directJobs = [];
+
+      rows.forEach(job => {
+        const parent = String(job.category || '').trim();
+        if (parent) {
+          if (!groups.has(parent)) groups.set(parent, []);
+          groups.get(parent).push(job);
+        } else {
+          directJobs.push(job);
+        }
+      });
+
+      groups.forEach((childJobs, groupTitle) => {
+        listContainer.appendChild(
+          createJobButton(groupTitle, () => showJobGroup(key, groupTitle, childJobs))
+        );
+      });
+
+      directJobs.forEach(job => {
+        listContainer.appendChild(
+          createJobButton(job.name, () => showJobDetails(job))
+        );
+      });
+    }
+
+    function showJobGroup(categoryKey, groupTitle, childJobs) {
+      currentCategoryKey = categoryKey;
+      currentGroup = groupTitle;
+      document.getElementById('subCategoryTitle').innerText = groupTitle;
+      setSubCategoryBack('group');
+
+      const listContainer = document.getElementById('subJobList');
+      listContainer.innerHTML = '';
+
+      childJobs
+        .slice()
+        .sort((a, b) => Number(a.sortOrder || 0) - Number(b.sortOrder || 0))
+        .forEach(job => {
+          listContainer.appendChild(
+            createJobButton(job.name, () => showJobDetails(job))
+          );
+        });
+
+      showSection('sub-categories-section');
+    }
+
+    function formatJobText(value) {
+      const text = String(value || '').trim();
+      return text ? escapeHtml(text).replace(/\n/g, '<br>') : '<span class="text-muted">ไม่ระบุ</span>';
+    }
+
+    function showJobDetails(job) {
+      if (!job || typeof job !== 'object') return;
+
+      const jobName = String(job.name || '').trim();
+      document.getElementById('jobModalTitle').innerText = jobName;
+      document.getElementById('jobModalDesc').innerHTML = `
+        <div class="mb-3">
+          <div class="fw-bold mb-1"><i class="fa-solid fa-list-check text-primary me-2"></i>ลักษณะงานเบื้องต้น</div>
+          <div class="ms-4 text-muted">${formatJobText(job.description)}</div>
+        </div>
+        <div class="mb-3">
+          <div class="fw-bold mb-1"><i class="fa-solid fa-clock text-warning me-2"></i>เวลาปฏิบัติงาน</div>
+          <div class="ms-4 text-muted">${formatJobText(job.workTime)}</div>
+        </div>
+        <div class="mb-3">
+          <div class="fw-bold mb-1"><i class="fa-solid fa-sack-dollar text-success me-2"></i>อัตราค่าตอบแทน</div>
+          <div class="ms-4 text-muted">${formatJobText(job.compensation)}</div>
+        </div>
+      `;
+
+      document.getElementById('btnApplyJob').onclick = function() {
+        const myModalEl = document.getElementById('jobModal');
+        const modal = bootstrap.Modal.getInstance(myModalEl);
+        if (modal) modal.hide();
+        setTimeout(() => showForm(job), 300);
+      };
+
+      const jobModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('jobModal'));
+      jobModal.show();
+    }
+
+
+    function showForm(job) {
+      const jobName = typeof job === 'object' ? String(job.name || '') : String(job || '');
+      selectedJobForApplication = job;
+      document.getElementById('displaySelectedJob').innerText = jobName;
+      resetApplicationFlow(jobName);
+      renderInterestOptionsForJob(job);
+      showSection('apply-section');
+    }
+
+    function resetApplicationFlow(jobName) {
+      const form = document.getElementById('applicationForm');
+      if (form) form.reset();
+
+      currentApplicantType = '';
+      document.getElementById('applicantType').value = '';
+      document.getElementById('applicantTypeStep').style.display = 'block';
+      document.getElementById('applicationFormStep').style.display = 'none';
+      document.getElementById('legacyLookupBox').style.display = 'none';
+      document.getElementById('legacyIdCard').value = '';
+      document.getElementById('applicantTypeBadge').innerText = '';
+      document.getElementById('idCard').readOnly = false;
+      document.getElementById('major').innerHTML = '<option value="">กรุณาเลือกคณะก่อน...</option>';
+      document.getElementById('major').disabled = true;
+      document.querySelectorAll('.interest-type').forEach(el => el.checked = false);
+      document.querySelectorAll('.reason-option').forEach(el => el.checked = false);
+      document.getElementById('selectedFilesList').innerHTML = '';
+      document.getElementById('jobSelected').value = jobName || '';
+    }
+
+    function chooseApplicantType(type) {
+      if (!applicantTypeLabels[type]) return;
+
+      currentApplicantType = type;
+      document.getElementById('applicantType').value = type;
+
+      if (type === 'returning2569') {
+        document.getElementById('legacyLookupBox').style.display = 'block';
+        setTimeout(() => document.getElementById('legacyIdCard').focus(), 100);
+        return;
+      }
+
+      openApplicationForm('new');
+    }
+
+    function openApplicationForm(type) {
+      currentApplicantType = type;
+      document.getElementById('applicantType').value = type;
+      document.getElementById('applicantTypeStep').style.display = 'none';
+      document.getElementById('applicationFormStep').style.display = 'block';
+      document.getElementById('applicantTypeBadge').innerText = applicantTypeLabels[type] || '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backToApplicantType() {
+      const jobName = document.getElementById('jobSelected').value;
+      document.getElementById('applicationForm').reset();
+      document.querySelectorAll('.interest-type').forEach(el => el.checked = false);
+      document.querySelectorAll('.reason-option').forEach(el => el.checked = false);
+      document.getElementById('selectedFilesList').innerHTML = '';
+      document.getElementById('idCard').readOnly = false;
+      document.getElementById('jobSelected').value = jobName;
+      currentApplicantType = '';
+      document.getElementById('applicantType').value = '';
+      document.getElementById('applicationFormStep').style.display = 'none';
+      document.getElementById('applicantTypeStep').style.display = 'block';
+      document.getElementById('legacyLookupBox').style.display = 'none';
+      document.getElementById('legacyIdCard').value = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function isValidThaiId(id) {
+      const value = String(id || '').replace(/\D/g, '');
+      if (!/^\d{13}$/.test(value)) return false;
+
+      let sum = 0;
+      for (let i = 0; i < 12; i++) {
+        sum += Number(value.charAt(i)) * (13 - i);
+      }
+      const checkDigit = (11 - (sum % 11)) % 10;
+      return checkDigit === Number(value.charAt(12));
+    }
+
+    function lookupLegacyApplicant() {
+      const input = document.getElementById('legacyIdCard');
+      const btn = document.getElementById('legacyLookupBtn');
+      const idCard = input.value.replace(/\D/g, '');
+      input.value = idCard;
+
+      if (!isValidThaiId(idCard)) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'เลขประจำตัวประชาชนไม่ถูกต้อง',
+          text: 'กรุณาตรวจสอบเลขประจำตัวประชาชน 13 หลักอีกครั้ง',
+          confirmButtonColor: '#004a99'
+        });
+        return;
+      }
+
+      const original = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> กำลังค้นหา...';
+
+      google.script.run
+        .withSuccessHandler((result) => {
+          btn.disabled = false;
+          btn.innerHTML = original;
+
+          if (result && result.duplicate) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'ไม่สามารถสมัครซ้ำได้',
+              text: result.message || 'เลขประจำตัวประชาชนนี้ส่งใบสมัครแล้ว',
+              confirmButtonColor: '#004a99'
+            });
+            return;
+          }
+
+          if (!result || !result.found) {
+            Swal.fire({
+              icon: 'info',
+              title: 'ไม่พบข้อมูลนักศึกษาเก่าปี 2569',
+              text: result && result.message ? result.message : 'กรุณาตรวจสอบเลขประจำตัวประชาชน หรือเลือกประเภทนักศึกษาใหม่',
+              confirmButtonColor: '#004a99'
+            });
+            return;
+          }
+
+          fillLegacyApplicant(result.data || {});
+          openApplicationForm('returning2569');
+
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: 'ดึงข้อมูลเดิมเรียบร้อยแล้ว',
+            text: 'กรุณาตรวจสอบและอัปเดตข้อมูลก่อนส่งใบสมัคร',
+            showConfirmButton: false,
+            timer: 2800
+          });
+        })
+        .withFailureHandler((error) => {
+          btn.disabled = false;
+          btn.innerHTML = original;
+          Swal.fire({
+            icon: 'error',
+            title: 'ไม่สามารถค้นหาข้อมูลได้',
+            text: error && error.message ? error.message : 'เกิดข้อผิดพลาดในการเชื่อมต่อระบบ',
+            confirmButtonColor: '#004a99'
+          });
+        })
+        .getLegacyApplicantByIdCard(idCard);
+    }
+
+    function fillLegacyApplicant(data) {
+      document.getElementById('idCard').value = String(data.idCard || '');
+      document.getElementById('idCard').readOnly = true;
+      document.getElementById('prefix').value = String(data.prefix || '');
+      document.getElementById('fullName').value = String(data.fullName || '');
+      document.getElementById('phone').value = String(data.phone || '').replace(/\D/g, '');
+      document.getElementById('email').value = String(data.email || '');
+      document.getElementById('lineId').value = String(data.lineId || '');
+      document.getElementById('studentId').value = String(data.studentId || '').replace(/\D/g, '');
+      document.getElementById('faculty').value = String(data.faculty || '');
+      updateMajorOptions(String(data.major || ''));
+      document.getElementById('year').value = String(data.year || '');
+      document.getElementById('gpax').value = String(data.gpax || '');
+      document.getElementById('englishLevel').value = String(data.englishLevel || '');
+      document.getElementById('thaiLevel').value = String(data.thaiLevel || '');
+      document.getElementById('wordLevel').value = String(data.wordLevel || '');
+      document.getElementById('excelLevel').value = String(data.excelLevel || '');
+      document.getElementById('powerPointLevel').value = String(data.powerPointLevel || '');
+      document.getElementById('accessLevel').value = String(data.accessLevel || '');
+      document.getElementById('skills').value = String(data.skills || '');
+    }
+
+    function updateMajorOptions(selectedValue = '') {
+      const faculty = document.getElementById('faculty').value;
+      const major = document.getElementById('major');
+      const items = Array.isArray(facultyPrograms[faculty]) ? facultyPrograms[faculty] : [];
+
+      major.innerHTML = '';
+      if (!faculty) {
+        major.innerHTML = '<option value="">กรุณาเลือกคณะก่อน...</option>';
+        major.disabled = true;
+        return;
+      }
+
+      major.disabled = false;
+      major.appendChild(new Option('เลือกสาขาวิชา...', ''));
+
+      items.forEach(item => {
+        major.appendChild(new Option(item, item));
+      });
+
+      if (selectedValue) {
+        const exists = items.includes(selectedValue);
+        if (!exists) {
+          major.appendChild(new Option(selectedValue, selectedValue));
+        }
+        major.value = selectedValue;
+      }
+    }
+
+    function getSelectedInterestTypes() {
+      return [...document.querySelectorAll('.interest-type:checked')].map(el => el.value);
+    }
+
+    function getSelectedReasons() {
+      return [...document.querySelectorAll('.reason-option:checked')].map(el => el.value);
+    }
+
+    function getSelectedStudentPhoto() {
+      const input = document.getElementById('studentPhoto');
+      return input && input.files && input.files.length ? input.files[0] : null;
+    }
+
+    function validateStudentPhoto(file) {
+      if (!file) return 'กรุณาอัปโหลดรูปถ่ายนักศึกษา 1 รูป';
+
+      const allowedMime = new Set(['image/jpeg', 'image/png']);
+      const allowedExt = /\.(jpe?g|png)$/i;
+      const maxBytes = 2 * 1024 * 1024;
+
+      if (!allowedMime.has(file.type) && !allowedExt.test(file.name)) {
+        return 'รูปถ่ายต้องเป็นไฟล์ JPG/JPEG หรือ PNG เท่านั้น';
+      }
+
+      if (file.size > maxBytes) {
+        return 'รูปถ่ายนักศึกษามีขนาดเกิน 2 MB';
+      }
+
+      return '';
+    }
+
+    function renderStudentPhotoPreview() {
+      const file = getSelectedStudentPhoto();
+      const input = document.getElementById('studentPhoto');
+      const preview = document.getElementById('studentPhotoPreview');
+      const placeholder = document.getElementById('studentPhotoPreviewPlaceholder');
+      const error = validateStudentPhoto(file);
+
+      if (error) {
+        if (file) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'รูปถ่ายนักศึกษาไม่ถูกต้อง',
+            text: error,
+            confirmButtonColor: '#004a99'
+          });
+        }
+
+        input.value = '';
+        preview.removeAttribute('src');
+        preview.style.display = 'none';
+        placeholder.style.display = 'block';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        preview.src = String(reader.result || '');
+        preview.style.display = 'block';
+        placeholder.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function resetStudentPhotoPreview() {
+      const preview = document.getElementById('studentPhotoPreview');
+      const placeholder = document.getElementById('studentPhotoPreviewPlaceholder');
+
+      if (preview) {
+        preview.removeAttribute('src');
+        preview.style.display = 'none';
+      }
+
+      if (placeholder) placeholder.style.display = 'block';
+    }
+
+    function getSelectedFiles() {
+      return [...document.getElementById('resumeFiles').files];
+    }
+
+    function validateSelectedFiles(files) {
+      if (files.length > 5) return 'แนบไฟล์ได้สูงสุด 5 ไฟล์';
+
+      const allowedMime = new Set(['application/pdf', 'image/jpeg']);
+      const allowedExt = /\.(pdf|jpe?g)$/i;
+      const maxBytes = 5 * 1024 * 1024;
+
+      for (const file of files) {
+        if ((!allowedMime.has(file.type) && !allowedExt.test(file.name)) || file.size > maxBytes) {
+          if (file.size > maxBytes) return `ไฟล์ ${file.name} มีขนาดเกิน 5 MB`;
+          return `ไฟล์ ${file.name} ไม่ใช่ PDF หรือ JPG/JPEG`;
+        }
+      }
+      return '';
+    }
+
+    function renderSelectedFiles() {
+      const files = getSelectedFiles();
+      const list = document.getElementById('selectedFilesList');
+      list.innerHTML = '';
+
+      files.forEach(file => {
+        const li = document.createElement('li');
+        li.textContent = `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)`;
+        list.appendChild(li);
+      });
+
+      const error = validateSelectedFiles(files);
+      if (error) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'ไฟล์แนบไม่ถูกต้อง',
+          text: error,
+          confirmButtonColor: '#004a99'
+        });
+        document.getElementById('resumeFiles').value = '';
+        list.innerHTML = '';
+      }
+    }
+
+    function readFileAsPayload(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = String(reader.result || '');
+          const comma = result.indexOf(',');
+          resolve({
+            name: file.name,
+            mimeType: file.type || '',
+            size: file.size,
+            data: comma >= 0 ? result.slice(comma + 1) : result
+          });
+        };
+        reader.onerror = () => reject(new Error(`อ่านไฟล์ ${file.name} ไม่สำเร็จ`));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function readStudentPhotoAsPayload(file) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        const objectUrl = URL.createObjectURL(file);
+        img.onload = () => {
+          try {
+            const maxWidth = 450;
+            const maxHeight = 600;
+            const ratio = Math.min(1, maxWidth / img.width, maxHeight / img.height);
+            const width = Math.max(1, Math.round(img.width * ratio));
+            const height = Math.max(1, Math.round(img.height * ratio));
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+            canvas.toBlob((blob) => {
+              URL.revokeObjectURL(objectUrl);
+              if (!blob) return reject(new Error('ไม่สามารถปรับขนาดรูปถ่ายนักศึกษาได้'));
+              const reader = new FileReader();
+              reader.onload = () => {
+                const result = String(reader.result || '');
+                const comma = result.indexOf(',');
+                const baseName = String(file.name || 'student-photo').replace(/\.[^.]+$/, '');
+                resolve({
+                  name: `${baseName}.jpg`,
+                  mimeType: 'image/jpeg',
+                  size: blob.size,
+                  data: comma >= 0 ? result.slice(comma + 1) : result
+                });
+              };
+              reader.onerror = () => reject(new Error('อ่านรูปถ่ายนักศึกษาไม่สำเร็จ'));
+              reader.readAsDataURL(blob);
+            }, 'image/jpeg', 0.82);
+          } catch (error) {
+            URL.revokeObjectURL(objectUrl);
+            reject(error);
+          }
+        };
+        img.onerror = () => {
+          URL.revokeObjectURL(objectUrl);
+          reject(new Error('ไม่สามารถเปิดรูปถ่ายนักศึกษาได้'));
+        };
+        img.src = objectUrl;
+      });
+    }
+
+    async function uploadFilesAfterSubmit(result, data, files) {
+      if (!files.length) return;
+
+      try {
+        const payloadFiles = await Promise.all(files.map(readFileAsPayload));
+
+        google.script.run
+          .withSuccessHandler(() => {
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              icon: 'success',
+              title: 'อัปโหลดไฟล์แนบเรียบร้อย',
+              showConfirmButton: false,
+              timer: 2200,
+              timerProgressBar: true
+            });
+          })
+          .withFailureHandler((error) => {
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              icon: 'warning',
+              title: 'บันทึกใบสมัครแล้ว แต่ไฟล์แนบอัปโหลดไม่สำเร็จ',
+              text: error && error.message ? error.message : '',
+              showConfirmButton: true
+            });
+          })
+          .uploadApplicationFiles({
+            applicationRow: result.applicationRow,
+            applicationId: result.applicationId,
+            studentId: data.studentId,
+            fullName: data.fullName,
+            files: payloadFiles
+          });
+      } catch (error) {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          icon: 'warning',
+          title: 'บันทึกใบสมัครแล้ว แต่ไม่สามารถอ่านไฟล์แนบได้',
+          text: error && error.message ? error.message : '',
+          showConfirmButton: true
+        });
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '').slice(0, 11);
+    });
+
+    document.getElementById('statusIdCardInput').addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '').slice(0, 13);
+    });
+
+    document.getElementById('statusIdCardInput').addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') searchStatus();
+    });
+
+    document.getElementById('studentPhoto').addEventListener('change', renderStudentPhotoPreview);
+    document.getElementById('resumeFiles').addEventListener('change', renderSelectedFiles);
+
+    document.getElementById('legacyIdCard').addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '').slice(0, 13);
+    });
+
+    document.getElementById('idCard').addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '').slice(0, 13);
+    });
+
+    document.getElementById('studentId').addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '').slice(0, 11);
+    });
+
+    document.getElementById('phone').addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '');
+    });
+
+    document.getElementById('applicationForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const form = e.currentTarget;
+      const btn = document.getElementById('submitBtn');
+      const originalText = btn.innerHTML;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const idCard = document.getElementById('idCard').value.trim();
+      const studentId = document.getElementById('studentId').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const gpax = Number(document.getElementById('gpax').value);
+      const interests = getSelectedInterestTypes();
+      const reasons = getSelectedReasons();
+      const studentPhoto = getSelectedStudentPhoto();
+      const photoError = validateStudentPhoto(studentPhoto);
+      const files = getSelectedFiles();
+      const fileError = validateSelectedFiles(files);
+
+      if (!isValidThaiId(idCard)) {
+        Swal.fire({ icon: 'warning', title: 'เลขประจำตัวประชาชนไม่ถูกต้อง', text: 'กรุณาตรวจสอบเลขประจำตัวประชาชน 13 หลักอีกครั้ง' });
+        return;
+      }
+
+      if (!/^\d{11}$/.test(studentId)) {
+        Swal.fire({ icon: 'warning', title: 'รหัสนักศึกษาไม่ถูกต้อง', text: 'รหัสนักศึกษาไม่ถูกต้อง' });
+        return;
+      }
+
+      if (!/^\d+$/.test(phone)) {
+        Swal.fire({ icon: 'warning', title: 'เบอร์โทรศัพท์ไม่ถูกต้อง', text: 'กรุณากรอกเบอร์โทรศัพท์เป็นตัวเลขเท่านั้น' });
+        return;
+      }
+
+      if (!Number.isFinite(gpax) || gpax < 0 || gpax > 4) {
+        Swal.fire({ icon: 'warning', title: 'GPAX ไม่ถูกต้อง', text: 'กรุณากรอก GPAX ระหว่าง 0.00 - 4.00' });
+        return;
+      }
+
+      if (!reasons.length) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'กรุณาเลือกเหตุผลที่สนใจสมัครงานนี้',
+          text: 'เลือกอย่างน้อย 1 รายการ',
+          confirmButtonColor: '#004a99'
+        });
+        return;
+      }
+
+      if (!interests.length) {
+        Swal.fire({ icon: 'warning', title: 'กรุณาเลือกประเภทงานที่สนใจ', text: 'เลือกอย่างน้อย 1 รายการ' });
+        return;
+      }
+
+      if (photoError) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'กรุณาอัปโหลดรูปถ่ายนักศึกษา',
+          text: photoError,
+          confirmButtonColor: '#004a99'
+        });
+        return;
+      }
+
+      if (fileError) {
+        Swal.fire({ icon: 'warning', title: 'ไฟล์แนบไม่ถูกต้อง', text: fileError });
+        return;
+      }
+
+      if (!document.getElementById('pdpaConsent').checked) {
+        Swal.fire({ icon: 'warning', title: 'กรุณายอมรับข้อตกลง PDPA', text: 'ต้องยอมรับข้อตกลงก่อนส่งใบสมัคร' });
+        return;
+      }
+
+      let studentPhotoPayload;
+
+      try {
+        studentPhotoPayload = await readStudentPhotoAsPayload(studentPhoto);
+      } catch (error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'ไม่สามารถอ่านรูปถ่ายนักศึกษาได้',
+          text: error && error.message ? error.message : 'กรุณาเลือกรูปใหม่แล้วลองอีกครั้ง',
+          confirmButtonColor: '#004a99'
+        });
+        return;
+      }
+
+      const data = {
+        applicantType: document.getElementById('applicantType').value,
+        idCard: idCard,
+        prefix: document.getElementById('prefix').value,
+        fullName: document.getElementById('fullName').value.trim(),
+        phone: phone,
+        email: document.getElementById('email').value.trim(),
+        lineId: document.getElementById('lineId').value.trim(),
+        studentId: studentId,
+        faculty: document.getElementById('faculty').value,
+        major: document.getElementById('major').value,
+        year: document.getElementById('year').value,
+        gpax: document.getElementById('gpax').value,
+        englishLevel: document.getElementById('englishLevel').value,
+        thaiLevel: document.getElementById('thaiLevel').value,
+        wordLevel: document.getElementById('wordLevel').value,
+        excelLevel: document.getElementById('excelLevel').value,
+        powerPointLevel: document.getElementById('powerPointLevel').value,
+        accessLevel: document.getElementById('accessLevel').value,
+        skills: document.getElementById('skills').value.trim(),
+        reason: reasons,
+        interestTypes: interests,
+        pdpaConsent: true,
+        jobSelected: document.getElementById('jobSelected').value,
+        jobDepartment: selectedJobForApplication && selectedJobForApplication.department
+          ? String(selectedJobForApplication.department)
+          : '',
+        website: document.getElementById('websiteField').value,
+        profileImage: studentPhotoPayload
+      };
+
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>กำลังบันทึกใบสมัคร...';
+      btn.disabled = true;
+
+      google.script.run
+        .withSuccessHandler((result) => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+
+          if (!result || !result.success) {
+            Swal.fire({
+              icon: 'error',
+              title: 'ส่งใบสมัครไม่สำเร็จ',
+              text: result && result.message ? result.message : 'ไม่สามารถบันทึกข้อมูลได้',
+              confirmButtonColor: '#004a99'
+            });
+            return;
+          }
+
+          if (files.length) uploadFilesAfterSubmit(result, data, files);
+
+          Swal.fire({
+            icon: 'success',
+            title: 'บันทึกใบสมัครสำเร็จ!',
+            html: `
+              ระบบบันทึกใบสมัครตำแหน่ง <strong>${escapeHtml(result.job || '')}</strong> เรียบร้อยแล้ว
+              <br><small class="text-muted">เลขประจำตัวประชาชนนี้ไม่สามารถส่งใบสมัครซ้ำได้อีก</small>
+              <br><small class="text-muted">รูปถ่ายนักศึกษาถูกบันทึกเรียบร้อยแล้ว</small>
+              ${files.length ? '<br><small class="text-muted">ไฟล์ Resume/Portfolio กำลังอัปโหลดต่อ</small>' : ''}
+            `,
+            confirmButtonColor: '#004a99'
+          }).then(() => {
+            form.reset();
+            document.querySelectorAll('.interest-type').forEach(el => el.checked = false);
+      document.querySelectorAll('.reason-option').forEach(el => el.checked = false);
+            document.getElementById('selectedFilesList').innerHTML = '';
+            resetStudentPhotoPreview();
+            showLandingPage();
+          });
+        })
+        .withFailureHandler((error) => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+
+          Swal.fire({
+            icon: 'error',
+            title: 'ส่งใบสมัครไม่สำเร็จ',
+            text: error && error.message ? error.message : 'ไม่สามารถเชื่อมต่อกับ Apps Script ได้',
+            confirmButtonColor: '#004a99'
+          });
+        })
+        .submitApplication(data);
+    });
+
+    function goToDashboard() {
+      window.location.href = './dashboard.html';
+    }
+
+    // โหลดรายการงานล่วงหน้าเพื่อให้เมนูเปิดได้เร็วขึ้น
+    loadJobsFromSheet();
+  </script>
+</body>
+</html>
