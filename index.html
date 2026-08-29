@@ -1007,7 +1007,7 @@
           
           <div class="alert alert-light border mb-3" style="font-size:13px;">
             <i class="fa-solid fa-shield-halved me-1 text-primary"></i>
-            การตรวจสอบสถานะการสมัคร ระบบต้องยืนยันทั้งรหัสนักศึกษาและเลขประจำตัวประชาชนของผู้สมัคร
+             การตรวจสอบสถานะการสมัคร ระบบบังคับใหต้องยืนยันทั้งรหัสนักศึกษาและเลขประจำตัวประชาชนของผู้สมัคร
           </div>
           <div class="row g-2 mb-3">
             <div class="col-md-5">
@@ -2029,6 +2029,12 @@
         .getApplicationStatus(studentId, idCard);
     }
 
+    function maskThaiIdForDetail(value) {
+      const id = String(value || '').replace(/\D/g, '');
+      if (id.length !== 13) return '-';
+      return `${id.slice(0, 1)}-XXXX-XXXXX-${id.slice(-3)}`;
+    }
+
     function renderApplicationStatus(result) {
       const stepper = document.getElementById('statusStepper');
       const steps = [...stepper.querySelectorAll('.step-item')];
@@ -2163,7 +2169,7 @@
         ['ตำแหน่งงานที่สมัคร', escapeHtml(result.job || '-')],
         ['ประเภทผู้สมัคร', escapeHtml(result.applicantTypeLabel || result.applicantType || '-')],
         ['ชื่อ-นามสกุล', escapeHtml(result.fullName || '-')],
-        ['เลขประจำตัวประชาชน', escapeHtml(result.idCard || '-')],
+        ['เลขประจำตัวประชาชน', escapeHtml(maskThaiIdForDetail(result.idCard))],
         ['รหัสนักศึกษา', escapeHtml(result.studentId || '-')],
         ['คณะ', escapeHtml(result.faculty || '-')],
         ['สาขาวิชา', escapeHtml(result.major || '-')],
