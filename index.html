@@ -2130,9 +2130,7 @@
 
         if (!safeUrl) return '';
 
-        const label = String(
-          (file && (file.name || file.label)) || `ไฟล์แนบ ${index + 1}`
-        ).trim() || `ไฟล์แนบ ${index + 1}`;
+        const label = `ไฟล์แนบ ${index + 1}`;
 
         return `
           <a
