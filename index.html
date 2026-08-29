@@ -1016,7 +1016,7 @@
             </div>
             <div class="col-md-5">
               <label for="statusIdCardInput" class="form-label small text-muted">เลขประจำตัวประชาชน 13 หลัก</label>
-              <input type="password" id="statusIdCardInput" class="form-control form-control-lg" inputmode="numeric" maxlength="13" autocomplete="off" placeholder="เลขประจำตัวประชาชน">
+              <input type="text" id="statusIdCardInput" class="form-control form-control-lg" inputmode="numeric" pattern="[0-9]{13}" maxlength="13" autocomplete="off" placeholder="เลขประจำตัวประชาชน 13 หลัก">
             </div>
             <div class="col-md-2 d-grid align-items-end">
               <button class="btn btn-primary fw-bold" type="button" onclick="searchStatus()" style="background-color:#004a99;border:none;min-height:48px;">
