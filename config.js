@@ -10,7 +10,7 @@
   'use strict';
 
   const config = Object.freeze({
-    API_URL: 'https://script.google.com/macros/s/AKfycbxrMKJ-YGL9m7tMqQ_HuwYhgL4KNZDlUZMN3UyxaVD5DcPxKqc4wou37YJwgPaJfBUOzg/exec',
+    API_URL: 'https://script.google.com/macros/s/AKfycbywe0JyIknMFCm8Z_fXwzhpA2Xqgk64rOIoGsSJdcwwq_AGAEf1idMnMW9tfCzFqMMb/exec',
     REQUEST_TIMEOUT_MS: 120000,
     DEBUG_API: false
   });
