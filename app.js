@@ -1,5 +1,4 @@
-// โหลดรายการงานและรายละเอียดจากชีต Jobs
-    const categoryConfig = {
+const categoryConfig = {
       dev: { title: 'กลุ่มงานพัฒนานักศึกษา' },
       welfare: { title: 'กลุ่มงานสวัสดิการนักศึกษา' },
       alumni: { title: 'กลุ่มงานศิษย์เก่าสัมพันธ์' },
@@ -240,8 +239,6 @@
         });
     }
 
-
-    // ฟังก์ชันเสริมสำหรับซ่อนเมนูในมือถือเวลากดเลือกแล้ว
     function closeMobileMenu() {
       const navbarCollapse = document.getElementById('topNavbar');
       if (navbarCollapse && navbarCollapse.classList.contains('show')) {
@@ -921,7 +918,7 @@
 
       const original = btn.innerHTML;
       btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> กำลังค้นหา...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> กำลังตรวจสอบข้อมูล';
 
       google.script.run
         .withSuccessHandler((result) => {
@@ -1371,7 +1368,7 @@
       } catch (error) {
         Swal.fire({
           icon: 'error',
-          title: 'ไม่สามารถอ่านรูปถ่ายนักศึกษาได้',
+          title: 'ระบบไม่สามารถอ่านรูปถ่ายนักศึกษาได้',
           text: error && error.message ? error.message : 'กรุณาเลือกรูปใหม่แล้วลองอีกครั้ง',
           confirmButtonColor: '#004a99'
         });
@@ -1409,7 +1406,7 @@
         profileImage: studentPhotoPayload
       };
 
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>กำลังบันทึกใบสมัคร...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>ระบบกำลังบันทึกใบสมัคร';
       btn.disabled = true;
 
       google.script.run
@@ -1431,7 +1428,7 @@
 
           Swal.fire({
             icon: 'success',
-            title: 'บันทึกใบสมัครสำเร็จ!',
+            title: 'บันทึกใบสมัครสำเร็จ',
             html: `
               ระบบบันทึกใบสมัครตำแหน่ง <strong>${escapeHtml(result.job || '')}</strong> เรียบร้อยแล้ว
               <br><small class="text-muted">เลขประจำตัวประชาชนนี้ไม่สามารถส่งใบสมัครซ้ำได้อีก</small>
@@ -1455,7 +1452,7 @@
           Swal.fire({
             icon: 'error',
             title: 'ส่งใบสมัครไม่สำเร็จ',
-            text: error && error.message ? error.message : 'ไม่สามารถเชื่อมต่อกับ Apps Script ได้',
+            text: error && error.message ? error.message : 'ไม่สามารถเชื่อมต่อกับฐานข้อมูลระบบกลางได้',
             confirmButtonColor: '#004a99'
           });
         })
@@ -1466,5 +1463,4 @@
       window.location.href = './dashboard.html';
     }
 
-    // โหลดรายการงานล่วงหน้าเพื่อให้เมนูเปิดได้เร็วขึ้น
     loadJobsFromSheet();
