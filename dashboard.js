@@ -59,7 +59,7 @@
 
           const fn = runner && runner[method];
           if (typeof fn !== 'function') {
-            reject(new Error(`ฟังก์ชัน ${method} ยังไม่มีใน Web App เวอร์ชันที่ Deploy อยู่ กรุณาอัปเดต Code.gs และ Deploy เป็นเวอร์ชันใหม่`));
+            reject(new Error(`ฟังก์ชัน ${method} ยังไม่มีใน Web App เวอร์ชันที่ Deploy อยู่ กรุณาอัปเดตเป็นเวอร์ชันใหม่`));
             return;
           }
           fn.apply(runner, args);
@@ -216,7 +216,6 @@
         ? (adminViews.includes(savedView) ? savedView : 'adminDashboard')
         : (departmentViews.includes(savedView) ? savedView : 'departmentDashboard');
 
-      // เปิด shell ของระบบทันที ไม่บล็อกหน้า Login ระหว่างรอข้อมูลเมนูแรก
       Promise.resolve().then(() => navigate(targetView));
     }
 
@@ -1028,9 +1027,7 @@
       }
     }
 
-    /* ======================================================
-       ADMIN DASHBOARD
-    ====================================================== */
+
     async function renderAdminDashboard() {
       setHeader('Dashboard ผู้ดูแลระบบ', 'ภาพรวมระบบรับสมัครและการดำเนินงาน');
       const content = document.getElementById('content');
@@ -2002,9 +1999,6 @@
       listModal.show();
     }
 
-    /* ======================================================
-       ADMIN RESULTS + DOWNLOAD
-    ====================================================== */
     function buildDepartmentResultRows(group) {
       const unit = group.label || group.selectionUnit || group.department || '';
       const rows = [];
@@ -2159,9 +2153,6 @@
       `;
     }
 
-    /* ======================================================
-       BASKET
-    ====================================================== */
     function getBasketCount() {
       return (state.departmentRows || []).filter(item => item.inBasket && !item.finalized).length;
     }
@@ -2184,9 +2175,6 @@
       navigate('departmentBasket');
     }
 
-    /* ======================================================
-       DEPARTMENT SELECTION
-    ====================================================== */
     async function renderDepartmentSelection() {
       setHeader('คัดเลือกรายชื่อลงตะกร้า', state.selectionUnit || state.department);
       const content=document.getElementById('content'); content.innerHTML=`<div class="dashboard-skeleton"><div class="spinner-border text-primary"></div><div>กำลังโหลดรายชื่อ</div></div>`;
@@ -2251,9 +2239,7 @@
       }
     }
 
-    /* ======================================================
-       DEPARTMENT BASKET
-    ====================================================== */
+
     async function renderDepartmentBasket() {
       setHeader('ยืนยันส่งรายชื่อ', 'เมื่อยืนยันส่งแล้วจะไม่สามารถแก้ไขรายชื่อได้');
       const content = document.getElementById('content');
@@ -2373,9 +2359,6 @@
       }
     }
 
-    /* ======================================================
-       APPLICANT DETAIL
-    ====================================================== */
     async function showApplicantDetail(applicationId) {
       showLoading('กำลังโหลดข้อมูลผู้สมัคร');
       try {
@@ -2453,11 +2436,6 @@
       }
     }
 
-    /* ======================================================
-       SECURITY: CLIENT IDLE TIMEOUT
-       Server มี idle timeout ของตัวเอง ส่วนนี้ช่วยล้าง token
-       ฝั่ง browser เมื่อไม่มีการใช้งาน 10 นาที
-    ====================================================== */
     const CLIENT_IDLE_TIMEOUT_MS = 10 * 60 * 1000;
     let clientIdleTimer = null;
 
@@ -2478,9 +2456,6 @@
       if (!document.hidden) resetClientIdleTimer();
     });
 
-    /* ======================================================
-       LOGOUT
-    ====================================================== */
     async function logout() {
       const confirmResult = await Swal.fire({
         icon: 'question',
@@ -2511,7 +2486,6 @@
       try {
         if (state.token) await serverCall('staffLogout', state.token);
       } catch (error) {
-        // ถึง Server จะตอบกลับผิดพลาด ก็ยังล้าง Session ฝั่ง Browser เพื่อความปลอดภัย
         console.warn('staffLogout:', error);
       } finally {
         sessionStorage.removeItem('ubuStaffSession');
@@ -2543,7 +2517,7 @@
 
       await Swal.fire({
         icon: 'warning',
-        title: 'เซสชันหมดอายุ',
+        title: 'ไม่ได้ทำรายการในเวลาที่กำหนด',
         text: message || 'กรุณาเข้าสู่ระบบเจ้าหน้าที่ใหม่เพื่อใช้งานต่อ',
         confirmButtonText: 'เข้าสู่ระบบใหม่',
         confirmButtonColor: '#00346f',
@@ -2555,10 +2529,6 @@
       showLoginView();
     }
 
-    /* ======================================================
-       RESTORE SESSION
-       จุดแก้สำคัญ: Login จะไม่แสดงก่อนตรวจ Session
-    ====================================================== */
     function restoreSession() {
       const raw = sessionStorage.getItem('ubuStaffSession');
       if (!raw) {
@@ -2574,8 +2544,6 @@
           return;
         }
 
-        // ทุก protected API ตรวจ token และ role ที่ Backend อยู่แล้ว
-        // จึงไม่ต้องยิง getStaffSession เพิ่มอีกหนึ่งรอบก่อนเปิดหน้า
         applySession(saved);
         enterApp();
       } catch (_) {
@@ -2597,7 +2565,4 @@
       state.publicContentRows = [];
     });
 
-    /* ======================================================
-       START
-    ====================================================== */
     restoreSession();
