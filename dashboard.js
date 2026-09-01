@@ -1,7 +1,4 @@
-/* ======================================================
-       STATE
-    ====================================================== */
-    const state = {
+      const state = {
       token: '',
       role: '',
       department: '',
@@ -21,9 +18,6 @@
     const listModal = new bootstrap.Modal(document.getElementById('listModal'));
     const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
 
-    /* ======================================================
-       SERVER
-    ====================================================== */
     function serverCall(method, ...args) {
       return new Promise((resolve, reject) => {
         try {
@@ -51,9 +45,6 @@
       });
     }
 
-    /* ======================================================
-       GENERAL
-    ====================================================== */
     function escapeHtml(value) {
       return String(value ?? '')
         .replace(/&/g, '&amp;')
@@ -121,9 +112,6 @@
       window.location.href = './index.html';
     }
 
-    /* ======================================================
-       LOGIN
-    ====================================================== */
     document.getElementById('loginForm').addEventListener('submit', async event => {
       event.preventDefault();
       const button = document.getElementById('loginBtn');
@@ -179,9 +167,6 @@
       state.username = session.username || '';
     }
 
-    /* ======================================================
-       ENTER APP
-    ====================================================== */
     async function enterApp() {
       hideBootView();
       document.getElementById('loginView').classList.add('d-none');
@@ -208,9 +193,6 @@
       await navigate(targetView);
     }
 
-    /* ======================================================
-       SIDEBAR
-    ====================================================== */
     function renderSidebar() {
       const adminItems = [
         ['adminDashboard', 'fa-chart-line', 'ภาพรวมข้อมูลระบบกลาง'],
@@ -454,9 +436,6 @@
         </div>`).join('') : '<div class="text-muted text-center py-4">ยังไม่มีข้อมูลคณะ</div>';
     }
 
-    /* ======================================================
-       PUBLIC CONTENT MANAGEMENT
-    ====================================================== */
     const publicContentTypeLabels = {
       news: 'ข่าวประกาศ',
       rules: 'ระเบียบการรับสมัคร',
@@ -739,10 +718,6 @@
       }
     }
 
-
-    /* ======================================================
-       STAFF ACCOUNT REGISTRATION (ADMIN ONLY)
-    ====================================================== */
     async function renderStaffAccounts() {
       setHeader('ลงทะเบียนผู้ใช้งานเจ้าหน้าที่', 'สร้างบัญชีสำหรับผู้ดูแลระบบและเจ้าหน้าที่หน่วยงาน');
       const content = document.getElementById('content');
