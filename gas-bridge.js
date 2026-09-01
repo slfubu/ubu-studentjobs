@@ -70,10 +70,10 @@
   function getApiUrl() {
     const url = String(getConfig().API_URL || '').trim();
     if (!url || url.includes('PASTE_CURRENT_APPS_SCRIPT_WEB_APP_EXEC_URL_HERE') || url.includes('PASTE_YOUR_APPS_SCRIPT_WEB_APP_EXEC_URL_HERE')) {
-      throw new Error('ยังไม่ได้ตั้งค่า Apps Script Web App URL ปัจจุบัน กรุณานำ URL จาก Deploy > Manage deployments ที่ลงท้ายด้วย /exec มาใส่ใน config.js');
+      throw new Error('ระบบยังไม่พร้อมใช้งาน กรุณาติดต่อเจ้าหน้าที่ดูแลระบบ');
     }
     if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/i.test(url)) {
-      throw new Error('API_URL ไม่ถูกต้อง ต้องเป็น Apps Script Web App URL ปัจจุบันที่ลงท้ายด้วย /exec');
+      throw new Error('ไม่สามารถเชื่อมต่อระบบฐานข้อมูลได้ในขณะนี้ กรุณาติดต่อเจ้าหน้าที่ดูแลระบบ');
     }
     return url;
   }
@@ -134,13 +134,13 @@
 
   function httpError(status) {
     if (status === 404 || status === 410) {
-      return new Error('ไม่พบ Apps Script Deployment (HTTP 404) กรุณาสร้าง/อัปเดต Web app deployment แล้วนำ URL /exec ปัจจุบันมาใส่ใน config.js');
+      return new Error('ไม่พบข้อมูลที่ต้องการ กรุณารีเฟรชหน้าเว็บและลองใหม่อีกครั้ง');
     }
     if (status === 401 || status === 403) {
-      return new Error(`Apps Script ไม่อนุญาตให้เข้าถึง (HTTP ${status}) กรุณาตรวจ Execute as = Me และ Who has access = Anyone`);
+      return new Error('คุณไม่มีสิทธิ์เข้าถึงข้อมูลส่วนนี้ กรุณาเข้าสู่ระบบหรือติดต่อเจ้าหน้าที่');
     }
-    if (status === 429) return new Error('ระบบถูกเรียกใช้งานถี่เกินไป กรุณาลองใหม่อีกครั้ง');
-    return new Error(`Apps Script ตอบกลับ HTTP ${status} กรุณาตรวจสอบ Deployment`);
+    if (status === 429) return new Error('ระบบกำลังทำงานหนัก กรุณารอสักครู่แล้วลองใหม่อีกครั้ง');
+    return new Error('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
   }
 
   async function invokeAppsScriptOnce(action, args) {
@@ -162,9 +162,9 @@
       catch (_) {
         const preview = String(raw || '').replace(/\s+/g,' ').slice(0,220);
         if (/accounts\.google\.com|Sign in|ลงชื่อเข้าใช้/i.test(preview)) {
-          throw new Error('Apps Script Web App ยังไม่เปิดสิทธิ์สาธารณะ กรุณา Deploy โดย Execute as = Me และ Who has access = Anyone');
+          throw new Error('ระบบยังไม่เปิดให้บุคคลทั่วไปเข้าใช้งาน กรุณาติดต่อเจ้าหน้าที่ดูแลระบบ');
         }
-        throw new Error('Apps Script ตอบกลับมาไม่ใช่ JSON กรุณาตรวจว่า URL เป็น /exec ของ Deployment ปัจจุบัน และ Code.gs รุ่นล่าสุดถูก Deploy แล้ว');
+        throw new Error('เกิดข้อผิดพลาดในการรับส่งข้อมูล กรุณาลองใหม่อีกครั้ง หรือติดต่อเจ้าหน้าที่');
       }
 
       if (!payload || payload.ok !== true) {
@@ -176,16 +176,18 @@
       if (Object.prototype.hasOwnProperty.call(payload,'result')) return payload.result;
       return null;
     } catch (error) {
-      if (error && error.name === 'AbortError') throw new Error('เชื่อมต่อ Apps Script เกินเวลาที่กำหนด กรุณาตรวจอินเทอร์เน็ตและ Deployment แล้วลองใหม่');
-      if (error instanceof TypeError) throw new Error('เบราว์เซอร์เชื่อมต่อ Apps Script ไม่ได้ กรุณาตรวจอินเทอร์เน็ต, URL /exec ปัจจุบัน และสิทธิ์ Web app');
+      if (error && error.name === 'AbortError') throw new Error('การเชื่อมต่อใช้เวลานานเกินไป กรุณาตรวจสอบอินเทอร์เน็ตของท่านแล้วลองใหม่อีกครั้ง');
+      if (error instanceof TypeError) throw new Error('ไม่สามารถเชื่อมต่อกับระบบได้ กรุณาตรวจสอบอินเทอร์เน็ตของท่านและลองใหม่อีกครั้ง');
       throw error;
     } finally { clearTimeout(timeoutId); }
   }
 
   function isRetryable(error) {
     const message = String(error && error.message || '');
-    if (/HTTP 404|HTTP 410|ยังไม่ได้ตั้งค่า|ไม่ถูกต้อง|HTTP 401|HTTP 403|ไม่มีสิทธิ์|เซสชัน|ชื่อผู้ใช้หรือรหัสผ่าน/i.test(message)) return false;
-    return /เชื่อมต่อ|เกินเวลา|HTTP 5\d\d|HTTP 429|ไม่ใช่ JSON/i.test(message);
+    // หากเป็นข้อผิดพลาดเรื่องสิทธิ์การเข้าถึง หรือ ระบบปิดให้บริการ จะไม่มีการโหลดซ้ำ (Retry)
+    if (/ไม่พบข้อมูล|ไม่มีสิทธิ์|ระบบยังไม่พร้อม|ระบบยังไม่เปิดให้|เซสชัน|ชื่อผู้ใช้หรือรหัสผ่าน/i.test(message)) return false;
+    // หากเป็นปัญหาเครือข่าย หรือเซิร์ฟเวอร์ทำงานหนัก จะทำการลองใหม่ (Retry)
+    return /เชื่อมต่อ|ใช้เวลานาน|ทำงานหนัก|ข้อผิดพลาด/i.test(message);
   }
 
   async function invokeAppsScriptWithRetry(action,args) {
