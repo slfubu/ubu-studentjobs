@@ -1,11 +1,3 @@
-/*
- * config.js
- * GitHub Pages -> Google Apps Script Web App
- *
- * สำคัญ:
- * - API_URL ต้องเป็น Deployment ปัจจุบันและลงท้ายด้วย /exec
- * - ถ้าสร้าง New deployment ใหม่ URL อาจเปลี่ยน ต้องนำ URL ใหม่มาแทนที่ด้านล่าง
- */
 (function (global) {
   'use strict';
 
@@ -15,7 +7,7 @@
     DEBUG_API: false
   });
 
-  // รองรับ bridge ทั้งรุ่นใหม่และรุ่นเก่า
   global.UBU_APP_CONFIG = config;
   global.APP_CONFIG = config;
 })(window);
+
