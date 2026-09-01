@@ -47,6 +47,18 @@ h1, h2, h3, h4, h5, h6,
   color: var(--navy);
   margin-bottom: 0.5rem;
 }
+.staff-login-hero h2,
+.staff-login-hero p {
+  color: #ffffff;
+}
+
+/* หากต้องการให้ข้อความด้านล่าง (ส่วนที่เป็น p) สีดรอปลงมานิดหน่อยให้ดูมีมิติ สามารถใช้โค้ดนี้แทนได้ครับ */
+.staff-login-hero h2 {
+  color: #ffffff;
+}
+.staff-login-hero p {
+  color: rgba(255, 255, 255, 0.85);
+}
 
     /* ======================================================
        BOOT / SESSION CHECK
