@@ -11,7 +11,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   
@@ -20,7 +21,6 @@
   <link rel="stylesheet" href="./dashboard.css?v=20260902-r5">
 </head>
 <body>
-
 
   <div id="bootView" class="boot-screen">
     <div class="boot-content">
@@ -99,7 +99,7 @@
         </button>
 
         <div class="staff-login-footer">
-          ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน · ปีงบประมาณ 2570 <span class="build-chip">Build 2026.09.02-R5</span>
+          ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน · ปีงบประมาณ 2570
         </div>
       </section>
     </div>
@@ -114,7 +114,7 @@
             <i class="fa-solid fa-briefcase"></i>
           </div>
           <div>
-            <div class="brand-title">ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน</div>
+            <div class="brand-title">ระบบรับสมัครทำงานระหว่างเรียน</div>
             <div class="brand-subtitle">กองพัฒนานักศึกษา · มหาวิทยาลัยอุบลราชธานี</div>
           </div>
         </div>
@@ -124,7 +124,7 @@
         <div class="small text-muted">เข้าสู่ระบบในชื่อ</div>
         <div id="sidebarUserName" class="fw-semibold text-truncate"></div>
         <div id="sidebarRole" class="small text-muted text-truncate"></div>
-        <button class="btn btn-outline-danger btn-sm w-100 mt-3" onclick="logout()" style="font-size: 14px;">
+        <button class="btn btn-outline-danger btn-sm w-100 mt-3" onclick="logout()">
           <i class="fa-solid fa-right-from-bracket me-1"></i>ออกจากระบบ
         </button>
       </div>
@@ -137,11 +137,11 @@
             <i class="fa-solid fa-bars"></i>
           </button>
           <div>
-            <div id="topTitle" class="fw-semibold" style="font-size: 18px;">ภาพรวม</div>
-            <div id="topSubtitle" class="text-muted" style="font-size: 14px;"></div>
+            <div id="topTitle" class="top-title fw-semibold">ภาพรวม</div>
+            <div id="topSubtitle" class="top-subtitle text-muted"></div>
           </div>
         </div>
-        <button class="btn btn-outline-secondary btn-sm" onclick="backToApplicant()" style="font-size: 14px;">
+        <button class="btn btn-outline-secondary btn-sm btn-back-home" onclick="backToApplicant()">
           <i class="fa-solid fa-house me-1"></i>หน้ารับสมัคร
         </button>
       </header>
@@ -153,7 +153,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 id="listModalTitle" class="modal-title" style="font-size: 18px; font-weight: 600;">รายชื่อ</h5>
+          <h5 id="listModalTitle" class="modal-title fw-semibold">รายชื่อ</h5>
           <button class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div id="listModalBody" class="modal-body"></div>
@@ -165,7 +165,7 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" style="font-size: 18px; font-weight: 600;">ข้อมูลผู้สมัคร</h5>
+          <h5 class="modal-title fw-semibold">ข้อมูลผู้สมัคร</h5>
           <button class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div id="detailModalBody" class="modal-body"></div>
@@ -176,7 +176,6 @@
   <script src="./config.js?v=20260902-r5"></script>
   <script src="./gas-bridge.js?v=20260902-r5"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <script src="./dashboard.js?v=20260902-r5"></script>
 </body>
 </html>
