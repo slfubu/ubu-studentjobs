@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; upgrade-insecure-requests">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ระบบเจ้าหน้าที่ - ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียน</title>
+  <title>ระบบบริหารจัดการการรับสมัครนักศึกษาทำงานระหว่างเรียน</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,21 +17,17 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
   <link rel="stylesheet" href="./dashboard.css?v=20260901-2">
-
 </head>
-
 <body>
 
-  <!-- ======================================================
-       ตรวจ Session ก่อนแสดง Login หรือ Dashboard
-  ======================================================= -->
+
   <div id="bootView" class="boot-screen">
     <div class="boot-content">
       <div class="boot-logo">
         <i class="fa-solid fa-briefcase"></i>
       </div>
       <div class="boot-title">
-        ระบบรับสมัครจ้างงานระหว่างเรียน
+        ระบบบริหารจัดการการรับสมัครนักศึกษาทำงานระหว่างเรียน
       </div>
       <div class="boot-description">
         กำลังตรวจสอบสถานะการเข้าสู่ระบบ
@@ -40,10 +36,6 @@
     </div>
   </div>
 
-  <!-- ======================================================
-       LOGIN
-       สำคัญ: d-none ตั้งแต่เริ่มต้น
-  ======================================================= -->
   <div id="loginView" class="login-page d-none">
     <div class="staff-login-shell">
       <section class="staff-login-visual" aria-label="ข้อมูลระบบเจ้าหน้าที่">
@@ -56,7 +48,7 @@
         </div>
 
         <div class="staff-login-hero">
-          <h2>ระบบบริหารจัดการ<br>การจ้างงานระหว่างเรียน</h2>
+          <h2>ระบบบริหารจัดการ<br>การรับสมัครทำงานระหว่างเรียน</h2>
           <p>
             ระบบสำหรับเจ้าหน้าที่และหน่วยงาน เพื่อบริหารจัดการข้อมูลผู้สมัคร
             ตรวจสอบคุณสมบัติ และดำเนินงานคัดเลือกนักศึกษา ประจำปีงบประมาณ 2570
@@ -65,7 +57,7 @@
 
         <div class="staff-login-note">
           <i class="fa-solid fa-shield-halved"></i>
-          <span>สำหรับผู้ได้รับสิทธิ์เข้าใช้งานระบบเท่านั้น</span>
+          <span>ระบบขัดข้องหรือต้องการขอสิทธิ์เข้าใช้งาน โทร.1210 (คุณสิริกร เดชโยธิน)</span>
         </div>
       </section>
 
@@ -106,15 +98,12 @@
         </button>
 
         <div class="staff-login-footer">
-          ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียน · ปีงบประมาณ 2570
+          ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน · ปีงบประมาณ 2570
         </div>
       </section>
     </div>
   </div>
 
-  <!-- ======================================================
-       APP
-  ======================================================= -->
   <div id="appView" class="d-none">
     <div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
     <aside id="sidebar" class="sidebar">
@@ -124,7 +113,7 @@
             <i class="fa-solid fa-briefcase"></i>
           </div>
           <div>
-            <div class="brand-title">ระบบรับสมัครนักศึกษาจ้างงานระหว่างเรียน</div>
+            <div class="brand-title">ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน</div>
             <div class="brand-subtitle">กองพัฒนานักศึกษา · มหาวิทยาลัยอุบลราชธานี</div>
           </div>
         </div>
@@ -159,9 +148,6 @@
     </div>
   </div>
 
-  <!-- ======================================================
-       MODAL รายชื่อ
-  ======================================================= -->
   <div class="modal fade" id="listModal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
@@ -174,9 +160,6 @@
     </div>
   </div>
 
-  <!-- ======================================================
-       MODAL ผู้สมัคร
-  ======================================================= -->
   <div class="modal fade" id="detailModal" tabindex="-1">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
