@@ -225,7 +225,7 @@
         ['staffAccounts', 'fa-user-gear', 'ลงทะเบียนผู้ใช้งานเจ้าหน้าที่'],
         ['contentManagement', 'fa-bullhorn', 'จัดการข่าวประกาศ/เอกสาร'],
         ['applicantReview', 'fa-address-card', 'ตรวจสอบข้อมูลรายชื่อผู้สมัคร'],
-        ['civilRegistry', 'fa-id-card', 'ตรวจสอบข้อมูลบัตรประชาชน 169'],
+        ['civilRegistry', 'fa-id-card', 'ตรวจสอบข้อมูลบัตรประชาชน'],
         ['qualification', 'fa-user-check', 'ตรวจสอบคุณสมบัติเกรดเฉลี่ย'],
         ['forwarding', 'fa-paper-plane', 'ส่งรายชื่อให้หน่วยงานคัดเลือก'],
         ['adminResults', 'fa-inbox', 'รับข้อมูลส่งกลับจากหน่วยงาน']
