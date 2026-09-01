@@ -1,9 +1,3 @@
-/*
- * gas-bridge.js
- * Compatibility bridge: google.script.run -> Apps Script Web App HTTP POST
- * Compatible with Code.gs security meta:
- *   timestamp, requestId, clientId
- */
 (function (global) {
   'use strict';
 
@@ -70,7 +64,6 @@
         '';
       if (direct) return String(direct);
 
-      // รองรับ staff session ของ dashboard โดยไม่บังคับให้ใช้
       const staffRaw = sessionStorage.getItem('ubuStaffSession');
       if (staffRaw) {
         const staff = JSON.parse(staffRaw);
@@ -109,9 +102,7 @@
         body: JSON.stringify({
           action: String(action || ''),
           args: Array.isArray(args) ? args : [],
-          // ใช้กับ Api.gs รุ่นเดิมที่มีระบบ user session
           authToken: getAuthToken(),
-          // ใช้กับ Code.gs security gateway รุ่นใหม่
           meta: buildMeta()
         }),
         signal: controller.signal
