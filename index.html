@@ -159,25 +159,25 @@
     <div class="section-title-wrap" style="margin-bottom: 25px;">
       <h2>ปฏิทินการดำเนินการทำงานระหว่างเรียน ปีงบประมาณ 2570</h2>
     </div>
-    <a
-      href="https://s.imgz.io/2026/09/01/Image-1-..-2569-14_52_49455b0e7129db6fe5.png"
-      target="_blank"
-      rel="noopener noreferrer"
-      title="เปิดภาพกำหนดการขนาดเต็ม"
-      style="display: block; width: 100%;"
-    >
-      <img
-        src="https://s.imgz.io/2026/09/01/Image-1-..-2569-14_52_49455b0e7129db6fe5.png"
-        alt="ปฏิทินการดำเนินการทำงานระหว่างเรียน ปีงบประมาณ 2570"
-        loading="lazy"
-        style="
-          display: block;
-          width: 100%;
-          height: auto;
-          object-fit: contain;
-        "
-      >
-    </a>
+    <div class="calendar-image-stack">
+      <button type="button" class="calendar-image-button" onclick="openImageViewer(this.dataset.src, this.dataset.alt)" data-src="https://s.imgz.io/2026/09/03/Image-3-..-2569-02_01_1386fe636871212d48.png" data-alt="ปฏิทินการดำเนินการทำงานระหว่างเรียน ปีงบประมาณ 2570">
+        <img
+          src="https://s.imgz.io/2026/09/03/Image-3-..-2569-02_01_1386fe636871212d48.png"
+          alt="ปฏิทินการดำเนินการทำงานระหว่างเรียน ปีงบประมาณ 2570"
+          loading="lazy"
+        >
+        <span class="calendar-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> กดเพื่อขยายดู</span>
+      </button>
+
+      <button type="button" class="calendar-image-button" onclick="openImageViewer(this.dataset.src, this.dataset.alt)" data-src="https://s.imgz.io/2026/09/03/Image-3-..-2569-02_29_0547347ce53955613f.png" data-alt="ภาพประกาศเพิ่มเติม">
+        <img
+          src="https://s.imgz.io/2026/09/03/Image-3-..-2569-02_29_0547347ce53955613f.png"
+          alt="ภาพประกาศเพิ่มเติม"
+          loading="lazy"
+        >
+        <span class="calendar-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> กดเพื่อขยายดู</span>
+      </button>
+    </div>
 
   </div>
 </section>
@@ -864,6 +864,50 @@
       </div>
     </div>
   </div>
+
+
+  <div id="imageViewer" class="image-viewer" aria-hidden="true" onclick="closeImageViewer(event)">
+    <button type="button" class="image-viewer-close" aria-label="ปิด" onclick="closeImageViewer(event, true)">&times;</button>
+    <img id="imageViewerImg" alt="ภาพขยาย">
+    <div id="imageViewerCaption" class="image-viewer-caption"></div>
+  </div>
+
+  <style>
+    .calendar-image-stack{display:flex;flex-direction:column;gap:18px;}
+    .calendar-image-button{position:relative;display:block;width:100%;padding:0;border:0;background:transparent;cursor:zoom-in;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08);}
+    .calendar-image-button img{display:block;width:100%;height:auto;object-fit:contain;background:#fff;}
+    .calendar-zoom-hint{position:absolute;right:14px;bottom:14px;background:rgba(0,0,0,.68);color:#fff;padding:8px 12px;border-radius:999px;font-size:13px;}
+    .image-viewer{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column;padding:24px;background:rgba(0,0,0,.92);}
+    .image-viewer.show{display:flex;}
+    .image-viewer img{max-width:96vw;max-height:86vh;object-fit:contain;box-shadow:0 12px 40px rgba(0,0,0,.35);}
+    .image-viewer-close{position:absolute;top:14px;right:18px;border:0;background:transparent;color:#fff;font-size:42px;line-height:1;cursor:pointer;}
+    .image-viewer-caption{margin-top:12px;color:#fff;text-align:center;font-size:14px;}
+    @media (max-width:576px){.calendar-zoom-hint{right:10px;bottom:10px;font-size:12px;padding:6px 9px}.image-viewer{padding:12px}.image-viewer img{max-width:100%;max-height:82vh;}}
+  </style>
+
+  <script>
+    function openImageViewer(src, alt) {
+      if (!src || src === 'PUT_SECOND_IMAGE_URL_HERE') return;
+      const viewer = document.getElementById('imageViewer');
+      const img = document.getElementById('imageViewerImg');
+      const caption = document.getElementById('imageViewerCaption');
+      img.src = src;
+      img.alt = alt || 'ภาพขยาย';
+      caption.textContent = alt || '';
+      viewer.classList.add('show');
+      viewer.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeImageViewer(event, force) {
+      if (!force && event && event.target && event.target.id !== 'imageViewer') return;
+      const viewer = document.getElementById('imageViewer');
+      viewer.classList.remove('show');
+      viewer.setAttribute('aria-hidden','true');
+      document.getElementById('imageViewerImg').src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeImageViewer(null, true); });
+  </script>
 
   <footer>
     <div class="footer-top">
