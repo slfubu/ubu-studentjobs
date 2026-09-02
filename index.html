@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; form-action 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://cdn.jsdelivr.net; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; upgrade-insecure-requests">
   <meta name="referrer" content="no-referrer">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน - มหาวิทยาลัยอุบลราชธานี</title>
+  <title>ระบบรับสมัครนักศึกษาทำงาน - มหาวิทยาลัยอุบลราชธานี</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +16,117 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <link rel="stylesheet" href="./style.css">
+
+
+
+  <!-- Cookie Consent Styles -->
+  <style id="cookieConsentStyles">
+    .cookie-consent-banner {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1085;
+      display: none;
+      padding: 14px 18px;
+      background: rgba(255,255,255,.98);
+      border-top: 1px solid #e6e9ef;
+      box-shadow: 0 -8px 28px rgba(15, 35, 65, .13);
+      backdrop-filter: blur(8px);
+    }
+    .cookie-consent-banner.is-visible { display: block; }
+    .cookie-consent-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .cookie-consent-text {
+      margin: 0;
+      color: #334155;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .cookie-consent-text strong { color: #0b2f59; }
+    .cookie-policy-link {
+      color: #004a99;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .cookie-policy-link:hover { color: #00356f; }
+    .cookie-accept-btn {
+      flex: 0 0 auto;
+      min-width: 132px;
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 22px;
+      background: #004a99;
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(0,74,153,.18);
+    }
+    .cookie-accept-btn:hover { background: #003d7e; }
+    .cookie-policy-modal .modal-content {
+      border: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 18px 50px rgba(15,35,65,.22);
+    }
+    .cookie-policy-modal .modal-header {
+      background: linear-gradient(135deg, #fff7d6 0%, #ffffff 72%);
+      border-bottom: 1px solid #edf0f4;
+      padding: 20px 24px;
+    }
+    .cookie-policy-modal .modal-title {
+      color: #0b2f59;
+      font-weight: 700;
+    }
+    .cookie-policy-modal .modal-body {
+      padding: 24px;
+      color: #334155;
+      line-height: 1.8;
+      font-size: 14px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+    .cookie-policy-modal .modal-body h5 {
+      color: #0b2f59;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+    .cookie-policy-modal .modal-body h5:first-of-type { margin-top: 0; }
+    .cookie-policy-modal .modal-body ul { padding-left: 1.2rem; }
+    .cookie-policy-date {
+      display: inline-block;
+      background: #f8fafc;
+      border: 1px solid #e7ebf0;
+      border-radius: 999px;
+      padding: 4px 10px;
+      color: #64748b;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+    .cookie-policy-note {
+      background: #fff9df;
+      border: 1px solid #f6df83;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 14px 0;
+    }
+    @media (max-width: 767.98px) {
+      .cookie-consent-banner { padding: 13px 14px calc(13px + env(safe-area-inset-bottom)); }
+      .cookie-consent-inner { flex-direction: column; align-items: stretch; gap: 10px; }
+      .cookie-consent-text { font-size: 13px; line-height: 1.65; }
+      .cookie-accept-btn { width: 100%; }
+      .cookie-policy-modal .modal-body { padding: 18px; max-height: 72vh; }
+    }
+  </style>
 
 </head>
 <body>
@@ -160,18 +271,18 @@
       <h2>ปฏิทินการดำเนินการทำงานระหว่างเรียน ปีงบประมาณ 2570</h2>
     </div>
     <div class="calendar-image-stack">
-      <button type="button" class="calendar-image-button" onclick="openImageViewer(this.dataset.src, this.dataset.alt)" data-src="https://s.imgz.io/2026/09/03/Image-3-..-2569-02_01_1386fe636871212d48.png" data-alt="ปฏิทินการดำเนินการทำงานระหว่างเรียน ปีงบประมาณ 2570">
+      <button type="button" class="calendar-image-button" onclick="openImageViewer(this.dataset.src, this.dataset.alt)" data-src="https://s.imgz.io/2026/09/01/Image-1-..-2569-14_52_49455b0e7129db6fe5.png" data-alt="ปฏิทินการดำเนินการทำงานระหว่างเรียน ปีงบประมาณ 2570">
         <img
-          src="https://s.imgz.io/2026/09/03/Image-3-..-2569-02_01_1386fe636871212d48.png"
+          src="https://s.imgz.io/2026/09/01/Image-1-..-2569-14_52_49455b0e7129db6fe5.png"
           alt="ปฏิทินการดำเนินการทำงานระหว่างเรียน ปีงบประมาณ 2570"
           loading="lazy"
         >
         <span class="calendar-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> กดเพื่อขยายดู</span>
       </button>
 
-      <button type="button" class="calendar-image-button" onclick="openImageViewer(this.dataset.src, this.dataset.alt)" data-src="https://s.imgz.io/2026/09/03/Image-3-..-2569-02_29_0547347ce53955613f.png" data-alt="ภาพประกาศเพิ่มเติม">
+      <button type="button" class="calendar-image-button" onclick="openImageViewer(this.dataset.src, this.dataset.alt)" data-src="PUT_SECOND_IMAGE_URL_HERE" data-alt="ภาพประกาศเพิ่มเติม">
         <img
-          src="https://s.imgz.io/2026/09/03/Image-3-..-2569-02_29_0547347ce53955613f.png"
+          src="PUT_SECOND_IMAGE_URL_HERE"
           alt="ภาพประกาศเพิ่มเติม"
           loading="lazy"
         >
@@ -909,6 +1020,123 @@
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeImageViewer(null, true); });
   </script>
 
+
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookieConsentBanner" class="cookie-consent-banner" role="dialog" aria-live="polite" aria-label="การแจ้งการใช้คุกกี้">
+    <div class="cookie-consent-inner">
+      <p class="cookie-consent-text">
+        เว็บไซต์ <strong>ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน ประจำปีงบประมาณ 2570</strong>
+        อาจใช้คุกกี้และเทคโนโลยีที่มีลักษณะคล้ายกัน เพื่อให้เว็บไซต์ทำงานได้อย่างเหมาะสม จดจำการตั้งค่าที่จำเป็น
+        และช่วยให้คุณได้รับประสบการณ์การใช้งานที่ดียิ่งขึ้น หากคุณเลือก “ยอมรับ” ระบบจะบันทึกการยอมรับไว้บนอุปกรณ์นี้
+        คุณสามารถศึกษารายละเอียดเพิ่มเติมได้ที่
+        <button type="button" class="btn btn-link p-0 align-baseline cookie-policy-link" data-bs-toggle="modal" data-bs-target="#cookiePolicyModal">นโยบายการใช้คุกกี้</button>
+      </p>
+      <button id="acceptCookieBtn" type="button" class="cookie-accept-btn">ยอมรับคุกกี้</button>
+    </div>
+  </div>
+
+  <!-- Cookie Policy Modal -->
+  <div class="modal fade cookie-policy-modal" id="cookiePolicyModal" tabindex="-1" aria-labelledby="cookiePolicyModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h4 class="modal-title" id="cookiePolicyModalLabel">นโยบายการใช้คุกกี้</h4>
+            <div class="text-muted small mt-1">ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน ประจำปีงบประมาณ 2570</div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="ปิด"></button>
+        </div>
+        <div class="modal-body">
+          <div class="cookie-policy-date">ปรับปรุงล่าสุด: 3 กันยายน 2569</div>
+
+          <p>
+            เมื่อท่านเข้าใช้งานเว็บไซต์ <strong>ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน ประจำปีงบประมาณ 2570</strong>
+            ของกองพัฒนานักศึกษา มหาวิทยาลัยอุบลราชธานี เว็บไซต์อาจจัดเก็บข้อมูลบางส่วนในรูปแบบคุกกี้
+            หรือเทคโนโลยีที่มีลักษณะคล้ายกันบนเว็บเบราว์เซอร์หรืออุปกรณ์ของท่าน เพื่อสนับสนุนการทำงานของระบบ
+            การรักษาความปลอดภัย และการจดจำการตั้งค่าที่จำเป็นต่อการใช้งานเว็บไซต์
+          </p>
+
+          <h5>คุกกี้คืออะไร</h5>
+          <p>
+            คุกกี้คือไฟล์ข้อมูลขนาดเล็กที่เว็บไซต์จัดเก็บไว้บนคอมพิวเตอร์ โทรศัพท์มือถือ แท็บเล็ต
+            หรืออุปกรณ์ที่ใช้เข้าเว็บไซต์ เพื่อช่วยจดจำข้อมูลหรือการตั้งค่าบางอย่าง เช่น สถานะการใช้งาน
+            การตั้งค่าของผู้ใช้ หรือการยืนยันว่าผู้ใช้ได้รับทราบข้อความแจ้งการใช้คุกกี้แล้ว
+            คุกกี้ไม่ใช่โปรแกรมและไม่สามารถทำงานด้วยตนเองบนอุปกรณ์ของท่านได้
+          </p>
+
+          <h5>เว็บไซต์นี้ใช้คุกกี้อย่างไร</h5>
+          <p>เว็บไซต์อาจใช้คุกกี้หรือเทคโนโลยีที่มีลักษณะคล้ายกันเท่าที่จำเป็นสำหรับวัตถุประสงค์ดังต่อไปนี้</p>
+          <ul>
+            <li>สนับสนุนการทำงานพื้นฐานและความปลอดภัยของเว็บไซต์และระบบรับสมัคร</li>
+            <li>จดจำสถานะหรือการตั้งค่าที่จำเป็นระหว่างการใช้งาน เพื่อให้การทำรายการต่อเนื่องและสะดวกขึ้น</li>
+            <li>จดจำว่าท่านได้ยอมรับข้อความแจ้งการใช้คุกกี้แล้ว เพื่อไม่ให้แสดงข้อความเดิมทุกครั้งที่เปิดเว็บไซต์จากอุปกรณ์เดิม</li>
+            <li>ช่วยตรวจสอบและปรับปรุงการทำงานของเว็บไซต์ในกรณีที่ระบบมีการเปิดใช้เครื่องมือวิเคราะห์ทางเทคนิคในอนาคต</li>
+          </ul>
+
+          <div class="cookie-policy-note">
+            เว็บไซต์นี้ไม่ได้กำหนดการใช้คุกกี้เพื่อการโฆษณาแบบเจาะจงกลุ่มเป้าหมายหรือเพื่อจำหน่ายข้อมูลส่วนบุคคลให้แก่ผู้โฆษณา
+            หากในอนาคตมีการเพิ่มบริการหรือเครื่องมือที่ใช้คุกกี้ประเภทอื่น เว็บไซต์จะปรับปรุงนโยบายนี้ให้สอดคล้องกับการใช้งานจริง
+          </div>
+
+          <h5>ประเภทของคุกกี้ที่อาจใช้</h5>
+          <p><strong>1. คุกกี้ที่มีความจำเป็น (Strictly Necessary Cookies)</strong><br>
+            ใช้เพื่อให้ส่วนสำคัญของเว็บไซต์ทำงานได้อย่างถูกต้อง เช่น การรักษาความปลอดภัย การจัดการสถานะการใช้งาน
+            หรือการทำรายการที่จำเป็นต่อระบบ คุกกี้ประเภทนี้อาจจำเป็นต่อการให้บริการบางส่วนของเว็บไซต์
+          </p>
+          <p><strong>2. คุกกี้เพื่อการใช้งานเว็บไซต์ (Functional Cookies)</strong><br>
+            ใช้เพื่อจดจำตัวเลือกหรือการตั้งค่าบางอย่างของผู้ใช้งาน เช่น การยืนยันว่าได้รับทราบนโยบายคุกกี้แล้ว
+            เพื่อให้เว็บไซต์ใช้งานได้สะดวกและสอดคล้องกับการใช้งานเดิมมากขึ้น
+          </p>
+          <p><strong>3. คุกกี้เพื่อการวิเคราะห์ประสิทธิภาพ (Performance/Analytics Cookies)</strong><br>
+            เว็บไซต์อาจนำมาใช้ในอนาคตเพื่อวิเคราะห์ข้อมูลการใช้งานในภาพรวม เช่น จำนวนการเข้าชม หน้าเว็บที่มีการใช้งาน
+            หรือข้อผิดพลาดทางเทคนิค เพื่อปรับปรุงคุณภาพของระบบ โดยจะดำเนินการตามความเหมาะสมและตามข้อกำหนดที่เกี่ยวข้อง
+          </p>
+
+          <h5>ระยะเวลาการจัดเก็บ</h5>
+          <p>
+            คุกกี้บางประเภทอาจเป็น <strong>Session Cookies</strong> ซึ่งจะสิ้นสุดเมื่อปิดเว็บเบราว์เซอร์
+            ขณะที่ข้อมูลการตั้งค่าบางรายการอาจถูกจัดเก็บเป็นระยะเวลาหนึ่งเพื่อให้เว็บไซต์จดจำการตั้งค่าของท่านในการเข้าใช้งานครั้งถัดไป
+            สำหรับการยอมรับคุกกี้ของเว็บไซต์นี้ ระบบจะบันทึกสถานะไว้บนอุปกรณ์ของท่านจนกว่าท่านจะลบข้อมูลเว็บไซต์ออกจากเบราว์เซอร์
+            หรือจนกว่าเว็บไซต์จะเปลี่ยนเวอร์ชันของนโยบายและขอความยินยอมใหม่
+          </p>
+
+          <h5>การจัดการหรือลบคุกกี้</h5>
+          <p>
+            ท่านสามารถตั้งค่าเว็บเบราว์เซอร์ให้แจ้งเตือน ปฏิเสธ หรือลบคุกกี้และข้อมูลเว็บไซต์ได้ตามความต้องการ
+            อย่างไรก็ตาม การปิดหรือลบคุกกี้ที่จำเป็นอาจทำให้ฟังก์ชันบางส่วนของเว็บไซต์ทำงานไม่สมบูรณ์
+            วิธีการจัดการคุกกี้จะแตกต่างกันไปตามเว็บเบราว์เซอร์และอุปกรณ์ที่ท่านใช้งาน
+          </p>
+
+          <h5>เว็บไซต์และบริการภายนอก</h5>
+          <p>
+            เว็บไซต์อาจมีลิงก์ไปยังเว็บไซต์ของมหาวิทยาลัยหรือบริการภายนอกเพื่ออำนวยความสะดวกแก่ผู้ใช้งาน
+            เมื่อท่านออกจากเว็บไซต์นี้ไปยังเว็บไซต์ภายนอก การใช้คุกกี้และการจัดการข้อมูลจะเป็นไปตามนโยบายของเว็บไซต์หรือผู้ให้บริการนั้น ๆ
+            ซึ่งอยู่นอกเหนือการควบคุมของระบบรับสมัครนักศึกษาทำงานระหว่างเรียน
+          </p>
+
+          <h5>การเปลี่ยนแปลงนโยบายคุกกี้</h5>
+          <p>
+            เว็บไซต์อาจปรับปรุงนโยบายการใช้คุกกี้ให้เหมาะสมกับการให้บริการจริง การเปลี่ยนแปลงทางเทคนิค
+            หรือข้อกำหนดที่เกี่ยวข้อง โดยจะแสดงวันที่ปรับปรุงล่าสุดไว้ในนโยบายฉบับนี้
+          </p>
+
+          <h5>ช่องทางติดต่อ</h5>
+          <p class="mb-0">
+            หากมีข้อสงสัยเกี่ยวกับการใช้งานเว็บไซต์หรือนโยบายการใช้คุกกี้ สามารถติดต่อ
+            <strong>งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา มหาวิทยาลัยอุบลราชธานี</strong><br>
+            โทร. 045-353-000 ต่อ 1210 (วันจันทร์–วันศุกร์ เวลา 08.30–16.30 น.)<br>
+            อีเมล: sirikon.s@ubu.ac.th
+          </p>
+        </div>
+        <div class="modal-footer border-0 pt-0 px-4 pb-4">
+          <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal" style="background:#004a99;border-color:#004a99;">ปิด</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <footer>
     <div class="footer-top">
       <div class="container-fluid px-4 px-xl-5">
@@ -966,6 +1194,49 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
   <script src="./app.js"></script>
+
+
+
+  <!-- Cookie Consent Script -->
+  <script id="cookieConsentScript">
+    (function () {
+      const CONSENT_KEY = 'ubuStudentJobsCookieConsent';
+      const CONSENT_VERSION = '1.0';
+
+      function showCookieBannerIfNeeded() {
+        const banner = document.getElementById('cookieConsentBanner');
+        if (!banner) return;
+
+        let savedConsent = null;
+        try {
+          savedConsent = localStorage.getItem(CONSENT_KEY);
+        } catch (error) {
+          console.warn('Cookie consent storage is unavailable:', error);
+        }
+
+        if (savedConsent !== CONSENT_VERSION) {
+          banner.classList.add('is-visible');
+        }
+      }
+
+      function acceptCookies() {
+        try {
+          localStorage.setItem(CONSENT_KEY, CONSENT_VERSION);
+        } catch (error) {
+          console.warn('Unable to save cookie consent:', error);
+        }
+
+        const banner = document.getElementById('cookieConsentBanner');
+        if (banner) banner.classList.remove('is-visible');
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const acceptBtn = document.getElementById('acceptCookieBtn');
+        if (acceptBtn) acceptBtn.addEventListener('click', acceptCookies);
+        showCookieBannerIfNeeded();
+      });
+    })();
+  </script>
 
 </body>
 </html>
