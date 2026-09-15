@@ -829,7 +829,7 @@ const categoryConfig = {
       if (!rows.length) {
         listContainer.innerHTML = `
           <div class="text-center text-muted py-4">
-            <i class="fa-regular fa-folder-open me-2"></i>ยังไม่มีตำแหน่งงานที่เปิดรับสมัคร
+            <i class="fa-regular fa-folder-open me-2"></i>ไม่พบข้อมูลงานที่เปิดรับหรือระบบยังไม่เปิดรับสมัคร
           </div>
         `;
         return;
