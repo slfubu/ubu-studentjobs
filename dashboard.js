@@ -418,7 +418,7 @@
         ['qualification', 'fa-user-check', 'ตรวจสอบคุณสมบัติเกรดเฉลี่ย'],
         ['forwarding', 'fa-paper-plane', 'ส่งรายชื่อให้หน่วยงานคัดเลือก'],
         ['adminResults', 'fa-inbox', 'รับข้อมูลส่งกลับจากหน่วยงาน'],
-        ['announcementPdf', 'fa-file-pdf', 'ประมวลผลจัดทำประกาศรายชื่อ']
+        ['announcementPdf', 'fa-file-pdf', 'ประมวลผลประกาศรายชื่อ']
       ];
       const departmentItems = [
         ['departmentDashboard', 'fa-chart-pie', 'ภาพรวมข้อมูลหน่วยงาน'],
@@ -2631,7 +2631,7 @@
           return acc;
         }, {});
 
-        return `วันที่ ${parts.day}/${parts.month}/${parts.year} เวลา ${parts.hour}:${parts.minute} น.`;
+        return `วันที่ ${parts.day}/${parts.month}/${parts.year} เวลา ${parts.hour}:${parts.minute} น. (รายงานผู้สมัคร)`;
       } catch (_) {
         return '';
       }
