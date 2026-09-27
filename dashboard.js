@@ -326,7 +326,6 @@
       button.innerHTML = `<i class="fa-solid fa-spinner fa-spin me-2"></i> กำลังเข้าสู่ระบบ`;
 
       try {
-        // ถ้า warm-up ที่เริ่มตอนเปิดหน้าใกล้เสร็จ ให้รอสั้น ๆ เพื่อหลีกเลี่ยงการยิง Apps Script ซ้อนกัน
         await waitForStaffWarmupBriefly(1500);
 
         const result = await serverCall(
@@ -404,8 +403,6 @@
         ? (adminViews.includes(savedView) ? savedView : 'adminDashboard')
         : (departmentViews.includes(savedView) ? savedView : 'departmentDashboard');
 
-      // เมนูปัจจุบันให้โหลดก่อน จากนั้น preload ทุกเมนูที่เหลือแบบ background
-      // หน่วงเล็กน้อยเพื่อให้ request ของหน้าที่ผู้ใช้กำลังเห็นได้ priority ก่อน
       Promise.resolve().then(() => navigate(targetView));
       clearTimeout(staffMenuPreloadRefreshTimer);
       staffMenuPreloadRefreshTimer = setTimeout(() => preloadAllStaffMenus(targetView), 250);
@@ -421,7 +418,7 @@
         ['qualification', 'fa-user-check', 'ตรวจสอบคุณสมบัติเกรดเฉลี่ย'],
         ['forwarding', 'fa-paper-plane', 'ส่งรายชื่อให้หน่วยงานคัดเลือก'],
         ['adminResults', 'fa-inbox', 'รับข้อมูลส่งกลับจากหน่วยงาน'],
-        ['announcementPdf', 'fa-file-pdf', 'จัดทำประกาศรายชื่อ']
+        ['announcementPdf', 'fa-file-pdf', 'ประมวลผลจัดทำประกาศรายชื่อ']
       ];
       const departmentItems = [
         ['departmentDashboard', 'fa-chart-pie', 'ภาพรวมข้อมูลหน่วยงาน'],
@@ -2979,7 +2976,7 @@
       content.innerHTML = `
         <div class="announcement-hero">
           <div>
-            <div class="page-title">จัดทำประกาศรายชื่อผู้ผ่านการคัดเลือก</div>
+            <div class="page-title">ประมวลผลเเละจัดทำประกาศรายชื่อผู้ผ่านการคัดเลือกเป็นนักศึกษาทำงาน</div>
             <div class="page-subtitle">ดาวน์โหลดรายชื่อนักศึกษาทำงานระหว่างเรียนเป็น Excel พร้อมรูปแบบสำหรับพิมพ์ทุกหน้า</div>
           </div>
           <button class="btn btn-success" onclick="generateAnnouncementExcel()" ${rows.length ? '' : 'disabled'}>
