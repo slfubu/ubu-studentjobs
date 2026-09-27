@@ -2730,15 +2730,14 @@
         sheet.mergeCells('C2:D2');
         sheet.mergeCells('A3:B3');
         sheet.mergeCells('C3:D3');
-        sheet.mergeCells('A4:D4');
 
         sheet.getCell('A1').value = 'มหาวิทยาลัยอุบลราชธานี';
-        sheet.getCell('C1').value = 'รายชื่อผู้ผ่านการคัดเลือก';
-        sheet.getCell('A2').value = 'ระบบรับสมัครนักศึกษาทำงานระหว่างเรียน';
-        sheet.getCell('C2').value = 'ปีงบประมาณ 2570';
-        sheet.getCell('A3').value = 'งานสวัสดิการนักศึกษา กองพัฒนานักศึกษา';
-        sheet.getCell('C3').value = 'มหาวิทยาลัยอุบลราชธานี';
-        sheet.getCell('A4').value = 'รอบการดำเนินงาน 1 ตุลาคม 2569 - 30 กันยายน 2570';
+        sheet.getCell('C1').value = 'รายชื่อนักศึกษาทำงานระหว่างเรียน';
+        sheet.getCell('A2').value = 'ระบบรับสมัคร';
+        sheet.getCell('C2').value = 'ครั้งที่ 1 ปีงบประมาณ 2570';
+        sheet.getCell('A3').value = '';
+        sheet.getCell('C3').value = '(1 ตุลาคม 2569 - 30 กันยายน 2570)';
+
 
         const reportHeaderFont = {
           name: 'TH SarabunPSK',
